@@ -18,6 +18,9 @@
   },
   "homepage": "https://github.com/SandraPAM/gama_consult_Test#readme",
   "devDependencies": {
+    "nodemon": "^2.0.4"
+  },
+  "dependencies": {
     "bcryptjs": "^2.4.3",
     "connect-flash": "^0.1.1",
     "express": "^4.17.1",

@@ -1,7 +1,7 @@
 # gama_consult_Test
 Test reporitory for Gama Consult Project
 
-## About DevDependencies
+## About Dependencies
 * express: Express is related to Node as JQuery is related to JS
 * express-handlebars: vew engine for Express (makes html less verbose, similar to Angular sintaxys)
 * express-session: session management for Express. Sessions are for save data on service memory
@@ -14,3 +14,7 @@ Test reporitory for Gama Consult Project
 * - timeago.js: time-data format
 * connect-flash: user feedback - display error and success messages-
 * express-validator: validate client data
+
+## About DevDependencies    
+    - Dependencies which are not need in Production but in Development
+* nodemon
