@@ -18,3 +18,13 @@ Test reporitory for Gama Consult Project
 ## About DevDependencies    
     - Dependencies which are not need in Production but in Development
 * nodemon
+
+# Project Organization
+    At the very beginning:
+    * index.js: App starting file
+    * database.js: DB settings and connection
+    * keys.js: all secret data
+    * lib/
+    * public/
+    * routes/
+    * views/
