@@ -1,6 +1,6 @@
 const mysql = require('mysql');
 
-const { database } = require('./keys'); //All the secret stuffs
+const { database } = require('./keysA'); //All the secret stuffs
 const {promisify} = require('util');
 
 const pool = mysql.createPool(database); //Creat connection
