@@ -17,14 +17,14 @@ Test reporitory for Gama Consult Project
 
 ## About DevDependencies    
     - Dependencies which are not need in Production but in Development
-* nodemon: to resart server automatictly
+    * nodemon: to resart server automatictly
 
 ## On package.json:
-> "dev": start file. 
+    > "dev": start file. 
 
 ## Run Project:
-> npm run dev
-> localhost:4000 - it can be any port really
+    > npm run dev
+    > localhost:4000 - it can be any port really
 ______________________
 ## Project Organization
 # In a nutshell:
