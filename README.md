@@ -35,7 +35,7 @@ ______________________
         > views/
         > database.js
         > index.js
-        > key.js
+        > keys_.js
     * package.json
     * README.md
     * .gitignore
@@ -50,7 +50,7 @@ ______________________
         * Routes/
         * Middlewares/
     > Lines without comments means settings not currently used /*29/05/2020*/
-* keys.js: all secret data. 
+* keys_.js: all secret data. 
     > Database credentials
      * * NOTE 1: this file is include in .gitignore since is top secret xd I will sen it to you via Slack (u know to look fancier and pro).
 * lib/
