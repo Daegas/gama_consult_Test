@@ -1,0 +1,26 @@
+<div class="cantainer">
+    <table id="table_id" class="display">
+        <thead>
+            <tr>
+                <th>Sustancia Activa</th>
+                <th>Nombre</th>
+                <th>Saldo</th>
+                <th>P. Público</th>
+                <th>Descuento</th>
+                <th>Caducidad</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each meds}}
+            <tr>
+                <td>{{this.SustanciaActiva}}</td>
+                <td>{{this.Nombre}}</td>
+                <td>{{this.P_Publico}}</td>
+                <td>{{this.Descuento}}</td>
+                <td>{{this.Caducidad}}</td>
+            </tr>
+            {{/each}}
+            
+        </tbody>
+    </table>
+</div>
