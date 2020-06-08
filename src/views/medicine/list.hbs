@@ -8,6 +8,8 @@
                 <th>P. Público</th>
                 <th>Descuento</th>
                 <th>Caducidad</th>
+                <th>Editar</th>
+                <th>Eliminar</th>
             </tr>
         </thead>
         <tbody>
@@ -15,10 +17,20 @@
             <tr>
                 <td>{{this.SustanciaActiva}}</td>
                 <td>{{this.Nombre}}</td>
+                <td>{{this.Saldo}}</td>
                 <td>{{this.P_Publico}}</td>
                 <td>{{this.Descuento}}</td>
-                <td>{{this.Caducidad}}</td>
+                <td>{{timeago this.Caducidad}}</td> <!--Just a sample format-->
+                <td><a href="/meds/edit/{{this.MedicamentoID}}" target="_blank" class="text-primary">Editar</a></td>
+                <td><a href="/meds/delete/{{this.MedicamentoID}}" class="text-danger">Eliminar</a></td>
             </tr>
+            {{else}} <!--If ther isn't any 'meds' elements-->
+                <div class="col-md-4 mx-auto">
+                    <div class="card card-body text-center">
+                        <p>There are not Medicices saved yet.</p>
+                        <a href="/meds/add">Create One!</a>
+                    </div>
+                </div>
             {{/each}}
             
         </tbody>

@@ -3,6 +3,11 @@ const express = require('express');
 const morgan = require('morgan');
 const exhbs = require('express-handlebars');
 const path = require('path');
+const flash = require('connect-flash');
+const expsession = require('express-session');
+const mysqlsession = require('express-mysql-session');
+
+const { database } = require('../src/keysA');
 
 /*Initialization*/
 const app = express(); //Ejecute Express with 'express()' and store it int 'app' variable
@@ -25,11 +30,19 @@ app.use(morgan('dev')); // 'dev' is a specific format to display logs
 app.use(express.urlencoded({extended: false})); // Accept data in forms
 //extended: false - takes simpledate like string (no img, no jsons)
 app.use(express.json()); // To enable json, which is neccesary when client-server requests
+app.use(expsession({
+    secret: 'gama_consult_session',
+    resave: false,
+    saveUninitialized: false,
+    store: new mysqlsession(database),
+}));
+app.use(flash());
 
 
 //Global variables
 //Accesibles through any page
 app.use((req, res, next) => {
+    app.locals.MessageSuccess = req.flash('success');
     next();
 });
 
