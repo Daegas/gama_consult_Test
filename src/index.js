@@ -6,11 +6,13 @@ const path = require('path');
 const flash = require('connect-flash');
 const expsession = require('express-session');
 const mysqlsession = require('express-mysql-session');
+const passport = require('passport');
 
 const { database } = require('../src/keysA');
 
 /*Initialization*/
 const app = express(); //Ejecute Express with 'express()' and store it int 'app' variable
+require('./lib/passport');
 
 /*Settings*/
 app.set('port', process.env.PORT || 4000); //If the server is in cloudStorage or not
@@ -37,12 +39,16 @@ app.use(expsession({
     store: new mysqlsession(database),
 }));
 app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 //Global variables
 //Accesibles through any page
 app.use((req, res, next) => {
     app.locals.MessageSuccess = req.flash('success');
+    app.locals.MessageFailure = req.flash('failure');
+    app.locals.user = req.user;
     next();
 });
 
@@ -50,6 +56,7 @@ app.use((req, res, next) => {
 //Routes
 app.use(require('./routes/index.js')); //Sample file
 app.use('/meds/', require('./routes/medicine.js')); //'meds' prefix to access 'medicine' routes
+app.use('/user/', require('./routes/user.js'));
 
 //Public
 app.use(express.static(path.join(__dirname, 'public')));
