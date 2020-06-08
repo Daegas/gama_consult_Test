@@ -8,6 +8,7 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
+        {{#if user}}
         <li class="nav-item active">
           <a class="nav-link" href="/meds/add">Add <span class="sr-only">(current)</span></a>
         </li>
@@ -25,6 +26,25 @@
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#">Something else here</a>
           </div>
+        </li>
+        {{/if}}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            User
+          </a>
+          {{#if user}}
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/user/profile">Profile</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/user/logout">Logout</a>
+          </div>
+          {{else}}
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/user/signup">Create User</a>
+            <a class="dropdown-item" href="/user/signin">Sign In</a>
+          </div>
+          {{/if}}
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">

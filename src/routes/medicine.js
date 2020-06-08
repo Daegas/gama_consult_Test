@@ -3,12 +3,14 @@ const router = express.Router();
 
 const DB = require('../database');
 
+const { loggedEnable } = require('../lib/session');
+
 /* 
 CRUD
 */
 
 /* CREATE */
-router.get('/add', (req, res) => { //Here 'get' method can be understood as -getting a view- through an URL
+router.get('/add', loggedEnable, (req, res) => { //Here 'get' method can be understood as -getting a view- through an URL
     res.render('../views/medicine/add.hbs');
 });
 
@@ -35,13 +37,13 @@ router.post('/add', async (req, res) => { //Same URL as previous but with POST m
 });
 
 /* READ */
-router.get('/', async (req, res) => {
+router.get('/', loggedEnable, async (req, res) => {
     const meds = await DB.query('SELECT * FROM Medicamentos WHERE MedicamentoID>710');
     res.render('../views/medicine/list.hbs', {meds});
 });
 
 /* UPDATE */
-router.get('/edit/:id', async (req, res) => {
+router.get('/edit/:id', loggedEnable, async (req, res) => {
     const { id } = req.params;
     const med = await DB.query('SELECT * FROM Medicamentos WHERE MedicamentoID = ?', [id]);
     res.render('../views/medicine/edit.hbs', {med: med[0]});
