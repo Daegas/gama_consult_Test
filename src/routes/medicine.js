@@ -62,7 +62,7 @@ router.post('/edit/:id', async (req, res) => {
         Activo
     }
 
-    await DB.query('UPDATE Medicamentos set ? WHERE MedicamentoID = 722', [alter_med, id]);
+    await DB.query('UPDATE Medicamentos set ? WHERE MedicamentoID = ?', [alter_med, id]);
     req.flash('success', 'Med updated successfully');
     res.redirect('/meds');
 });

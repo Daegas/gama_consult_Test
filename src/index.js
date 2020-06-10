@@ -8,6 +8,8 @@ const expsession = require('express-session');
 const mysqlsession = require('express-mysql-session');
 const passport = require('passport');
 
+const ip = require('ip');
+
 const { database } = require('../src/keysA');
 
 /*Initialization*/
@@ -64,4 +66,5 @@ app.use(express.static(path.join(__dirname, 'public')));
 //Starting Server
 app.listen(app.get('port'), ()=> {
     console.log('Server on port', app.get('port'));
+    console.log('IP ADDRESS: ', ip.address());
 });

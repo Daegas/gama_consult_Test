@@ -21,7 +21,7 @@
                 <td>{{this.P_Publico}}</td>
                 <td>{{this.Descuento}}</td>
                 <td>{{timeago this.Caducidad}}</td> <!--Just a sample format-->
-                <td><a href="/meds/edit/{{this.MedicamentoID}}" target="_blank" class="text-primary">Editar</a></td>
+                <td><a href="/meds/edit/{{this.MedicamentoID}}" class="text-primary">Editar</a></td>
                 <td><a href="/meds/delete/{{this.MedicamentoID}}" class="text-danger">Eliminar</a></td>
             </tr>
             {{else}} <!--If ther isn't any 'meds' elements-->
