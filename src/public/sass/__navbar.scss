@@ -1,0 +1,38 @@
+.navbar-light{
+  .nav-item {
+    .nav-link {
+      color: white;
+      i, span {
+        color: white;
+      }
+      &:active,
+      &:focus,
+      &:hover {
+        color: theme-color("gray-dark");
+        i , span{
+          color: theme-color("dark-custum");
+        }
+      }
+      // Accordion
+      &[data-toggle="collapse"]::after {
+        color: white;
+      }
+    }
+    &:active {
+      .nav-link {
+        color: theme-color("fluor-green");
+        i, span {
+          color: theme-color("fluor-green");
+        }
+      }
+    }
+  }
+}
+
+.table{
+  border-radius: 10px 10px 10px 10px;
+-moz-border-radius: 10px 10px 10px 10px;
+-webkit-border-radius: 10px 10px 10px 10px;
+}
+
+

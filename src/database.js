@@ -3,7 +3,7 @@ const mysql = require('mysql');
 const { database } = require('./keysA'); //All the secret stuffs
 const {promisify} = require('util');
 
-const pool = mysql.createPool(database); //Creat connection
+const pool = mysql.createPool(database); //Creat connection, threads
 
 pool.getConnection((err, conn) => {
     if (err) {
