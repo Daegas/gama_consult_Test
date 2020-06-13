@@ -10736,6 +10736,7 @@ h3 {
 }
 .navbar-light .nav-item .nav-link i, .navbar-light .nav-item .nav-link span {
   color: white;
+  font-size: 1.3rem !important;
 }
 .navbar-light .nav-item .nav-link:active, .navbar-light .nav-item .nav-link:focus, .navbar-light .nav-item .nav-link:hover {
   color: white;
@@ -10747,10 +10748,10 @@ h3 {
   color: white;
 }
 .navbar-light .nav-item:active .nav-link {
-  color: #7DF229;
+  color: #44AA00;
 }
 .navbar-light .nav-item:active .nav-link i, .navbar-light .nav-item:active .nav-link span {
-  color: #7DF229;
+  color: #44AA00;
 }
 
 .navbar-brand {

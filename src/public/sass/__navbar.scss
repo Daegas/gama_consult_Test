@@ -1,9 +1,11 @@
 .navbar-light{
+  
   .nav-item {
     .nav-link {
       color: white;
       i, span {
         color: white;
+        font-size: 1.3rem !important;
       }
       &:active,
       &:focus,
@@ -20,9 +22,9 @@
     }
     &:active {
       .nav-link {
-        color: theme-color("fluor-green");
+        color: theme-color("dark-green");
         i, span {
-          color: theme-color("fluor-green");
+          color: theme-color("dark-green");
         }
       }
     }
