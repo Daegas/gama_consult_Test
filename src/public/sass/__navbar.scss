@@ -8,7 +8,7 @@
       &:active,
       &:focus,
       &:hover {
-        color: theme-color("gray-dark");
+        color: white;
         i , span{
           color: theme-color("dark-custum");
         }
@@ -29,10 +29,16 @@
   }
 }
 
-.table{
-  border-radius: 10px 10px 10px 10px;
--moz-border-radius: 10px 10px 10px 10px;
--webkit-border-radius: 10px 10px 10px 10px;
-}
 
+.navbar-brand{
+  font-family: 'Pacifico', cursive;
+  height: $topbar-base-height;
+  text-decoration: none;
+  font-size: 1.5rem !important;
+  font-weight: 800;
+  padding: 1.5rem 1rem;
+  text-align: center;
+  letter-spacing: 0.05rem;
+  z-index: 1;
+}
 

@@ -1,17 +1,66 @@
-//COLORS
+// Color Variables
+// Bootstrap Color Overrides
+
+$gray-100: #f8f9fc !default;
+$gray-200: #eaecf4 !default;
+$gray-300: #dddfeb !default;
+$gray-400: #d1d3e2 !default;
+$gray-500: #b7b9cc !default;
+$gray-600: #858796 !default;
+$gray-700: #6e707e !default;
+$gray-800: #5a5c69 !default;
+$gray-900: #3a3b45 !default;
+
+
 $theme-colors: (
   "primary": #C0DE00,
   "fluor-green": #7DF229,
   "dark-green": #44AA00,
   "dark-custum": #333333,
-  "light-green":#e4f578
+  "light-green":#e4f578,
+  "gray-200": #eaecf4,
+  "gray-800": #5a5c69
 );
+// Set Contrast Threshold
+$yiq-contrasted-threshold: 195 !default;
 
-//FONTS
-.footer-txt{font-family: 'Sriracha', cursive;}
-.navbar-brand{
-  font-family: 'Pacifico', cursive;
-  font-size: larger;
-}
-.body{font-family: 'ABeeZee', sans-serif;} 
+// Typography
+$body-color: $gray-600 !default;
 
+$font-family-sans-serif: "ABeeZee", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", 'Noto Color Emoji' !default;
+
+$font-weight-light: 300 !default;
+// $font-weight-base: 400;
+$headings-font-weight: 400 !default;
+
+// Shadows
+$box-shadow-sm: 0 0.125rem 0.25rem 0 rgba($gray-900, .2) !default;
+$box-shadow: 0 0.15rem 1.75rem 0 rgba($gray-900, .15) !default;
+// $box-shadow-lg: 0 1rem 3rem rgba($black, .175) !default;
+
+// Borders Radius
+$border-radius: 0.35rem !default;
+$border-color: darken($gray-200, 2%);
+
+// Spacing Variables
+// Change below variable if the height of the navbar changes
+$topbar-base-height: 4.375rem;
+// Change below variable to change the width of the sidenav
+$sidebar-base-width: 14rem;
+// Change below variable to change the width of the sidenav when collapsed
+$sidebar-collapsed-width: 6.5rem;
+
+// Card
+$card-cap-bg: $gray-100;
+$card-border-color: $border-color;
+
+// Adjust column spacing for symmetry
+$spacer: 1rem;
+$grid-gutter-width: $spacer * 1.5;
+
+// Transitions
+$transition-collapse: height .15s ease !default;
+
+// Dropdowns
+$dropdown-font-size: 0.85rem;
+$dropdown-border-color: $border-color;
