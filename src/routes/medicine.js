@@ -4,6 +4,7 @@ const router = express.Router();
 const DB = require('../database');
 
 const { loggedEnable } = require('../lib/session'); //User restrictions
+const XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
 
 /* 
 CRUD
@@ -40,6 +41,25 @@ router.post('/add', async (req, res) => { //Same URL as previous but with POST m
 router.get('/get', async (req, res) => {
     const meds = await DB.query('SELECT * FROM Medicamentos');
     res.send(meds)
+});
+
+router.get('/getAJAX', (req, res) => {
+    console.log('on Get AJAX')
+
+    setInterval( function() {
+        console.log('setInterval')
+        var xhttp = new XMLHttpRequest();
+        xhttp.open('GET', 'http://localhost:4000/meds/get');
+        xhttp.onreadystatechange = function(){
+            if (this.readyState == 4 && this.status == 200) {
+                var meds = xhttp.responseText;
+                meds = JSON.parse(meds);
+                console.log(meds)
+                res.render('../views/medicine/list.hbs', {meds});
+            }
+        }
+        xhttp.send();
+    }, 5000);
 });
 
 router.get('/', async (req, res) => {
