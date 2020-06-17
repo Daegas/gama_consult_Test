@@ -6,6 +6,7 @@
 
 
 <div class="container-fluid">
+    <button id="btnRefresh">AJAX</button>
     <table id="example" class="table table-striped table-hover  table-responsive" style="width:100%">
         <thead class="bg-primary text-gray-800">
             <tr>
@@ -28,7 +29,7 @@
                 <td>{{this.P_Publico}}</td>
                 <td>{{this.Descuento}}</td>
                 <td>{{timeago this.Caducidad}}</td> <!--Just a sample format-->
-                <td><a href="/meds/edit/{{this.MedicamentoID}}" target="_blank"><i class="fa fa-pencil text-info"></i></a></td>
+                <td><a href="/meds/edit/{{this.MedicamentoID}}"><i class="fa fa-pencil text-info"></i></a></td>
                 <td><a href="/meds/delete/{{this.MedicamentoID}}"><i class="fa fa-trash text-danger"></i></a></td>
             </tr>
             {{else}} <!--If ther isn't any 'meds' elements-->
@@ -56,32 +57,5 @@
     </table>
 </div>
 <!--SCRIPTS-->
-<script>
-    $(document).ready(function() {
-    $('#example').DataTable( {
-        "paging":   true,
-        "ordering": true,
-        "info":     true,
-        "autoWidth": false,
-        "language": {
-            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"          
-         },
-        "language": {   
-            "info": "Medicamentos _START_-_END_/_TOTAL_ "        
-         },   
-        "columns": [
-            { "width": "20%" },
-            null,
-            null,
-            null,
-            null,
-            null,
-            { "width": "10%" },
-            { "width": "10%" }
-        ]
-    } );
-} );
-</script>
-
-
- 
+ <script src="/js/medicine/list.js"></script>
+<script src="/js/pruebaAJAX.js"></script>
