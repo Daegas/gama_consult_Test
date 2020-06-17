@@ -54,7 +54,6 @@ router.get('/getAJAX', (req, res) => {
             if (this.readyState == 4 && this.status == 200) {
                 var meds = xhttp.responseText;
                 meds = JSON.parse(meds);
-                console.log(meds)
                 res.render('../views/medicine/list.hbs', {meds});
             }
         }
