@@ -35,8 +35,13 @@ router.post('/add', async (req, res) => { //Same URL as previous but with POST m
 });
 
 /* READ */
-router.get('/', async (req, res) => {
+router.get('/get', async (req, res) => {
     const meds = await DB.query('SELECT * FROM Medicamentos WHERE MedicamentoID>710');
+    res.send(meds)
+});
+
+router.get('/', async (req, res) => {
+    const meds = await DB.query('SELECT * FROM Medicamentos WHERE MedicamentoID>730');
     res.render('../views/medicine/list.hbs', {meds});
 });
 
