@@ -53,6 +53,7 @@ app.use((req, res, next) => {
 });
 
 
+
 //Routes
 app.use(require('./routes/index.js')); //Sample file
 app.use('/meds/', require('./routes/medicine.js')); //'meds' prefix to access 'medicine' routes

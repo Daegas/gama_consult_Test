@@ -1,0 +1,46 @@
+.navbar-light{
+  
+  .nav-item {
+    .nav-link {
+      color: white;
+      i, span {
+        color: white;
+        font-size: 1.3rem !important;
+      }
+      &:active,
+      &:focus,
+      &:hover {
+        color: white;
+        i , span{
+          color: theme-color("dark-custum");
+        }
+      }
+      // Accordion
+      &[data-toggle="collapse"]::after {
+        color: white;
+      }
+    }
+    &:active {
+      .nav-link {
+        color: theme-color("dark-green");
+        i, span {
+          color: theme-color("dark-green");
+        }
+      }
+    }
+  }
+}
+
+
+.navbar-brand{
+  font-family: 'Pacifico', cursive;
+  height: $topbar-base-height;
+  text-decoration: none;
+  font-size: 1.5rem !important;
+  font-weight: 800;
+  padding: 1.5rem 1rem;
+  text-align: center;
+  letter-spacing: 0.05rem;
+  z-index: 1;
+}
+

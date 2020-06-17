@@ -1,40 +1,69 @@
-<div class="container p-4">
+<div class="container">
     <div class="row">
-        <div class="col-md-4 mx-auto">
+        <div class="col-md-auto mx-auto">
             <div class="card">
                 <div class="card-body">
                     <!--Makes reference 'add' route with execute by 'post' method (Line 15 en medicine.js) -->
-                    <form action="add" method="POST"> 
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="SustanciaActiva" placeholder="Sustancia Activa" autofocus>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="Nombre" placeholder="Nombre">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="Presentacion" placeholder="Presentación">
-                        </div>
-                        <div class="form-group">
-                            <input type="number" step="0.01" class="form-control" name="P_Proveedor" placeholder="$ Proveedor">
-                        </div>
-                        <div class="form-group">
-                            <input type="number" step="0.01" class="form-control" name="P_Publico" placeholder="$ Público">
-                        </div>
-                        <div class="form-group">
-                            <input type="number" step="0.01" class="form-control" name="P_Descuento" placeholder="$ Descuento">
-                        </div>
-                        <div class="form-group">
-                            <input type="number" class="form-control" name="Saldo" placeholder="Saldo">
-                        </div>
-                        <div class="form-group">
-                            <div>
-                                <input id="active"type="checkbox" name="Activo" value="1">
-                                <label for="Activo">Activo</label>
+                    <form action="add" method="POST">
+                        <div class="row">
+
+
+                            <div class="col-xl-3 col-md-6 mb-1">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="SustanciaActiva"
+                                        placeholder="Sustancia Activa" autofocus>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6 mb-1">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="Nombre" placeholder="Nombre">
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6 mb-1">
+                                <div class="form-group">
+                                    <input type="number" class="form-control" name="Saldo" placeholder="Saldo">
+                                </div>
+
+                            </div>
+                            <div class="col-xl-3 col-md-6 mb-1">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="Presentacion"
+                                        placeholder="Presentación">
+                                </div>
+                            </div>
+
+                            <div class="col-xl-3 col-md-6 mb-1">
+                                <div class="form-group">
+                                    <input type="number" step="0.01" class="form-control" name="P_Proveedor"
+                                        placeholder="$ Proveedor">
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6 mb-1">
+
+                                <div class="form-group">
+                                    <input type="number" step="0.01" class="form-control" name="P_Publico"
+                                        placeholder="$ Público">
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6 mb-1">
+                                <div class="form-group">
+                                    <input type="number" step="0.01" class="form-control" name="P_Descuento"
+                                        placeholder="$ Descuento">
+                                </div>
+
+                            </div>
+                            <div class="col-xl-3 col-md-6 mb-1">
+                                <div class="form-group">
+                                    <div class="align-center">
+                                        <input id="active" type="checkbox" name="Activo" value="1">
+                                        <label for="Activo">Activo</label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <button class="btn btn-success btn-block">Save</button>
+                            <button class="btn btn-primary btn-block">Save</button>
                         </div>
                     </form>
                 </div>
@@ -42,6 +71,10 @@
         </div>
     </div>
 </div>
+
+{{!-- 
+{{{/list.hbs}}  --}}
+
 
 {{!-- <script>
     $(document).ready({
