@@ -1,9 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport'); //nodmodule
-const { loggedEnable, loggedBlock } = require('../lib/session');
 
-router.get('/signup', loggedBlock, (req, res) => {
+router.get('/signup', (req, res) => {
     res.render('../views/user/signup.hbs');
 })
 
@@ -23,7 +22,7 @@ router.post('/signup', passport.authenticate('local.signup', {
 }));
 
 
-router.get('/signin', loggedBlock, (req, res) => {
+router.get('/signin', (req, res) => {
     res.render('../views/user/signin.hbs');
 });
 
@@ -36,11 +35,11 @@ router.post('/signin', (req, res, next) => {
 });
 
 
-router.get('/profile', loggedEnable, (req, res) => { // se ejecuta verificacion de Ususario
+router.get('/profile', (req, res) => { // se ejecuta verificacion de Ususario
     res.render('../views/user/profile.hbs');
 });
 
-router.get('/logout', loggedEnable, (req, res) => {
+router.get('/logout', (req, res) => {
    req.logOut();
    res.render('user/signin.hbs'); 
 });
