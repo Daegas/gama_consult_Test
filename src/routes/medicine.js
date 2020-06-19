@@ -26,7 +26,7 @@ router.post('/add', async (req, res) => { //Same URL as previous but with POST m
         P_Publico,
         P_Descuento,
         Saldo,
-        Activo
+        Activo: Activo==undefined? "0":"1"
     }; 
 
     //Async request
@@ -70,7 +70,9 @@ router.get('/', async (req, res) => {
 router.get('/edit/:id', async (req, res) => {
     const { id } = req.params;
     const med = await DB.query('SELECT * FROM Medicamentos WHERE MedicamentoID = ?', [id]);
-    res.render('../views/medicine/edit.hbs', {med: med[0]});
+
+    res.send({med: med[0]});
+    // res.render('../views/medicine/edit.hbs', {med: med[0]});
 });
 
 router.post('/edit/:id', async (req, res) => {
@@ -85,7 +87,7 @@ router.post('/edit/:id', async (req, res) => {
         P_Publico,
         P_Descuento,
         Saldo,
-        Activo
+        Activo: Activo==undefined? "0":"1"
     }
 
     await DB.query('UPDATE Medicamentos set ? WHERE MedicamentoID = ?', [alter_med, id]);

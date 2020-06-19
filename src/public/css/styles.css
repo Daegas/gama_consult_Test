@@ -21649,5 +21649,8 @@ h3 {
     border-color: #e3e6f0;
   }
 }
+.pointer {
+  cursor: pointer;
+}
 
 /*# sourceMappingURL=styles.css.map */
