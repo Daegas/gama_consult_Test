@@ -81,56 +81,49 @@ $(document).ready(function() {
          },
         "language": {   
             "info": "Medicamentos _START_-_END_/_TOTAL_ "        
-         },   
-        "columns": [
-            { "width": "20%" },
-            null,
-            null,
-            null,
-            null,
-            null,
-            { 
-                "width": "10%",
-                "className":      'details-control',
-                "orderable":      false,
-                "defaultContent": ''
-            },
-            { 
-                "width": "10%",
-                "orderable":    false,
-            }
+         },
+        "ajax": "meds/get",
+        "columns":[
+            {"data": "SustanciaActiva"},
+            {"data": "Nombre"},
+            {"data": "Saldo"},
+            {"data": "Presentacion"},
+            {"data": "P_Proveedor"},
+            {"data": "P_Publico"},
+            {"data": "Descuento"},
+            {"data": "Caducidad"},
         ]
     } );
 
-    // Add event listener for opening and closing details
-    $('#tbMeds tbody').on('click', 'td.details-control', function () {
-        let this_ = $(this);
-        var tr = this_.closest('tr');
-        var row = table.row( tr );
+    // // Add event listener for opening and closing details
+    // // $('#tbMeds tbody').on('click', 'td.details-control', function () {
+    //     // let this_ = $(this);
+        // // var tr = this_.closest('tr');
+        // // var row = table.row( tr );
 
-        let iconElement = this_.find('a').find('i');
+        // // let iconElement = this_.find('a').find('i');
         
-        if ( row.child.isShown() ) {
-            // This row is already open - close it
-            row.child.hide();
-            iconElement.attr('title','Editar').removeClass('fa-window-close').addClass('fa-pencil');
-        }
-        else {
-            // Open this row
-            let MedicamentoID = tr.attr('data-MedicamentoID');
+        // // if ( row.child.isShown() ) {
+        //     // // This row is already open - close it
+            // // row.child.hide();
+        //     // iconElement.attr('title','Editar').removeClass('fa-window-close').addClass('fa-pencil');
+        // // }
+        // // else {
+        //     // // Open this row
+            // // let MedicamentoID = tr.attr('data-MedicamentoID');
 
-            var xhttp = new XMLHttpRequest();
-            xhttp.open('GET', '/meds/edit/'+MedicamentoID);
-            xhttp.onload = function(){
-                var med = xhttp.responseText;
-                med = JSON.parse(med);
+            // // var xhttp = new XMLHttpRequest();
+            // // xhttp.open('GET', '/meds/edit/'+MedicamentoID);
+            // // xhttp.onload = function(){
+            //     // var med = xhttp.responseText;
+                // // med = JSON.parse(med);
 
-                //Show data in a new row(child)
-                row.child( editForm(med.med) ).show();
-            };
-            xhttp.send();
+                // Show data in a new row(child)
+            //     // row.child( editForm(med.med) ).show();
+            // // };
+            // // xhttp.send();
 
-            iconElement.attr('title', 'Cancelar').removeClass('fa-pencil').addClass('fa-window-close');
-        }
-    } );
-});
+        //     // iconElement.attr('title', 'Cancelar').removeClass('fa-pencil').addClass('fa-window-close');
+    //     // }
+//     // } );
+ });

@@ -40,8 +40,9 @@ router.post('/add', async (req, res) => { //Same URL as previous but with POST m
 /* READ */
 router.get('/get', async (req, res) => {
     const meds = await DB.query('SELECT * FROM Medicamentos');
-    res.send(meds)
+    res.send({data:meds})
 });
+
 
 router.get('/getAJAX', (req, res) => {
     console.log('on Get AJAX')
