@@ -1,5 +1,6 @@
 $(document).ready(function() {
-    $('#example').DataTable( {
+    $('#medicine').DataTable( {
+        // ajax: '/meds/get',
         "paging":   true,
         "ordering": true,
         "info":     true,

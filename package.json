@@ -25,6 +25,7 @@
     "bootstrap": "^4.5.0",
     "bootstrap4": "0.0.1-security",
     "connect-flash": "^0.1.1",
+    "datatables.net-editor-server": "^1.9.3",
     "express": "^4.17.1",
     "express-handlebars": "^4.0.4",
     "express-mysql-session": "^2.1.4",

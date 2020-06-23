@@ -49,14 +49,15 @@ router.get('/getAJAX', (req, res) => {
     setInterval( function() {
         console.log('setInterval')
         var xhttp = new XMLHttpRequest();
-        xhttp.open('GET', 'http://localhost:4000/meds/get');
         xhttp.onreadystatechange = function(){
-            if (this.readyState == 4 && this.status == 200) {
+            if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
                 var meds = xhttp.responseText;
                 meds = JSON.parse(meds);
                 res.render('../views/medicine/list.hbs', {meds});
             }
         }
+
+        xhttp.open('GET', 'http://localhost:4000/meds/get', true);
         xhttp.send();
     }, 5000);
 });
