@@ -5,8 +5,8 @@
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
 
 <div class="container-fluid">
-    <button id="btnRefresh">AJAX</button>
-    <table id="medicine" class="table table-striped table-hover  table-responsive" style="width:100%">
+    {{!-- <button id="btnRefresh">AJAX</button> --}}
+    <table id="tbMeds" class="table table-striped table-hover  table-responsive" style="width:100%">
         <thead class="bg-primary text-gray-800">
             <tr>
                 <th>Sustancia Activa</th>
@@ -21,15 +21,15 @@
         </thead>
         <tbody>
             {{#each meds}}
-            <tr>
+            <tr data-MedicamentoID="{{this.MedicamentoID}}">
                 <td>{{this.SustanciaActiva}}</td>
                 <td>{{this.Nombre}}</td>
                 <td>{{this.Saldo}}</td>
                 <td>{{this.P_Publico}}</td>
                 <td>{{this.Descuento}}</td>
                 <td>{{timeago this.Caducidad}}</td> <!--Just a sample format-->
-                <td><a href="/meds/edit/{{this.MedicamentoID}}"><i class="fa fa-pencil text-info"></i></a></td>
-                <td><a href="/meds/delete/{{this.MedicamentoID}}"><i class="fa fa-trash text-danger"></i></a></td>
+                <td><a class="pointer"><i class="fa fa-pencil text-info" title="Editar"></i></a></td>
+                <td><a href="/meds/delete/{{this.MedicamentoID}}"><i class="fa fa-trash text-danger" title="Eliminar"></i></a></td>
             </tr>
             {{else}} <!--If ther isn't any 'meds' elements-->
                 <div class="col-md-4 mx-auto">
