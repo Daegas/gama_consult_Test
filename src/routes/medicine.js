@@ -5,6 +5,8 @@ const DB = require('../database');
 
 const { loggedEnable } = require('../lib/session'); //User restrictions
 const XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
+//Server-Side Datatables
+const NodeTable = require('nodetable');
 
 /* 
 CRUD
@@ -41,6 +43,65 @@ router.post('/add', async (req, res) => { //Same URL as previous but with POST m
 router.get('/get', async (req, res) => {
     const meds = await DB.query('SELECT * FROM Medicamentos');
     res.send({data:meds})
+});
+
+//Datatables Server-Side
+//https://newcodingera.com/datatables-server-side-processing-using-nodejs-mysql/
+router.get('/get-dt', (req,res,next)=> {
+    //Query de Datatables
+    const requestQuery = req.query;
+    //
+    let columnsMap = [
+        {
+          db: "SustanciaActiva",
+          dt: 0
+        },
+        {
+          db: "Nombre",
+          dt: 1
+        }, 
+        {
+          db: "Saldo",
+          dt: 2
+        },
+        {
+          db: "Presentacion",
+          dt: 3
+        },
+        {
+          db: "P_Proveedor",
+          dt: 4
+        },
+        {
+            db: "P_Publico",
+            dt: 5
+        },
+        {
+            db: "Descuento",
+            dt: 6
+        },
+        {
+            db: "Caducidad",
+            dt: 7
+        }
+      ];
+
+    //Select table in DB - Or define any custum QUERY
+    const tableName = "Medicamentos"
+
+    //Primary Key (Required NodeTable)
+    const primaryKey = "MedicamentoID"
+
+    const nodeTable = new NodeTable(requestQuery,DB, tableName, primaryKey, columnsMap);
+
+    nodeTable.output((err, data)=>{
+        if (err) {
+            console.log(err);
+            return;
+        }
+
+        res.send(data)
+    })
 });
 
 

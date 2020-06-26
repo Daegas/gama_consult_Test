@@ -76,24 +76,21 @@ $(document).ready(function() {
         "ordering": true,
         "info":     true,
         "autoWidth": false,
-        "language": {
-            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"          
+        //"processing": true,
+        "language":{
+            "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json"
+        },
+        "language": { 
+            "info": "Medicamentos _START_-_END_/_TOTAL_ ",
+            "lengthMenu":     "Mostrar _MENU_ medicamentos",
          },
-        "language": {   
-            "info": "Medicamentos _START_-_END_/_TOTAL_ "        
-         },
-        "ajax": "meds/get",
-        "columns":[
-            {"data": "SustanciaActiva"},
-            {"data": "Nombre"},
-            {"data": "Saldo"},
-            {"data": "Presentacion"},
-            {"data": "P_Proveedor"},
-            {"data": "P_Publico"},
-            {"data": "Descuento"},
-            {"data": "Caducidad"},
-        ]
+        "serverSide": true,
+        "ajax": "/meds/get-dt"
     } );
+    //Every 30 secs
+    setInterval( function () {
+        table.ajax.reload( null, false ); // user paging is not reset on reload
+    }, 2500 );
 
     // // Add event listener for opening and closing details
     // // $('#tbMeds tbody').on('click', 'td.details-control', function () {
