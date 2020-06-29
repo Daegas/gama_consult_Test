@@ -75,8 +75,8 @@ $(document).ready(function() {
         dom: '<"top row" l <"toolbar mx-auto"> frt><"bottom"ip>', //Se agrega clase 'toolbar' a la plantilla
         fnInitComplete: function(){ //Función para desplegar contenido en div.toolbar
             html = `
-            <button class="btn btn-dark rounded">
-            <a href="/meds/add"><i class="fa fa-plus-circle"></i> Nuevo</a>
+            <button id="btnNuevo" class="btn btn-dark rounded">
+                <i class="fa fa-plus-circle"></i> Nuevo
             </button>
             `;
            $('div.toolbar').html(html);
@@ -162,3 +162,12 @@ $(document).ready(function() {
         }
     } );
  });
+
+var opcion;
+$(document).on("click", "#btnNuevo", function() {
+    opcion = 0;
+    $(".modal-header").css("background-color", "#C0DE00");
+    $(".modal-header").css("color", "white");
+    $(".modal-title").text('Alta Medicamento');
+    $("#modalCU").modal('show');
+});

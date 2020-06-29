@@ -1,0 +1,144 @@
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+    crossorigin="anonymous"></script>
+
+{{!-- Create and Update Modal  --}}
+<div class="modal fade" id="modalCU" tabindex="-1" role="dialog" aria-labelledby="modalCULabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+            </div>
+
+            <form id="formMeds">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="SustanciaActiva" class="col-form-label">Sust. Act: <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="SustanciaActiva">
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="Nombre" class="col-form-label">Nombre: <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="Nombre">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="Saldo" class="col-form-label">Saldo: <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="Saldo" required>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="Presentacion" class="col-form-label">Presentación: <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="Presentacion" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="P_Proveedor" class="col-form-label">$ Proveedor: <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="P_Proveedor" required>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="P_Publico" class="col-form-label">$ Público: <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="P_Publico" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="P_Descuento" class="col-form-label">% Descuento: <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="P_Descuento" required>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="Descuento" class="col-form-label">Descuento:</label>
+                                <input type="text" class="form-control" name="Descuento" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="Gramaje" class="col-form-label">Gramaje:</label>
+                                <input type="text" class="form-control" name="Gramaje">
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="Dosis" class="col-form-label">Dósis:</label>
+                                <input type="text" class="form-control" name="Dosis">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="Laboratorio" class="col-form-label">Laboratorio:</label>
+                                <input type="text" class="form-control" name="Laboratorio">
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="Proveedor" class="col-form-label">Proveedor:</label>
+                                <input type="text" class="form-control" name="Proveedor">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mx-auto">
+                            <div class="form-group">
+                            <div class="align-center">
+                                <input id="ckbActive" type="checkbox" name="Activo" value="1">
+                                <label for="Activo">Activo</label>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mx-auto">
+                            <div class="form-group">
+                            <div class="align-center">
+                                <button type="button" id="btnMedImg" class="btn btn-info" name="MedImg">
+                                    Agregar Imágen
+                                    <i class="fa fa-image"></i>
+                                </button> 
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <span class="text-danger">* Campo Obligatorio</span>
+                    </div>
+                    {{!-- 
+                    <div class="col-xl-3 col-md-6 mb-1">
+                        <div class="form-group">
+                            <div class="align-center">
+                                <input id="active" type="checkbox" name="Activo" value="1">
+                                <label for="Activo">Activo</label>
+                            </div>
+                        </div>
+                    </div> --}}
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary mx-auto" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" id="btnSave" class="btn btn-primary px-4 mx-auto">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
