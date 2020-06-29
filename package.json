@@ -34,6 +34,7 @@
     "ip": "^1.1.5",
     "morgan": "^1.10.0",
     "mysql": "^2.18.1",
+    "nodetable": "^1.0.2",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "sass": "^1.26.8",

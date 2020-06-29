@@ -72,8 +72,8 @@ function editForm( med ) {
 
 $(document).ready(function() {
     var table = $('#tbMeds').DataTable( {
-        dom: '<"top row" l <"toolbar mx-auto"> frt><"bottom"ip>', //Se agrega clase 'toolbar' a la plantilla
-        fnInitComplete: function(){ //Función para desplegar contenido en div.toolbar
+        dom: '<"top row" l <"toolbar mx-auto mb-2"> frt><"bottom row" <"col-6 mx-auto"i> <"col-6 mx-auto"p>>', //Se agrega clase 'toolbar' a la plantilla
+        fnInitComplete: function(){ //Función para desplegar contenido (Botón 'Nuevo') en div.toolbar
             html = `
             <button id="btnNuevo" class="btn btn-dark rounded">
                 <i class="fa fa-plus-circle"></i> Nuevo
@@ -85,28 +85,45 @@ $(document).ready(function() {
         "ordering": true,
         "info":     true,
         "autoWidth": false,
-        "language": {
-            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"          
-         },
-        "language": {   
-            "info": "Medicamentos _START_-_END_/_TOTAL_ "        
-         },
-        "ajax": "meds/get",
-        "columns":[
-            {"data": "SustanciaActiva"},
-            {"data": "Nombre"},
-            {"data": "Saldo"},
-            {"data": "Presentacion"},
-            {"data": "P_Proveedor"},
-            {"data": "P_Publico"},
-            {"data": "Descuento"},
-            {"data": "Caducidad",
-                "render": function(data,  type, row, meta) {
-                    let formatDate = data.split("T")[0];
-                    let html = `<span class="render-timeago">${formatDate}</span>`;
-                    return html;
-                }
+        "serverSide": true,
+        "ajax": "/meds/get-dt",
+        "language": { 
+            "info": "Medicamentos _START_-_END_/_TOTAL_ ",
+            "lengthMenu":     "Mostrar _MENU_ medicamentos",
+            "sProcessing": "Procesando...",
+            "sZeroRecords": "No se encontraron resultados",
+            "sEmptyTable": "Ningún dato disponible en esta tabla",
+            "sInfoEmpty": "Medicamentos 0/0",
+            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+            "sInfoPostFix": "",
+            "sSearch": "Buscar:",
+            "sUrl": "",
+            "sInfoThousands": ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+                "sFirst": "Primero",
+                "sLast": "Último",
+                "sNext": "Siguiente",
+                "sPrevious": "Anterior"
             },
+            "oAria": {
+                "sSortAscending": ": Ordenar ascendente",
+                "sSortDescending": ": Ordenar descendente"
+            },
+            "buttons": {
+                "copy": "Copiar",
+                "colvis": "Visibilidad"
+            }
+        },
+        "columns": [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
             {   //Edit button
                 "data": null,
                 "orderable":      false,
@@ -129,6 +146,8 @@ $(document).ready(function() {
             }
         ]
     } );
+
+
     /* EDIT FORM */
     // Add event listener for opening and closing 'Edit form'
     $('#tbMeds tbody').on('click', 'td.details-control', function () {
@@ -137,7 +156,7 @@ $(document).ready(function() {
         var row = table.row( tr );
 
         let iconElement = this_.find('i');
-        
+            
         if ( row.child.isShown() ) {
             // This row is already open - close it
             row.child.hide();
@@ -160,8 +179,8 @@ $(document).ready(function() {
 
             iconElement.attr('title', 'Cancelar').removeClass('fa-pencil').addClass('fa-window-close');
         }
-    } );
- });
+    });
+});
 
 var opcion;
 $(document).on("click", "#btnNuevo", function() {

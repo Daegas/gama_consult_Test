@@ -10731,6 +10731,10 @@ h3 {
     border-color: #e3e6f0;
   }
 }
+.navbar-light .navbar-toggler {
+  border: 0;
+  font-size: 1.3rem !important;
+}
 .navbar-light .nav-item .nav-link {
   color: white;
 }
@@ -10758,7 +10762,7 @@ h3 {
   font-family: "Pacifico", cursive;
   height: 4.375rem;
   text-decoration: none;
-  font-size: 1.5rem !important;
+  font-size: 1.6rem !important;
   font-weight: 800;
   padding: 1.5rem 1rem;
   text-align: center;
@@ -10882,6 +10886,20 @@ h3 {
   border-radius: 10px 10px 10px 10px;
   -moz-border-radius: 10px 10px 10px 10px;
   -webkit-border-radius: 10px 10px 10px 10px;
+}
+
+.dataTables_length label {
+  display: inline-flex;
+}
+.dataTables_length label select {
+  margin-left: 0px;
+  margin-left: 0px;
+  padding-left: 0px;
+  padding-right: 0.5em;
+}
+
+.dataTables_filter label {
+  display: inline-flex;
 }
 
 footer.sticky-footer {
