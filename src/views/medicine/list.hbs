@@ -5,7 +5,7 @@
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
 
 <div class="container-fluid">
-    <button id="btnRefresh">AJAX</button>
+    {{!-- <button id="btnRefresh">AJAX</button> --}}
     <table id="tbMeds" class="table table-striped table-hover  table-responsive" style="width:100%">
         <thead class="bg-primary text-gray-800">
             <tr>
@@ -17,6 +17,8 @@
                 <th>P. Público</th>
                 <th>Descuento</th>
                 <th>Caducidad</th>
+                <th></th>
+                <th></th>
             </tr>
         </thead>
 
@@ -30,10 +32,12 @@
                 <th>P. Público</th>
                 <th>Descuento</th>
                 <th>Caducidad</th>
+                <th></th>
+                <th></th>
             </tr>
         </tfoot>
     </table>
 </div>
 <!--SCRIPTS-->
  <script src="/js/medicine/list.js"></script>
-<script src="/js/pruebaAJAX.js"></script>
+{{!-- <script src="/js/pruebaAJAX.js"></script> --}}
