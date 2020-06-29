@@ -1,52 +1,58 @@
 <nav class="navbar navbar-expand-xl navbar-light bg-primary shadow static-top">
-  <div class="container-fluid">
-
-    {{!-- BRAND --}}
-    <a class="navbar-brand d-flex align-items-center justify-content-center" href="/">
-      <div class="text-dark-custum mx-3">Dres. Gama</div>
-    </a>
-
-    {{!-- TOGGLER --}}
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="fa fa-bars"></span>
-    </button>
-
-    
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-
-        <li class="nav-item navbar-text">
-          <a class="nav-link" href="/meds">
-            <i class="fa fa-table fa-fw"></i>
-            <span>Inventario</span></a>
-        </li>
-        <li class="nav-item dropdown navbar-text">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            Medicine
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="/meds/add">Add</a>
-            <a class="dropdown-item" href="/meds">List</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </li>
-      </ul>
-      <form class="d-sm-inline-block form-inline navbar-search">
-        <div class="input-group">
-          <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-            aria-label="Search" aria-describedby="basic-addon2">
-          <div class="input-group-append">
-            <button class="btn bg-light-green" type="button">
-              <i class="fa fa-search fa-sm"></i>
-            </button>
-          </div>
-        </div>
-      </form>
+  {{!-- BRAND --}}
+  <a class="navbar-brand d-lg-none text-dark-custum" href="/">Dres. Gama</a>
+  {{!-- TOGGLER --}}
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  {{!-- ITEMS --}}
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="row w-100">
+      <div class="col-5 pl-lg-0">
+        <ul class="navbar-nav">
+          {{!-- <li class="nav-item"><a class="nav-link active" href="#">Features<span class="sr-only">(current)</span></a></li> --}}
+          <li class="nav-item">
+            <a class="nav-link" href="/meds">
+              <i class="fa fa-table fa-fw"></i>
+              <span>Inventario</span></a>
+          </li>
+        </ul>
+      </div>
+      {{!-- BRAND-LG --}}
+      <div class="col-4 navbar-nav text-center pr-0 d-none d-lg-block text-dark-custum"><a class="navbar-brand mr-0"
+          href="/">Dres. Gama</a></div>
+      {{!-- ITEMS-RIGHT --}}
+      <div class="col-6 pr-lg-0">
+        <ul class="navbar-nav justify-content-end">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              <span>Medicine</span>
+              
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="/meds/add">Add</a>
+              <a class="dropdown-item" href="/meds">List</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </li>
+          <li>
+            <form class="navbar-search">
+              <div class="input-group">
+                <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                  aria-label="Search" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                  <button class="btn bg-light-green" type="button">
+                    <i class="fa fa-search fa-sm"></i>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </li>
+        </ul>
+      </div>
     </div>
-
-
   </div>
 </nav>

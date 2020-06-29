@@ -76,21 +76,41 @@ $(document).ready(function() {
         "ordering": true,
         "info":     true,
         "autoWidth": false,
-        //"processing": true,
-        "language":{
-            "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json"
-        },
+        "serverSide": true,
+        "ajax": "/meds/get-dt",
         "language": { 
             "info": "Medicamentos _START_-_END_/_TOTAL_ ",
             "lengthMenu":     "Mostrar _MENU_ medicamentos",
-         },
-        "serverSide": true,
-        "ajax": "/meds/get-dt"
+            "sProcessing": "Procesando...",
+            "sZeroRecords": "No se encontraron resultados",
+            "sEmptyTable": "Ningún dato disponible en esta tabla",
+            "sInfoEmpty": "Medicamentos 0/0",
+            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+            "sInfoPostFix": "",
+            "sSearch": "Buscar:",
+            "sUrl": "",
+            "sInfoThousands": ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+                "sFirst": "Primero",
+                "sLast": "Último",
+                "sNext": "Siguiente",
+                "sPrevious": "Anterior"
+            },
+            "oAria": {
+                "sSortAscending": ": Ordenar ascendente",
+                "sSortDescending": ": Ordenar descendente"
+            },
+            "buttons": {
+                "copy": "Copiar",
+                "colvis": "Visibilidad"
+            }
+         }
     } );
     //Every 30 secs
-    setInterval( function () {
-        table.ajax.reload( null, false ); // user paging is not reset on reload
-    }, 2500 );
+    // setInterval( function () {
+    //     table.ajax.reload( null, false ); // user paging is not reset on reload
+    // }, 2500 );
 
     // // Add event listener for opening and closing details
     // // $('#tbMeds tbody').on('click', 'td.details-control', function () {
