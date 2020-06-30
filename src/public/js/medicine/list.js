@@ -71,11 +71,11 @@ function editForm( med ) {
 }
 
 $(document).ready(function() {
-    var table = $('#tbMeds').DataTable( {
-        dom: '<"top row" l <"toolbar mx-auto mb-2"> frt><"bottom row" <"col-6 mx-auto"i> <"col-6 mx-auto"p>>', //Se agrega clase 'toolbar' a la plantilla
+    tableMeds = $('#tbMeds').DataTable( {
+        dom: '<"top mt-4 row" l <"toolbar mx-auto mb-2"> frt><"bottom row" <"col-6 mx-auto"i> <"col-6 mx-auto"p>>', //Se agrega clase 'toolbar' a la plantilla
         fnInitComplete: function(){ //Función para desplegar contenido (Botón 'Nuevo') en div.toolbar
             html = `
-            <button id="btnNuevo" class="btn btn-dark rounded">
+            <button id="btnNew" class="btn btn-info rounded">
                 <i class="fa fa-plus-circle"></i> Nuevo
             </button>
             `;
@@ -129,8 +129,10 @@ $(document).ready(function() {
                 "orderable":      false,
                 "className":      'details-control',
                 "render": function ( data, type, row, meta ) {
-                    let html = `<i data-MedicamentoID=${data.MedicamentoID}
-                    class="fa fa-pencil text-info pointer" title="Editar"></i>`;
+                    let html = `
+                        <i id="btnEdit" data-MedicamentoID=${data[8]}
+                        class="fa fa-pencil text-info pointer" title="Editar">
+                        </i>`;
                     return html;
                 }
             },
@@ -138,9 +140,10 @@ $(document).ready(function() {
                 "data": null,
                 "orderable":    false,
                 "render": function ( data, type, row, meta ) {
-                    let html = `<a href="/meds/delete/${data.MedicamentoID}">
-                                    <i class="fa fa-trash text-danger" title="Eliminar"></i>
-                                </a>`;
+                    let html = `
+                            <i id="btnDelete" data-MedicamentoID=${data[9]}
+                            class="fa fa-trash text-danger pointer" title="Eliminar">
+                            </i>`;
                     return html;
                 }
             }
@@ -150,43 +153,137 @@ $(document).ready(function() {
 
     /* EDIT FORM */
     // Add event listener for opening and closing 'Edit form'
-    $('#tbMeds tbody').on('click', 'td.details-control', function () {
-        let this_ = $(this);
-        var tr = this_.closest('tr');
-        var row = table.row( tr );
+    // $('#tbMeds tbody').on('click', 'td.details-control', function () {
+    //     let this_ = $(this);
+    //     var tr = this_.closest('tr');
+    //     var row = tableMeds.row( tr );
 
-        let iconElement = this_.find('i');
+    //     let iconElement = this_.find('i');
             
-        if ( row.child.isShown() ) {
-            // This row is already open - close it
-            row.child.hide();
-            iconElement.attr('title','Editar').removeClass('fa-window-close').addClass('fa-pencil');
-        }
-        else {
-            // Open this row
-            let MedicamentoID = iconElement.attr('data-MedicamentoID');
+    //     if ( row.child.isShown() ) {
+    //         // This row is already open - close it
+    //         row.child.hide();
+    //         iconElement.attr('title','Editar').removeClass('fa-window-close').addClass('fa-pencil');
+    //     }
+    //     else {
+    //         // Open this row
+    //         let MedicamentoID = iconElement.attr('data-MedicamentoID');
 
-            var xhttp = new XMLHttpRequest();
-            xhttp.open('GET', '/meds/edit/'+MedicamentoID);
-            xhttp.onload = function(){
-                var med = xhttp.responseText;
-                med = JSON.parse(med);
+    //         var xhttp = new XMLHttpRequest();
+    //         xhttp.open('GET', '/meds/edit/'+MedicamentoID);
+    //         xhttp.onload = function(){
+    //             var med = xhttp.responseText;
+    //             med = JSON.parse(med);
 
-                //Show data in a new row(child)
-                row.child( editForm(med.med) ).show();
-            };
-            xhttp.send();
+    //             //Show data in a new row(child)
+    //             row.child( editForm(med.med) ).show();
+    //         };
+    //         xhttp.send();
 
-            iconElement.attr('title', 'Cancelar').removeClass('fa-pencil').addClass('fa-window-close');
-        }
-    });
+    //         iconElement.attr('title', 'Cancelar').removeClass('fa-pencil').addClass('fa-window-close');
+    //     }
+    // });
 });
 
-var opcion;
-$(document).on("click", "#btnNuevo", function() {
-    opcion = 0;
+var opc = -1;
+$("#formMeds").submit( function(e) {
+    e.preventDefault();
+    SustanciaActiva = $.trim($("#iSustanciaActiva").val());
+    Nombre = $.trim($("#iNombre").val());
+    Saldo = $.trim($("#iSaldo").val());
+    Presentacion = $.trim($("#iPresentacion").val());
+    P_Proveedor = $.trim($("#iPProveedor").val());
+    P_Publico = $.trim($("#iPPublico").val());
+    P_Descuento = $.trim($("#iPDescuento").val());
+    Descuento = $.trim($("#iDescuento").val());
+    Gramaje = $.trim($("#iGramaje").val());
+    DosisMG = $.trim($("#iDosis").val());
+    Laboratorio = $.trim($("#iLaboratorio").val());
+    Proveedor = $.trim($("#iProveedor").val());
+    Activo = $.trim($("#ckActive").val());
+    
+    let url_ = opc == -1? "/meds/add" : "/meds/edit/"+opc;
+    console.log(url_)
+
+    $.ajax({
+        url: url_,
+        type: "POST",
+        datatype: "json",
+        data: { 
+            SustanciaActiva, Nombre, 
+            Saldo, Presentacion, 
+            P_Proveedor, P_Publico, 
+            P_Descuento, Descuento,
+            Gramaje, DosisMG,
+            Laboratorio, Proveedor,
+            Activo},
+        success: function(data) {
+            tableMeds.ajax.reload(null, false);
+        }
+    });
+    $('#modalCU').modal('hide');
+})
+
+$(document).on("click", "#btnNew", function() {
+    opcion = -1;
+    $("#formMeds").trigger("reset");
     $(".modal-header").css("background-color", "#C0DE00");
     $(".modal-header").css("color", "white");
     $(".modal-title").text('Alta Medicamento');
     $("#modalCU").modal('show');
 });
+
+$(document).on("click", "#btnEdit", function(e) {
+    var row = $(this).closest("tr");
+    let MedicamentoID = $(row["prevObject"][0]).attr('data-MedicamentoId');
+    
+    var xhttp = new XMLHttpRequest();
+        xhttp.open('GET', '/meds/edit/'+MedicamentoID);
+        xhttp.onload = function(){
+            var res = xhttp.responseText;
+            res = JSON.parse(res);
+
+            var med = res.med;
+            console.log(med)
+            // Display on Modal
+            $("#iSustanciaActiva").val(med.SustanciaActiva);
+            $("#iNombre").val(med.Nombre);
+            $("#iSaldo").val(med.Saldo);
+            $("#iPresentacion").val(med.Presentacion);
+            $("#iPProveedor").val(med.P_Proveedor);
+            $("#iPPublico").val(med.P_Publico);
+            $("#iDescuento").val(med.Descuento);
+            $("#iPDescuento").val(med.P_Descuento);
+            $("#iGramaje").val(med.Gramaje);
+            $("#iDosis").val(med.DosisMG);
+            $("#iLaboratorio").val(med.Laboratorio);
+            $("#iProveedor").val(med.Proveedor);
+            $("#ckActivo").val(med.Activo);
+
+            opc = MedicamentoID;
+        };
+        xhttp.send();
+    
+
+    $(".modal-header").css("background-color", "#C0DE00");
+    $(".modal-header").css("color", "white");
+    $(".modal-title").text('Editar Medicamento');
+    $("#modalCU").modal('show');
+});
+
+$(document).on("click", "#btnDelete", function() {
+    var row_ = $(this).closest("tr");
+    let MedicamentoID = $(row_["prevObject"][0]).attr('data-MedicamentoId');
+
+    var answer = confirm("¿Está seguro de quere eliminar?");
+
+    if(answer){
+        $.ajax({
+            url: "/meds/delete/"+MedicamentoID,
+            type: "POST",
+            success: function(){
+                tableMeds.row(row_.parents('tr')).remove().draw();
+            }
+        })
+    }
+})

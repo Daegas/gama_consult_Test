@@ -18,13 +18,13 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="SustanciaActiva" class="col-form-label">Sust. Act: <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" name="SustanciaActiva">
+                                <input id="iSustanciaActiva" type="text" class="form-control" name="SustanciaActiva" required>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="Nombre" class="col-form-label">Nombre: <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" name="Nombre">
+                                <input id="iNombre" type="text" class="form-control" name="Nombre" required>
                             </div>
                         </div>
                     </div>
@@ -32,13 +32,13 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="Saldo" class="col-form-label">Saldo: <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" name="Saldo" required>
+                                <input id="iSaldo" type="text" class="form-control" name="Saldo" required>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="Presentacion" class="col-form-label">Presentación: <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" name="Presentacion" required>
+                                <input id="iPresentacion" type="text" class="form-control" name="Presentacion" required>
                             </div>
                         </div>
                     </div>
@@ -46,13 +46,13 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="P_Proveedor" class="col-form-label">$ Proveedor: <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" name="P_Proveedor" required>
+                                <input id="iPProveedor" type="text" class="form-control" name="P_Proveedor" required>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="P_Publico" class="col-form-label">$ Público: <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" name="P_Publico" required>
+                                <input id="iPPublico" type="text" class="form-control" name="P_Publico" required>
                             </div>
                         </div>
                     </div>
@@ -60,13 +60,13 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="P_Descuento" class="col-form-label">% Descuento: <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" name="P_Descuento" required>
+                                <input id="iPDescuento" type="text" class="form-control" name="P_Descuento" required>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label for="Descuento" class="col-form-label">Descuento:</label>
-                                <input type="text" class="form-control" name="Descuento" disabled>
+                                <label for="Descuento" class="col-form-label">$ Descuento:</label>
+                                <input id="iDescuento" type="text" class="form-control" name="Descuento" disabled>
                             </div>
                         </div>
                     </div>
@@ -74,13 +74,13 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="Gramaje" class="col-form-label">Gramaje:</label>
-                                <input type="text" class="form-control" name="Gramaje">
+                                <input id="iGramaje" type="text" class="form-control" name="Gramaje">
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="Dosis" class="col-form-label">Dósis:</label>
-                                <input type="text" class="form-control" name="Dosis">
+                                <input id="iDosis" type="text" class="form-control" name="Dosis">
                             </div>
                         </div>
                     </div>
@@ -88,13 +88,13 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="Laboratorio" class="col-form-label">Laboratorio:</label>
-                                <input type="text" class="form-control" name="Laboratorio">
+                                <input id="iLaboratorio" type="text" class="form-control" name="Laboratorio">
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="Proveedor" class="col-form-label">Proveedor:</label>
-                                <input type="text" class="form-control" name="Proveedor">
+                                <input id="iProveedor" type="text" class="form-control" name="Proveedor">
                             </div>
                         </div>
                     </div>
@@ -102,7 +102,7 @@
                         <div class="mx-auto">
                             <div class="form-group">
                             <div class="align-center">
-                                <input id="ckbActive" type="checkbox" name="Activo" value="1">
+                                <input id="ckActive" type="checkbox" name="Activo" value="1">
                                 <label for="Activo">Activo</label>
                             </div>
                         </div>
@@ -122,16 +122,7 @@
                     </div>
                     <div class="row">
                         <span class="text-danger">* Campo Obligatorio</span>
-                    </div>
-                    {{!-- 
-                    <div class="col-xl-3 col-md-6 mb-1">
-                        <div class="form-group">
-                            <div class="align-center">
-                                <input id="active" type="checkbox" name="Activo" value="1">
-                                <label for="Activo">Activo</label>
-                            </div>
-                        </div>
-                    </div> --}}
+                    </div> 
                 </div>
 
                 <div class="modal-footer">

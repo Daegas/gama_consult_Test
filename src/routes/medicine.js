@@ -36,7 +36,7 @@ router.post('/add', async (req, res) => { //Same URL as previous but with POST m
     //We need to add 'await' to the Async request and 'async' to the main function
     await DB.query('INSERT INTO Medicamentos set ?', [newMed]); 
     req.flash('success', 'Medicine saved successfully');
-    res.redirect('/meds');
+    res.send('OK').status(200);
 });
 
 /* READ */
@@ -83,6 +83,14 @@ router.get('/get-dt', (req,res,next)=> {
         {
             db: "Caducidad",
             dt: 7
+        },
+        {
+            db: "MedicamentoID",
+            dt: 8
+        },
+        {
+            db: "MedicamentoID",
+            dt: 9
         }
       ];
 
@@ -155,15 +163,15 @@ router.post('/edit/:id', async (req, res) => {
 
     await DB.query('UPDATE Medicamentos set ? WHERE MedicamentoID = ?', [alter_med, id]);
     req.flash('success', 'Med updated successfully');
-    res.redirect('/meds');
+    res.send('OK').status(200);
 });
 
 /* DELETE */
-router.get('/delete/:id', async (req, res) => {
+router.post('/delete/:id', async (req, res) => {
     const { id } = req.params;
     await DB.query('DELETE FROM Medicamentos WHERE MedicamentoID = ?', [id]);
     req.flash('success', 'Med Removed successfully');
-    res.redirect('/meds');
+    res.send('OK').status(200);
 });
 
 
