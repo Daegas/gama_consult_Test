@@ -201,6 +201,7 @@ $("#formMeds").submit( function(e) {
     Laboratorio = $.trim($("#iLaboratorio").val());
     Proveedor = $.trim($("#iProveedor").val());
     Activo = $.trim($("#ckActive").val());
+    Caducidad = $.trim($("#iCaducidad").val());
     
     let url_ = opc == -1? "/meds/add" : "/meds/edit/"+opc;
     console.log(url_)
@@ -216,7 +217,7 @@ $("#formMeds").submit( function(e) {
             P_Descuento, Descuento,
             Gramaje, DosisMG,
             Laboratorio, Proveedor,
-            Activo},
+            Caducidad, Activo},
         success: function(data) {
             tableMeds.ajax.reload(null, false);
         }
@@ -259,12 +260,14 @@ $(document).on("click", "#btnEdit", function(e) {
             $("#iLaboratorio").val(med.Laboratorio);
             $("#iProveedor").val(med.Proveedor);
             $("#ckActivo").val(med.Activo);
-
+            $("#iCaducidad").val(med.Caducidad.split('T')[0]);
+            priceBinding();   
+            
             opc = MedicamentoID;
         };
         xhttp.send();
     
-
+    
     $(".modal-header").css("background-color", "#C0DE00");
     $(".modal-header").css("color", "white");
     $(".modal-title").text('Editar Medicamento');
