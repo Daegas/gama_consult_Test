@@ -5,6 +5,8 @@ const DB = require('../database');
 
 const { loggedEnable } = require('../lib/session'); //User restrictions
 const XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
+//Server-Side Datatables
+const NodeTable = require('nodetable');
 
 /* 
 CRUD
@@ -34,14 +36,82 @@ router.post('/add', async (req, res) => { //Same URL as previous but with POST m
     //We need to add 'await' to the Async request and 'async' to the main function
     await DB.query('INSERT INTO Medicamentos set ?', [newMed]); 
     req.flash('success', 'Medicine saved successfully');
-    res.redirect('/meds');
+    res.send('OK').status(200);
 });
 
 /* READ */
 router.get('/get', async (req, res) => {
     const meds = await DB.query('SELECT * FROM Medicamentos');
-    res.send(meds)
+    res.send({data:meds})
 });
+
+//Datatables Server-Side
+//https://newcodingera.com/datatables-server-side-processing-using-nodejs-mysql/
+router.get('/get-dt', (req,res,next)=> {
+    //Query de Datatables
+    const requestQuery = req.query;
+    //
+    let columnsMap = [
+        {
+          db: "SustanciaActiva",
+          dt: 0
+        },
+        {
+          db: "Nombre",
+          dt: 1
+        }, 
+        {
+          db: "Saldo",
+          dt: 2
+        },
+        {
+          db: "Presentacion",
+          dt: 3
+        },
+        {
+          db: "P_Proveedor",
+          dt: 4
+        },
+        {
+            db: "P_Publico",
+            dt: 5
+        },
+        {
+            db: "Descuento",
+            dt: 6
+        },
+        {
+            db: "Caducidad",
+            dt: 7
+        },
+        {
+            db: "MedicamentoID",
+            dt: 8
+        },
+        {
+            db: "MedicamentoID",
+            dt: 9
+        }
+      ];
+
+    //Select table in DB - Or define any custum QUERY
+    const tableName = "Medicamentos"
+
+    //Primary Key (Required NodeTable)
+    const primaryKey = "MedicamentoID"
+
+    const nodeTable = new NodeTable(requestQuery,DB, tableName, primaryKey, columnsMap);
+
+    nodeTable.output((err, data)=>{
+        if (err) {
+            console.log(err);
+            return;
+        }
+
+        res.send(data)
+    })
+});
+
 
 router.get('/getAJAX', (req, res) => {
     console.log('on Get AJAX')
@@ -49,14 +119,15 @@ router.get('/getAJAX', (req, res) => {
     setInterval( function() {
         console.log('setInterval')
         var xhttp = new XMLHttpRequest();
-        xhttp.open('GET', 'http://localhost:4000/meds/get');
         xhttp.onreadystatechange = function(){
-            if (this.readyState == 4 && this.status == 200) {
+            if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
                 var meds = xhttp.responseText;
                 meds = JSON.parse(meds);
                 res.render('../views/medicine/list.hbs', {meds});
             }
         }
+
+        xhttp.open('GET', 'http://localhost:4000/meds/get', true);
         xhttp.send();
     }, 5000);
 });
@@ -92,15 +163,15 @@ router.post('/edit/:id', async (req, res) => {
 
     await DB.query('UPDATE Medicamentos set ? WHERE MedicamentoID = ?', [alter_med, id]);
     req.flash('success', 'Med updated successfully');
-    res.redirect('/meds');
+    res.send('OK').status(200);
 });
 
 /* DELETE */
-router.get('/delete/:id', async (req, res) => {
+router.post('/delete/:id', async (req, res) => {
     const { id } = req.params;
     await DB.query('DELETE FROM Medicamentos WHERE MedicamentoID = ?', [id]);
     req.flash('success', 'Med Removed successfully');
-    res.redirect('/meds');
+    res.send('OK').status(200);
 });
 
 

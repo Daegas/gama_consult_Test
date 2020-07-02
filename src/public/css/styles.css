@@ -10733,7 +10733,11 @@ h3 {
 }
 .navbar-light .navbar-toggler {
   border: 0;
+<<<<<<< HEAD
   font-size: 1.2rem !important;
+=======
+  font-size: 1.3rem !important;
+>>>>>>> noUserR-Front
 }
 .navbar-light .nav-item .nav-link {
   color: white;
@@ -10762,9 +10766,15 @@ h3 {
   font-family: "Pacifico", cursive;
   height: 3rem;
   text-decoration: none;
+<<<<<<< HEAD
   font-size: 1.5rem !important;
   font-weight: 200;
   padding: 1.5rem 0.5rem;
+=======
+  font-size: 1.6rem !important;
+  font-weight: 800;
+  padding: 1.5rem 1rem;
+>>>>>>> noUserR-Front
   text-align: center;
   letter-spacing: 0.05rem;
   z-index: 1;
@@ -10886,6 +10896,20 @@ h3 {
   border-radius: 0.35rem;
   -moz-border-radius: 0.35rem;
   -webkit-border-radius: 0.35rem;
+}
+
+.dataTables_length label {
+  display: inline-flex;
+}
+.dataTables_length label select {
+  margin-left: 0px;
+  margin-left: 0px;
+  padding-left: 0px;
+  padding-right: 0.5em;
+}
+
+.dataTables_filter label {
+  display: inline-flex;
 }
 
 footer.sticky-footer {
