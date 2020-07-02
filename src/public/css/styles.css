@@ -10731,12 +10731,16 @@ h3 {
     border-color: #e3e6f0;
   }
 }
+.navbar-light .navbar-toggler {
+  border: 0;
+  font-size: 1.2rem !important;
+}
 .navbar-light .nav-item .nav-link {
   color: white;
 }
 .navbar-light .nav-item .nav-link i, .navbar-light .nav-item .nav-link span {
   color: white;
-  font-size: 1.3rem !important;
+  font-size: 1.2rem !important;
 }
 .navbar-light .nav-item .nav-link:active, .navbar-light .nav-item .nav-link:focus, .navbar-light .nav-item .nav-link:hover {
   color: white;
@@ -10756,11 +10760,11 @@ h3 {
 
 .navbar-brand {
   font-family: "Pacifico", cursive;
-  height: 4.375rem;
+  height: 3rem;
   text-decoration: none;
   font-size: 1.5rem !important;
-  font-weight: 800;
-  padding: 1.5rem 1rem;
+  font-weight: 200;
+  padding: 1.5rem 0.5rem;
   text-align: center;
   letter-spacing: 0.05rem;
   z-index: 1;
@@ -10879,9 +10883,9 @@ h3 {
 }
 
 .table {
-  border-radius: 10px 10px 10px 10px;
-  -moz-border-radius: 10px 10px 10px 10px;
-  -webkit-border-radius: 10px 10px 10px 10px;
+  border-radius: 0.35rem;
+  -moz-border-radius: 0.35rem;
+  -webkit-border-radius: 0.35rem;
 }
 
 footer.sticky-footer {

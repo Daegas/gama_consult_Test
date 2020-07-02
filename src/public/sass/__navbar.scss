@@ -1,11 +1,15 @@
+
 .navbar-light{
-  
+  .navbar-toggler{
+    border:0;
+    font-size: 1.2rem !important;
+  }
   .nav-item {
     .nav-link {
       color: white;
       i, span {
         color: white;
-        font-size: 1.3rem !important;
+        font-size: 1.2rem !important;
       }
       &:active,
       &:focus,
@@ -37,10 +41,9 @@
   height: $topbar-base-height;
   text-decoration: none;
   font-size: 1.5rem !important;
-  font-weight: 800;
-  padding: 1.5rem 1rem;
+  font-weight: 200;
+  padding: 1.5rem 0.5rem;
   text-align: center;
   letter-spacing: 0.05rem;
   z-index: 1;
 }
-
