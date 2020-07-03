@@ -5,23 +5,3 @@
     table-layout: fixed !important;
     word-wrap:break-word;
   }
-  
-
-.dataTables_length{
-  label {
-    display: inline-flex;
-
-    select {
-      margin-left: 0px;
-      margin-left: 0px;
-      padding-left: 0px;
-      padding-right: 0.5em;
-    }
-  }
-}
-
-.dataTables_filter{
-  label{
-    display: inline-flex;
-  }
-}

@@ -53,44 +53,48 @@ router.get('/get-dt', (req,res,next)=> {
     //
     let columnsMap = [
         {
+            db: "MedicamentoID",
+            dt: 0
+          },
+        {
           db: "SustanciaActiva",
-          dt: 0
+          dt: 1
         },
         {
           db: "Nombre",
-          dt: 1
+          dt: 2
         }, 
         {
           db: "Saldo",
-          dt: 2
-        },
-        {
-          db: "Presentacion",
           dt: 3
         },
         {
-          db: "P_Proveedor",
+          db: "Presentacion",
           dt: 4
         },
         {
-            db: "P_Publico",
-            dt: 5
+          db: "P_Proveedor",
+          dt: 5
         },
         {
-            db: "Descuento",
+            db: "P_Publico",
             dt: 6
         },
         {
-            db: "Caducidad",
+            db: "Descuento",
             dt: 7
         },
         {
-            db: "MedicamentoID",
+            db: "Caducidad",
             dt: 8
         },
         {
             db: "MedicamentoID",
             dt: 9
+        },
+        {
+            db: "MedicamentoID",
+            dt: 10
         }
       ];
 
@@ -135,6 +139,15 @@ router.get('/getAJAX', (req, res) => {
 router.get('/', async (req, res) => {
     const meds = await DB.query('SELECT * FROM Medicamentos WHERE MedicamentoID>710');
     res.render('../views/medicine/list.hbs', {meds});
+});
+
+/* UPDATE  Entries*/
+router.get('/entries', async (req, res) => {
+    const { id } = req.params;
+    const med = await DB.query('SELECT * FROM Medicamentos WHERE MedicamentoID = ?', [id]);
+
+    res.send({med: med[0]});
+    // res.render('../views/medicine/edit.hbs', {med: med[0]});
 });
 
 /* UPDATE */

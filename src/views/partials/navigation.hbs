@@ -13,9 +13,14 @@
         <ul class="navbar-nav">
           {{!-- <li class="nav-item"><a class="nav-link active" href="#">Features<span class="sr-only">(current)</span></a></li> --}}
           <li class="nav-item">
-            <a class="nav-link" href="/meds">
-              <i class="fa fa-table fa-fw"></i>
-              <span>Inventario</span></a>
+            <a class="nav-link " href="/meds">
+              <i class="fa fa-cash-register fa-fw"></i>
+              {{!-- <span  class="d-none d-md-inline d-sm-none">Inventario</span></a> Para solo mostrar el icono en sm y md--}}
+              <span>Inventario</span></a> 
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="/meds/add">
+              <span>Entradas</span></a>
           </li>
         </ul>
       </div>
@@ -23,7 +28,7 @@
       <div class="col-2 navbar-nav text-center pr-0 d-none d-lg-block text-dark-custum"><a class="navbar-brand mr-0"
           href="/">Dres. Gama</a></div>
       {{!-- ITEMS-RIGHT --}}
-      <div class="col-5 pr-lg-0">
+      {{!-- <div class="col-5 pr-lg-0">
         <ul class="navbar-nav justify-content-end">
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
@@ -52,7 +57,7 @@
             </form>
           </li>
         </ul>
-      </div>
+      </div> --}}
     </div>
   </div>
 </nav>

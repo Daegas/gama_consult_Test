@@ -74,8 +74,12 @@ function editForm(med) {
 
 $(document).ready(function () {
     tableMeds = $('#tbMeds').DataTable({
-        "dom": '<"top"fl<"toolbar mx-auto mb-2"> rt><"bottom"ip><"clear">',
-        // dom: '<"top mt-4 row" l <"toolbar mx-auto mb-2"> frt><"bottom row" <"col-6 mx-auto"i> <"col-6 mx-auto"p>>', //Se agrega clase 'toolbar' a la plantilla
+        // "dom":
+        // "<'row'<'col-sm-10 col-md-4'l><'col-sm-10 col-md-4'f>>" +
+        // "<'row'<'col-sm-10'tr>>" +
+        // "<'row'<'col-sm-10 col-md-4'i><'col-sm-10 col-md-4'p>>",
+        
+        dom: '<"top mt-4 row" l <"toolbar mx-auto mb-2"> frt><"bottom row" <"col-sm-12 col-md-5"i> <"col-sm-12 col-md-7"p>>', //Se agrega clase 'toolbar' a la plantilla
         fnInitComplete: function () { //Función para desplegar contenido (Botón 'Nuevo') en div.toolbar
             html = `
             <button id="btnNew" class="btn btn-info rounded">
@@ -109,8 +113,8 @@ $(document).ready(function () {
             "oPaginate": {
                 "sFirst": "Primero",
                 "sLast": "Último",
-                "sNext": "Siguiente",
-                "sPrevious": "Anterior"
+                "sNext": ">>",
+                "sPrevious": "<<"
             },
             "oAria": {
                 "sSortAscending": ": Ordenar ascendente",
@@ -119,21 +123,29 @@ $(document).ready(function () {
         },
         "columnDefs": [
             {
-                "targets": [2, 4, 5, 8, 9],
+                "targets": [3, 5, 6, 7, 8],
                 "searchable": false
             },
             {
-                "targets":[2,4,5,6,8,9],
+                "targets":[0,3,5,6,7,9,10],
                 "sWidth":'6%'
 
           },
           {
-            "targets":[0,1,3,7],
+            "targets":[1,2,4,8],
             "sWidth":'15%'
 
       }
         ],
+        "buttons": [
+            {
+
+                "text":      '<i class="fa fa-files-o"></i>',
+                "titleAttr": 'data-dt-idx=1'
+            }],
         "columns": [
+            // ID
+            {},
             // SustanciaActiva
             {},
             // Nombre
@@ -156,7 +168,7 @@ $(document).ready(function () {
                 "className": 'details-control',
                 "render": function (data, type, row, meta) {
                     let html = `
-                        <i id="btnEdit" data-MedicamentoID=${data[8]}
+                        <i id="btnEdit" data-MedicamentoID=${data[9]}
                         class="fa fa-pencil text-info pointer" title="Editar">
                         </i>`;
                     return html;
@@ -167,7 +179,7 @@ $(document).ready(function () {
                 "orderable": false,
                 "render": function (data, type, row, meta) {
                     let html = `
-                            <i id="btnDelete" data-MedicamentoID=${data[9]}
+                            <i id="btnDelete" data-MedicamentoID=${data[10]}
                             class="fa fa-trash text-danger pointer" title="Eliminar">
                             </i>`;
                     return html;
@@ -213,9 +225,9 @@ $(document).ready(function () {
     // });
 });
 
-setInterval( function () {
-    tableMeds.ajax.reload(null,false);
-}, 2000 );
+// setInterval( function () {
+//     tableMeds.ajax.reload(null,false);
+// }, 2000 );
 
 
 
