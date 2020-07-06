@@ -1,5 +1,5 @@
 <div class="container">
-    <table id="tbMeds" class="table table-striped table-hover  table-responsive" style="width:100%">
+    <table id={{tbID}} class="table table-striped table-hover  table-responsive" style="width:100%">
         <thead class="bg-light-green text-gray-800">
             <tr>
                 <th>ID</th>
@@ -36,14 +36,9 @@
 
 {{> medicine/modalCreateUpdate }}
 
-{{!-- ***************************************************************************************** --}}
+{{!-- ********** ONLY DATATABLES SCRIPTS ******************* --}}
 <!--Datatables-->
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
 
-
-<!--SCRIPTS-->
-<script src="/js/medicine/list.js"></script>
-<script src="/js/medicine/modalCreateUpdate.js"></script>
-{{!-- <script src="/js/pruebaAJAX.js"></script> --}}

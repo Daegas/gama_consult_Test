@@ -13,6 +13,8 @@
         <!--Bootstrap-->
         {{! <link> for stylesheet behavior if is not installed}}
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+        <!--Animate css-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"></script>
         <!--FontAwasome-->
         <script src="https://use.fontawesome.com/d09d20a4a8.js"></script>
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
@@ -22,8 +24,8 @@
 
     <body class="body">
         {{> navigation}} <!--HadleBars sintaxis, meaning an example of a component which is include in all Project pages-->
-        {{> message }}
         <div class="d-flex p-2 justify-content mt-4 mb-2">
+            {{> message }}
             {{{ body }}} <!--HadleBars sintaxis, meaning this is the part that will change among views-->
         </div>
         {{!-- SCRIPTS --}}

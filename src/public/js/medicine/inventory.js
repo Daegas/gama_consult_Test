@@ -1,3 +1,28 @@
+/**************************** FUNCTIONS *******************************************/
+function reloadAJAX() {
+    tableMeds.ajax.reload(null,false);
+}
+
+setInterval( function () {
+    reloadAJAX();
+}, 2000 );
+
+
+function messageModal(modal_, blink, message){
+    modal_.modal("show");
+    $('.modal-backdrop').css("opacity", "0");
+
+    if(blink){
+        $(".message").text(message);
+        setTimeout( ()=> {
+            modal_.modal("hide");
+        }, 3000);
+    } else{
+        $(".message-details").text(message);
+    }
+}
+
+
 function editForm(med) {
 
     let activo = med.Activo ?
@@ -71,14 +96,9 @@ function editForm(med) {
 }
 
 
-
+/**************************** EVENTS *******************************************/
 $(document).ready(function () {
     tableMeds = $('#tbMeds').DataTable({
-        // "dom":
-        // "<'row'<'col-sm-10 col-md-4'l><'col-sm-10 col-md-4'f>>" +
-        // "<'row'<'col-sm-10'tr>>" +
-        // "<'row'<'col-sm-10 col-md-4'i><'col-sm-10 col-md-4'p>>",
-        
         dom: '<"top mt-4 row" l <"toolbar mx-auto mb-2"> frt><"bottom row" <"col-sm-12 col-md-5"i> <"col-sm-12 col-md-7"p>>', //Se agrega clase 'toolbar' a la plantilla
         fnInitComplete: function () { //Función para desplegar contenido (Botón 'Nuevo') en div.toolbar
             html = `
@@ -121,48 +141,38 @@ $(document).ready(function () {
                 "sSortDescending": ": Ordenar descendente"
             },
         },
-        "columnDefs": [
+        "columnDefs":[
             {
-                "targets": [3, 5, 6, 7, 8],
+                "targets": [3, 5, 6, 7, 9,10],
                 "searchable": false
-            },
-            {
-                "targets":[0,3,5,6,7,9,10],
-                "sWidth":'6%'
-
-          },
-          {
-            "targets":[1,2,4,8],
-            "sWidth":'15%'
-
-      }
-        ],
-        "buttons": [
-            {
-
-                "text":      '<i class="fa fa-files-o"></i>',
-                "titleAttr": 'data-dt-idx=1'
-            }],
+            }
+        ],  
         "columns": [
-            // ID
+            // 0-ID 
             {},
-            // SustanciaActiva
+            // 1-SustanciaActiva
             {},
-            // Nombre
+            // 2-Nombre
             {},
-            // Saldo
+            // 3-Saldo
             {},
-            // Presentacion
+            // 4-Presentacion
             {},
-            // P_Proveedor
+            // 5-P_Proveedor
             {},
-            // P_Publico
+            // 6-P_Publico
             {},
-            // Descuento
+            // 7-Descuento
             {},
-            // Caducidad
-            {},
-            {   //Edit button
+            // 8-Caducidad
+            {
+                "render": function(data, type, row, meta) {
+                    let formatData = data.split("T")[0].split("-").reverse().join("/");
+                    return formatData
+                }
+            },
+            //9-Edit button
+            {   
                 "data": null,
                 "orderable": false,
                 "className": 'details-control',
@@ -174,7 +184,8 @@ $(document).ready(function () {
                     return html;
                 }
             },
-            {   //Delete button
+            //10-Delete button
+            {   
                 "data": null,
                 "orderable": false,
                 "render": function (data, type, row, meta) {
@@ -187,97 +198,19 @@ $(document).ready(function () {
             }
         ]
     });
-
-
-
-
-    /* EDIT FORM */
-    // Add event listener for opening and closing 'Edit form'
-    // $('#tbMeds tbody').on('click', 'td.details-control', function () {
-    //     let this_ = $(this);
-    //     var tr = this_.closest('tr');
-    //     var row = tableMeds.row( tr );
-
-    //     let iconElement = this_.find('i');
-
-    //     if ( row.child.isShown() ) {
-    //         // This row is already open - close it
-    //         row.child.hide();
-    //         iconElement.attr('title','Editar').removeClass('fa-window-close').addClass('fa-pencil');
-    //     }
-    //     else {
-    //         // Open this row
-    //         let MedicamentoID = iconElement.attr('data-MedicamentoID');
-
-    //         var xhttp = new XMLHttpRequest();
-    //         xhttp.open('GET', '/meds/edit/'+MedicamentoID);
-    //         xhttp.onload = function(){
-    //             var med = xhttp.responseText;
-    //             med = JSON.parse(med);
-
-    //             //Show data in a new row(child)
-    //             row.child( editForm(med.med) ).show();
-    //         };
-    //         xhttp.send();
-
-    //         iconElement.attr('title', 'Cancelar').removeClass('fa-pencil').addClass('fa-window-close');
-    //     }
-    // });
 });
 
-// setInterval( function () {
-//     tableMeds.ajax.reload(null,false);
-// }, 2000 );
-
-
-
-var opc = -1;
-$("#formMeds").submit(function (e) {
-    e.preventDefault();
-    SustanciaActiva = $.trim($("#iSustanciaActiva").val());
-    Nombre = $.trim($("#iNombre").val());
-    Saldo = $.trim($("#iSaldo").val());
-    Presentacion = $.trim($("#iPresentacion").val());
-    P_Proveedor = $.trim($("#iPProveedor").val());
-    P_Publico = $.trim($("#iPPublico").val());
-    P_Descuento = $.trim($("#iPDescuento").val());
-    Descuento = $.trim($("#iDescuento").val());
-    Gramaje = $.trim($("#iGramaje").val());
-    DosisMG = $.trim($("#iDosis").val());
-    Laboratorio = $.trim($("#iLaboratorio").val());
-    Proveedor = $.trim($("#iProveedor").val());
-    Activo = $.trim($("#ckActive").val());
-    Caducidad = $.trim($("#iCaducidad").val());
-
-    let url_ = opc == -1 ? "/meds/add" : "/meds/edit/" + opc;
-    console.log(url_)
-
-    $.ajax({
-        url: url_,
-        type: "POST",
-        datatype: "json",
-        data: {
-            SustanciaActiva, Nombre,
-            Saldo, Presentacion,
-            P_Proveedor, P_Publico,
-            P_Descuento, Descuento,
-            Gramaje, DosisMG,
-            Laboratorio, Proveedor,
-            Caducidad, Activo
-        },
-        success: function (data) {
-            tableMeds.ajax.reload(null, false);
-        }
-    });
-    $('#modalCU').modal('hide');
-})
+$('.modal-message').on('show.bs.modal', function (e) {
+    x = "bounce"
+    $('.modal-message .modal-dialog').attr('class', 'modal-dialog  ' + x + '  animated');
+});
 
 $(document).on("click", "#btnNew", function () {
-    opcion = -1;
     $("#formMeds").trigger("reset");
     $(".modal-header").css("background-color", "#C0DE00");
     $(".modal-header").css("color", "white");
     $(".modal-title").text('Alta Medicamento');
+    $(".modal-secret").val(-1);
     $("#modalCU").modal('show');
 });
 
@@ -286,13 +219,12 @@ $(document).on("click", "#btnEdit", function (e) {
     let MedicamentoID = $(row["prevObject"][0]).attr('data-MedicamentoId');
 
     var xhttp = new XMLHttpRequest();
-    xhttp.open('GET', '/meds/edit/' + MedicamentoID);
+    xhttp.open('GET', '/meds/getMed/' + MedicamentoID);
     xhttp.onload = function () {
         var res = xhttp.responseText;
         res = JSON.parse(res);
 
         var med = res.med;
-        console.log(med)
         // Display on Modal
         $("#iSustanciaActiva").val(med.SustanciaActiva);
         $("#iNombre").val(med.Nombre);
@@ -307,6 +239,7 @@ $(document).on("click", "#btnEdit", function (e) {
         $("#iLaboratorio").val(med.Laboratorio);
         $("#iProveedor").val(med.Proveedor);
         $("#ckActivo").val(med.Activo);
+        med.Activo == "1"? $("#ckActivo").prop("checked", true) : $("#ckActivo").prop("checked", false);
         $("#iCaducidad").val(med.Caducidad.split('T')[0]);
         priceBinding();
 
@@ -318,6 +251,7 @@ $(document).on("click", "#btnEdit", function (e) {
     $(".modal-header").css("background-color", "#C0DE00");
     $(".modal-header").css("color", "white");
     $(".modal-title").text('Editar Medicamento');
+    $(".modal-secret").val(MedicamentoID);
     $("#modalCU").modal('show');
 });
 
@@ -331,8 +265,13 @@ $(document).on("click", "#btnDelete", function () {
         $.ajax({
             url: "/meds/delete/" + MedicamentoID,
             type: "POST",
-            success: function () {
+            success: function (res) {
                 tableMeds.row(row_.parents('tr')).remove().draw();
+                messageModal($("#modalMessageSuccess"), true, "ELIMINADO");  
+            },
+            error: function (res){
+                let message = res.responseJSON.code + '\n' + res.responseJSON.sqlMessage;
+                messageModal($("#modalMessageError"), false, message);
             }
         })
     }

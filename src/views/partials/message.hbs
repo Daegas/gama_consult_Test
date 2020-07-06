@@ -1,4 +1,32 @@
-{{#if MessageSuccess }}
+<div class="modal fade modal-message" id="modalMessageSuccess" tabindex="-1" role="dialog" aria-labelledby="modalMessageLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="mx-auto d-table">
+            <div class="alert alert-success alert-dismissible fade show px-2 pb-2" role="alert">
+                <div class="row mx-0">
+                    <i class="fa fa-check-circle mr-2" style="font-size: 24px;"></i> 
+                    Medicamento <span class="message mx-1"></span> exitosamente.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade modal-message" id="modalMessageError" tabindex="-1" role="dialog" aria-labelledby="modalMessageLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="mx-auto d-table">
+            <div class="alert alert-danger alert-dismissible fade show px-2 pb-0" role="alert">
+                <div class="row mx-0">
+                    <i class="fa fa-times-circle mr-2" style="font-size: 24px;"></i> 
+                    ERROR!
+                </div>
+                <div class="row mx-0">
+                    <p class="message-details"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{!-- {{#if MessageSuccess }}
 <div class="container p-4">
     <div class="row">
         <div class="col-md-4 mx-auto">
@@ -12,7 +40,6 @@
     </div>
 </div>
 {{/if}}
-
 {{#if MessageFailure }}
 <div class="container p-4">
     <div class="row">
@@ -26,4 +53,4 @@
         </div>
     </div>
 </div>
-{{/if}}
+{{/if}} --}}
