@@ -1,4 +1,4 @@
-/**************************** FUNCTIONS *******************************************/
+    /**************************** FUNCTIONS *******************************************/
 function reloadAJAX() {
     tableSearch.ajax.reload(null,false);
     tableAdd.ajax.reload(null,false);
@@ -243,14 +243,14 @@ $(document).ready(function () {
                     return html;
                 }
             },
-            //10-Delete button
+            //10-Delete button This button should delete it only from the tbAdd table,
             {
                 "data": null,
                 "orderable": false,
                 "render": function (data, type, row, meta) {
                     let html = `
                                 <i id="btnDelete" data-MedicamentoID=${data[10]}
-                                class="fa fa-trash text-danger pointer" title="Eliminar">
+                                class="fa fa-close text-danger pointer" title="Eliminar">
                                 </i>`;
                     return html;
                 }

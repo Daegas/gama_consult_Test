@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-light bg-primary shadow static-top">
   {{!-- BRAND --}}
-  <a class="navbar-brand d-lg-none text-dark-custum" href="/">Dres. Gama</a>
+  <a class="navbar-brand d-lg-none text-dark-custum" href="/">{{brand}}</a>
   {{!-- TOGGLER --}}
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -14,7 +14,7 @@
           {{!-- <li class="nav-item"><a class="nav-link active" href="#">Features<span class="sr-only">(current)</span></a></li> --}}
           <li class="nav-item">
             <a class="nav-link " href="/meds">
-              <i class="fa fa-cash-register fa-fw"></i>
+              {{!-- <i class="fa fa-cash-register fa-fw"></i> --}}
               {{!-- <span  class="d-none d-md-inline d-sm-none">Inventario</span></a> Para solo mostrar el icono en sm y md--}}
               <span>Inventario</span></a> 
           </li>
@@ -22,11 +22,15 @@
             <a class="nav-link " href="/meds/entries">
               <span>Entradas</span></a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link " href="/meds/outs">
+              <span>Salidas</span></a>
+          </li>
         </ul>
       </div>
       {{!-- BRAND-LG --}}
       <div class="col-2 navbar-nav text-center pr-0 d-none d-lg-block text-dark-custum"><a class="navbar-brand mr-0"
-          href="/">Dres. Gama</a></div>
+          href="/">{{brand}}</a></div>
       {{!-- ITEMS-RIGHT --}}
       {{!-- <div class="col-5 pr-lg-0">
         <ul class="navbar-nav justify-content-end">

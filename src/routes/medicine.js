@@ -7,9 +7,8 @@ const { loggedEnable } = require('../lib/session'); //User restrictions
 //Server-Side Datatables
 const NodeTable = require('nodetable');
 
-/*
-VIEWS
-*/
+/**************************** VIEWS *******************************************/
+
 router.get('/', async (req, res) => {
     res.render('../views/medicine/inventory.hbs');
 });
@@ -20,12 +19,20 @@ router.get('/getMed/:id', async (req, res) => {
 
     res.send({med: med[0]});
 });
-/* 
-CRUD
-*/
 
-/* CREATE */
-router.post('/add', async (req, res) => { //Same URL as previous but with POST method. Is execute when user sends the add.hbs form
+router.get('/entries', (req, res) => { //Here 'get' method can be understood as -getting a view- through an URL
+    res.render('../views/medicine/entries.hbs');
+});
+
+router.get('/outs', (req, res) => { //Here 'get' method can be understood as -getting a view- through an URL
+    res.render('../views/medicine/outs.hbs');
+});
+
+/**************************** CRUD *******************************************/
+
+
+/**************** CREATE ****************/
+router.post('/add', async (req, res) => { //Same URL as previous but with POST method.
     const { 
         SustanciaActiva, Nombre, 
         Saldo, Presentacion, 
@@ -57,16 +64,13 @@ router.post('/add', async (req, res) => { //Same URL as previous but with POST m
     // req.flash('success', 'Medicine saved successfully');
 });
 
-/* READ */
+/**************** READ ****************/
+
+
 // router.get('/get', async (req, res) => {
 //     const meds = await DB.query('SELECT * FROM Medicamentos');
 //     res.send({data:meds})
 // });
-
-/* READ ENTRIES  */
-router.get('/entries', (req, res) => { //Here 'get' method can be understood as -getting a view- through an URL
-    res.render('../views/medicine/entries.hbs');
-});
 
 //Datatables Server-Side
 //https://newcodingera.com/datatables-server-side-processing-using-nodejs-mysql/
@@ -141,7 +145,7 @@ router.get('/get-dt', (req,res,next)=> {
 
 
 
-/* UPDATE */
+/**************** UPDATE ****************/
 
 
 router.post('/edit/:id', async (req, res) => {
@@ -176,7 +180,7 @@ router.post('/edit/:id', async (req, res) => {
     res.send('OK').status(200);
 });
 
-/* DELETE */
+/**************** DELETE ****************/
 router.post('/delete/:id', async (req, res) => {
     const { id } = req.params;
 

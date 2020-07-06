@@ -5,7 +5,11 @@
                 <th>ID</th>
                 <th>Sustancia Activa</th>
                 <th>Nombre</th>
-                <th>Saldo</th>
+                {{#if quantity}}
+                    <th>Cantidad</th>
+                {{else}} 
+                    <th>Saldo</th>
+                {{/if}}
                 <th>Presentación</th>
                 <th>P. Proveedor</th>
                 <th>P. Público</th>
@@ -21,7 +25,11 @@
                 <th>ID</th>
                 <th>Sustancia Activa</th>
                 <th>Nombre</th>
-                <th>Saldo</th>
+                {{#if quantity}}
+                    <th>Cantidad</th>
+                {{else}} 
+                    <th>Saldo</th>
+                {{/if}}
                 <th>Presentación</th>
                 <th>P. Proveedor</th>
                 <th>P. Público</th>
@@ -33,6 +41,13 @@
         </tfoot>
     </table>
 </div>
+
+{{#if modal}}
+  {{> medicine/modalCreateUpdate }}
+  {{#if quantity}}
+    {{> medicine/modalCreateUpdate quantity=true}}
+    {{/if}}
+{{/if}}
 
 
 {{!-- ********** ONLY DATATABLES SCRIPTS ******************* --}}
