@@ -1,6 +1,7 @@
 /**************************** FUNCTIONS *******************************************/
 function reloadAJAX() {
-    tableMeds.ajax.reload(null,false);
+    tableSearch.ajax.reload(null,false);
+    tableAdd.ajax.reload(null,false);
 }
 
 setInterval( function () {
@@ -138,7 +139,9 @@ $(document).ready(function () {
         "columnDefs": [
             {
                 "targets": [3, 5, 6, 7, 9, 10],
-                "searchable": false
+                "searchable": false,
+                "targets": [ 9, 10],
+                "visible": false
             }
         ],
         "columns": [
@@ -161,30 +164,9 @@ $(document).ready(function () {
             // 8-Caducidad
             {},
             //9-Edit button
-            {
-                "data": null,
-                "orderable": false,
-                "className": 'details-control',
-                "render": function (data, type, row, meta) {
-                    let html = `
-                        <i id="btnEdit" data-MedicamentoID=${data[9]}
-                        class="fa fa-pencil text-info pointer" title="Editar">
-                        </i>`;
-                    return html;
-                }
-            },
+            {},
             //10-Delete button
-            {
-                "data": null,
-                "orderable": false,
-                "render": function (data, type, row, meta) {
-                    let html = `
-                            <i id="btnDelete" data-MedicamentoID=${data[10]}
-                            class="fa fa-trash text-danger pointer" title="Eliminar">
-                            </i>`;
-                    return html;
-                }
-            }
+            {}
         ]
     });
     // ************ ADD TABLE **************
@@ -284,14 +266,6 @@ $('.modal-message').on('show.bs.modal', function (e) {
     $('.modal-message .modal-dialog').attr('class', 'modal-dialog  ' + x + '  animated');
 });
 
-$(document).on("click", "#btnNew", function () {
-    $("#formMeds").trigger("reset");
-    $(".modal-header").css("background-color", "#C0DE00");
-    $(".modal-header").css("color", "white");
-    $(".modal-title").text('Alta Medicamento');
-    $(".modal-secret").val(-1);
-    $("#modalCU").modal('show');
-});
 
 $(document).on("click", "#btnEdit", function (e) {
     var row = $(this).closest("tr");
