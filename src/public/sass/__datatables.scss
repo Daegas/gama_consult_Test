@@ -5,3 +5,9 @@
     table-layout: fixed !important;
     word-wrap:break-word;
   }
+  .table-active,
+  .table-active > th,
+  .table-active > td
+  .table-active > tr {
+    background-color: red;
+  }

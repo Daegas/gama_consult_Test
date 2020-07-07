@@ -10890,6 +10890,12 @@ h3 {
   word-wrap: break-word;
 }
 
+.table-active,
+.table-active > th,
+.table-active > td .table-active > tr {
+  background-color: red;
+}
+
 footer.sticky-footer {
   padding: 2rem 0;
   flex-shrink: 0;

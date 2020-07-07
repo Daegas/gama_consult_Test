@@ -1,7 +1,6 @@
     /**************************** FUNCTIONS *******************************************/
 function reloadAJAX() {
-    tableSearch.ajax.reload(null,false);
-    tableAdd.ajax.reload(null,false);
+    // ?tableSearch.ajax.reload(null,false);
 }
 
 setInterval( function () {
@@ -103,6 +102,9 @@ $(document).ready(function () {
     // ********* SEARCH TABLE ***********
     tableSearch = $('#tbSearch').DataTable({
         dom: '<"top mt-4 row" frt><"bottom row" <"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>',
+        select: {
+            style: 'single'
+        },
         "pagingType": "full",
         "lengthMenu": [7],
         "paging": true,
@@ -230,7 +232,7 @@ $(document).ready(function () {
             {},
             // 8-Caducidad
             {},
-            //9-Edit button
+            //9-Edit button Only change the current table   go
             {
                 "data": null,
                 "orderable": false,
@@ -259,6 +261,16 @@ $(document).ready(function () {
     });
 
 });
+
+//Manage selected Items
+$('#tbSearch').on( 'click', 'tr', function () {
+    console.log('click');
+} );
+
+$(document).on("click", "#btnAdd", function(e){
+    console.log( tableSearch.row( { selected: true } ).data() );
+});
+///
 
 
 $('.modal-message').on('show.bs.modal', function (e) {

@@ -3,9 +3,9 @@
     <div class="card mt-4">
         <div class="card-body">
             <h1>Búsqueda</h1>
-            {{>medicine/list tbID="tbSearch"}}
+            {{>medicine/list tbID="tbSearch" modal=false}}
             <div class="form-group">
-                <button class="btn btn-primary btn-block"> Añadir</button>
+                <button id="btnAdd" class="btn btn-primary btn-block"> Añadir</button>
             </div>
         </div>
     </div>
@@ -17,7 +17,6 @@
 
             <h1>Medicamentos a agregar </h1>
             {{> medicine/list tbID="tbAdd" modal=true  quantity=true}}
-
             <div class="form-group">
                 <button class="btn btn-primary btn-block">Completar Entrada</button>
             </div>

@@ -1,14 +1,14 @@
 <div class="container">
-    <table id={{tbID}} class="table table-striped table-hover  table-responsive" style="width:100%">
+    <table id={{tbID}} class="table table-striped table-hover  table-responsive table-sm" style="width:100%">
         <thead class="bg-light-green text-gray-800">
             <tr>
                 <th>ID</th>
                 <th>Sustancia Activa</th>
                 <th>Nombre</th>
                 {{#if quantity}}
-                    <th>Cantidad</th>
-                {{else}} 
-                    <th>Saldo</th>
+                <th>Cantidad</th>
+                {{else}}
+                <th>Saldo</th>
                 {{/if}}
                 <th>Presentación</th>
                 <th>P. Proveedor</th>
@@ -19,16 +19,16 @@
                 <th></th>
             </tr>
         </thead>
-        
+
         <tfoot class="bg-light-green">
-             <tr>
+            <tr>
                 <th>ID</th>
                 <th>Sustancia Activa</th>
                 <th>Nombre</th>
                 {{#if quantity}}
-                    <th>Cantidad</th>
-                {{else}} 
-                    <th>Saldo</th>
+                <th>Cantidad</th>
+                {{else}}
+                <th>Saldo</th>
                 {{/if}}
                 <th>Presentación</th>
                 <th>P. Proveedor</th>
@@ -43,9 +43,10 @@
 </div>
 
 {{#if modal}}
-  {{> medicine/modalCreateUpdate }}
-  {{#if quantity}}
-    {{> medicine/modalCreateUpdate quantity=true}}
+    {{#if quantity}}
+        {{> medicine/modalCreateUpdate quantity=true}}
+    {{else}}
+        {{> medicine/modalCreateUpdate }}
     {{/if}}
 {{/if}}
 
@@ -53,6 +54,12 @@
 {{!-- ********** ONLY DATATABLES SCRIPTS ******************* --}}
 <!--Datatables-->
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/select/1.3.1/css/select.dataTables.min.css">
 
+
+<script type="text/javascript" charset="utf8"
+    src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" charset="utf8"
+    src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+<script type="text/javascript" charset="utf8"
+    src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
