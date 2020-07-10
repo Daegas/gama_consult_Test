@@ -119,7 +119,7 @@ $(document).ready(function () {
     // ************ ADD TABLE **************
     idList=["0"]; //List of tableSearch selected elements, to show in tableAdd
     tableAdd = $('#tbAdd').DataTable({
-        dom: '<"top mt-4 row" frt><"bottom row" <"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>',
+        dom: '<"top mt-4 row" rt><"bottom row" <"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>',
         "pagingType": "full",
         "lengthMenu": [7],
         "paging": true,

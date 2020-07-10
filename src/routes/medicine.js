@@ -24,8 +24,8 @@ router.get('/entries', (req, res) => { //Here 'get' method can be understood as 
     res.render('../views/medicine/entries.hbs');
 });
 
-router.get('/outs', (req, res) => { //Here 'get' method can be understood as -getting a view- through an URL
-    res.render('../views/medicine/outs.hbs');
+router.get('/exits', (req, res) => { //Here 'get' method can be understood as -getting a view- through an URL
+    res.render('../views/medicine/exits.hbs');
 });
 
 /**************************** ENTRIES *******************************************/

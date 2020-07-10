@@ -1,8 +1,10 @@
-    {{!-- *********************** SEARCH TABLE ********************************** --}}
+{{!-- *********************** SEARCH TABLE ********************************** --}}
 <div class="container">
     <div class="card mt-4">
+        <h1 class="card-header">
+            Búsqueda
+        </h1>
         <div class="card-body">
-            <h1>Búsqueda</h1>
             {{>medicine/list tbID="tbSearch" modal=false}}
             {{>medicine/modalEntries}}
             <div class="form-group">
@@ -14,9 +16,10 @@
 
     {{!-- *********************** ADD TABLE********************************** --}}
     <div class="card mt-4">
+        <h1 class="card-header">
+            Medicamentos a agregar
+        </h1>
         <div class="card-body">
-
-            <h1>Medicamentos a agregar </h1>
             {{> medicine/list tbID="tbAdd" modal=true  quantity=true}}
             <div class="form-group">
                 <button id="btnCompleteEntry" class="btn btn-primary btn-block">Completar Entrada</button>

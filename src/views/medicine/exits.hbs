@@ -1,0 +1,40 @@
+{{!-- *********************** SEARCH TABLE ********************************** --}}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-xl-6 p-1">
+            <div class="card mt-4 ">
+                <h2 class="card-header">
+                    Búsqueda
+                </h2>
+                <div class="card-body align-middle">
+                    {{>medicine/list tbID="tbSearch" width=100}}
+
+                    <button id="btnAdd" class="btn btn-primary btn-block"> Añadir</button>
+
+                </div>
+            </div>
+
+        </div>
+
+
+        {{!-- *********************** ADD TABLE********************************** --}}
+        <div class="col-12 col-xl-6 p-1">
+            <div class="card mt-4 ">
+                <h2 class="card-header">
+                    Medicamentos a agregar
+                </h2>
+                <div class="card-body">
+                    {{> medicine/list tbID="tbAdd" modal=true  quantity=true width=100}}
+                    <div class="form-group">
+                        <button class="btn btn-primary btn-block">Completar Entrada</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!--SCRIPTS-->
+<script src="/js/medicine/exits.js"></script>
+<script src="/js/medicine/modalCreateUpdate.js"></script>
