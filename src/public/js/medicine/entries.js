@@ -173,7 +173,7 @@ $(document).ready(function () {
     });
     // ************ ADD TABLE **************
     tableAdd = $('#tbAdd').DataTable({
-        dom: '<"top mt-4 row" frt><"bottom row" <"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>',
+        dom: '<"top mt-4 row" rt><"bottom row" <"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>',
         "pagingType": "full",
         "lengthMenu": [7],
         "paging": true,
