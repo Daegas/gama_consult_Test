@@ -6,6 +6,7 @@
         </h1>
         <div class="card-body">
             {{>medicine/list tbID="tbSearch" modal=false}}
+            {{>medicine/modalEntries}}
             <div class="form-group">
                 <button id="btnAdd" class="btn btn-primary btn-block"> Añadir</button>
             </div>
@@ -21,7 +22,7 @@
         <div class="card-body">
             {{> medicine/list tbID="tbAdd" modal=true  quantity=true}}
             <div class="form-group">
-                <button class="btn btn-primary btn-block">Completar Entrada</button>
+                <button id="btnCompleteEntry" class="btn btn-primary btn-block">Completar Entrada</button>
             </div>
         </div>
     </div>
