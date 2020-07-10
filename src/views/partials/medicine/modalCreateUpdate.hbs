@@ -30,20 +30,20 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="Saldo" class="col-form-label">Saldo{{#if quantity}} Anterior{{/if}}: <span class="text-danger">*</span></label>
+                                <input id="iSaldo" type="number" class="form-control" step="1" name="Saldo" required>
+                            </div>
+                        </div>
                         {{#if quantity}} 
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label for="Saldo" class="col-form-label">Saldo Anterior: <span class="text-danger">*</span></label>
-                                    <input id="iSaldoA" type="number" class="form-control" step="1" name="Saldo" required>
+                                    <label for="Quantity" class="col-form-label">Cantidad: <span class="text-danger">*</span></label>
+                                    <input id="iQuantity" type="number" class="form-control" step="1" name="Quantity" required>
                                 </div>
                             </div>
                         {{/if}}
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label for="Quantity" class="col-form-label">Cantidad: <span class="text-danger">*</span></label>
-                                <input id="iSaldo" type="number" class="form-control" step="1" name="Quantity" required>
-                            </div>
-                        </div>
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="Presentacion" class="col-form-label">Presentación: <span class="text-danger">*</span></label>

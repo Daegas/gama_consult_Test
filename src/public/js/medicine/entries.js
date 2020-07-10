@@ -270,8 +270,8 @@ $(document).on("click", "#btnEdit", function (e) {
         // Display on Modal
         $("#iSustanciaActiva").val(med.SustanciaActiva);
         $("#iNombre").val(med.Nombre);
-        $("#iSaldoA").val(med.Saldo);
-        $("#iSaldo").val(entries[MedicamentoID].split(',')[0]);
+        $("#iSaldo").val(med.Saldo);
+        $("#iQuantity").val(entries[MedicamentoID].split(',')[0]);
         $("#iPresentacion").val(med.Presentacion);
         $("#iPProveedor").val(med.P_Proveedor);
         $("#iPPublico").val(med.P_Publico);

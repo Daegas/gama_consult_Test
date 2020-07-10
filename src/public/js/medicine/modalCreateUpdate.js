@@ -27,7 +27,7 @@ $("#formMeds").submit(function (e) {
     e.preventDefault();
 
     let opc = $(".modal-option").val();
-    var quantity = parseInt($.trim($("#iSaldoA").val()));
+    var quantity = parseInt($.trim($("#iQuantity").val()));
 
     SustanciaActiva = $.trim($("#iSustanciaActiva").val());
     Nombre = $.trim($("#iNombre").val());
