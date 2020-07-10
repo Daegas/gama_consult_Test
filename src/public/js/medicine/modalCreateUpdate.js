@@ -26,11 +26,16 @@ function priceBinding(){
 $("#formMeds").submit(function (e) {
     e.preventDefault();
 
-    let opc = $(".modal-secret").val();
+    let opc = $(".modal-option").val();
+    var quantity = parseInt($.trim($("#iSaldoA").val()));
 
     SustanciaActiva = $.trim($("#iSustanciaActiva").val());
     Nombre = $.trim($("#iNombre").val());
-    Saldo = $.trim($("#iSaldo").val());
+    if(quantity){
+        Saldo = (quantity + parseInt($.trim($("#iSaldo").val()))).toString();
+    } else {
+        Saldo = $.trim($("#iSaldo").val());
+    }
     Presentacion = $.trim($("#iPresentacion").val());
     P_Proveedor = $.trim($("#iPProveedor").val());
     P_Publico = $.trim($("#iPPublico").val());
@@ -67,7 +72,12 @@ $("#formMeds").submit(function (e) {
             // req.flash('success', 'Med updated successfully');
             let message = opc == -1 ? " AGREGADO " : " EDITADO ";
             messageModal($("#modalMessageSuccess"), true, message);  
-            reloadAJAX();
+            if(quantity){
+                reloadEntry(opc, false);
+            } else {
+                reloadAJAX();
+            }
+            
         },
         error: function(res){
             let message = res.responseJSON.code + '\n' + res.responseJSON.sqlMessage;

@@ -22,85 +22,11 @@ function messageModal(modal_, blink, message){
     }
 }
 
-
-function editForm(med) {
-
-    let activo = med.Activo ?
-        '<input id="active" type="checkbox" name="Activo" value="1" checked>' :
-        '<input id="active" type="checkbox" name="Activo" value="0">';
-
-    let html =
-        `
-    <form action="/meds/edit/`+ med.MedicamentoID + `" method="POST"> 
-        <div class="row">
-            <div class="col-xl-3 col-md-6 mb-1">
-                <div class="form-group">
-                    <input type="text" class="form-control" name="SustanciaActiva"
-                        placeholder="Sustancia Activa" title="Sustancia Activa"
-                        value=" `+ med.SustanciaActiva + ` ">
-                </div>
-            </div>
-            <div class="col-xl-3 col-md-6 mb-1">
-                <div class="form-group">
-                    <input type="text" class="form-control" name="Nombre" placeholder="Nombre" title="Nombre"
-                    value=" `+ med.Nombre + ` ">
-                </div>
-            </div>
-            <div class="col-xl-3 col-md-6 mb-1">
-                <div class="form-group">
-                    <input type="number" class="form-control" name="Saldo" placeholder="Saldo" title="Saldo"
-                    value= `+ med.Saldo + ` >
-                </div>
-            </div>
-            <div class="col-xl-3 col-md-6 mb-1">
-                <div class="form-group">
-                    <input type="text" class="form-control" name="Presentacion" title="Presentación"
-                        placeholder="Presentación" value=" `+ med.Presentacion + ` ">
-                </div>
-            </div>
-            <div class="col-xl-3 col-md-6 mb-1">
-                <div class="form-group">
-                    <input type="number" step="0.01" class="form-control" name="P_Proveedor" title="$ Proveedor"
-                        placeholder="$ Proveedor" value= `+ med.P_Proveedor + ` >
-                </div>
-            </div>
-            <div class="col-xl-3 col-md-6 mb-1">
-                <div class="form-group">
-                    <input type="number" step="0.01" class="form-control" name="P_Publico" title="$ Publico"
-                        placeholder="$ Público" value= `+ med.P_Publico + ` >
-                </div>
-            </div>
-            <div class="col-xl-3 col-md-6 mb-1">
-                <div class="form-group">
-                    <input type="number" step="0.01" class="form-control" name="P_Descuento" title="$ Descuento"
-                        placeholder="$ Descuento" value= `+ med.P_Descuento + ` >
-                </div>
-            </div>
-            <div class="col-xl-3 col-md-6 mb-1">
-                <div class="form-group">
-                    <div class="align-center">
-                        `+ activo + `
-                        <label for="Activo">Activo</label>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <button class="btn btn-primary btn-block">Save</button>
-        </div>
-    </form>
-    `;
-
-    return html;
-}
-
-
 /**************************** EVENTS *******************************************/
 $(document).ready(function () {
     tableMeds = $('#tbMeds').DataTable({
         dom: '<"top mt-4 row" l <"toolbar mx-auto mb-2"> frt><"bottom row" <"col-sm-12 col-md-5"i> <"col-sm-12 col-md-7"p>>', //Se agrega clase 'toolbar' a la plantilla
-        fnInitComplete: function () { //Función para desplegar contenido (Botón 'Nuevo') en div.toolbar
+        fnInitComplete: function () { //Function to display content in 'toolbar' class
             html = `
             <button id="btnNew" class="btn btn-info rounded">
                 <i class="fa fa-plus-circle"></i> Nuevo
@@ -210,7 +136,7 @@ $(document).on("click", "#btnNew", function () {
     $(".modal-header").css("background-color", "#C0DE00");
     $(".modal-header").css("color", "white");
     $(".modal-title").text('Alta Medicamento');
-    $(".modal-secret").val(-1);
+    $(".modal-option").val(-1);
     $("#modalCU").modal('show');
 });
 
@@ -243,7 +169,6 @@ $(document).on("click", "#btnEdit", function (e) {
         $("#iCaducidad").val(med.Caducidad.split('T')[0]);
         priceBinding();
 
-        opc = MedicamentoID;
     };
     xhttp.send();
 
@@ -251,7 +176,7 @@ $(document).on("click", "#btnEdit", function (e) {
     $(".modal-header").css("background-color", "#C0DE00");
     $(".modal-header").css("color", "white");
     $(".modal-title").text('Editar Medicamento');
-    $(".modal-secret").val(MedicamentoID);
+    $(".modal-option").val(MedicamentoID);
     $("#modalCU").modal('show');
 });
 

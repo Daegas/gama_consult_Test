@@ -28,6 +28,131 @@ router.get('/outs', (req, res) => { //Here 'get' method can be understood as -ge
     res.render('../views/medicine/outs.hbs');
 });
 
+/**************************** ENTRIES *******************************************/
+// router.post('/entriesAdd', async (req, res) => {
+//     const { MedicamentoID, Cantidad } = req.body;
+
+//     const newEntry = {
+//         MedicamentoID,
+//         Cantidad
+//     };
+
+//     try {
+//         let response = await DB.query('INSERT INTO Entradas set ?', [newEntry]);
+//         res.status(200).send(response);
+//     } catch(e) {
+//         res.status(500).send(e);
+//     }
+// });
+
+router.get('/get-addTable/:idList', (req,res,next)=> {
+    //Query de Datatables
+    const requestQuery = req.query;
+    let { idList } = req.params;
+    idList = JSON.parse(idList);
+    //
+    let columnsMap = [
+        {
+            db: "MedicamentoID",
+            dt: 0
+          },
+        {
+          db: "SustanciaActiva",
+          dt: 1
+        },
+        {
+          db: "Nombre",
+          dt: 2
+        }, 
+        {
+          db: "Saldo",
+          dt: 3
+        },
+        {
+          db: "Presentacion",
+          dt: 4
+        },
+        {
+          db: "P_Proveedor",
+          dt: 5
+        },
+        {
+            db: "P_Publico",
+            dt: 6
+        },
+        {
+            db: "Descuento",
+            dt: 7
+        },
+        {
+            db: "Caducidad",
+            dt: 8
+        },
+        {
+            db: "MedicamentoID",
+            dt: 9
+        },
+        {
+            db: "MedicamentoID",
+            dt: 10
+        }
+      ];
+
+    //Select table in DB - Or define any custum QUERY
+    let query_ = ""
+    idList.forEach( (id) => {
+        query_ += id;
+        if(id != idList[idList.length-1]){
+            query_ += ', ';
+        }
+    });
+    const query = "SELECT * FROM Medicamentos WHERE MedicamentoID IN (" + query_ + ")";
+    const tableName = "Medicamentos"
+
+    //Primary Key (Required NodeTable)
+    const primaryKey = "MedicamentoID"
+
+    const nodeTable = new NodeTable(requestQuery,DB, query, primaryKey, columnsMap);
+
+    nodeTable.output((err, data)=>{
+        if (err) {
+            console.log(err);
+            return;
+        }
+        res.send(data)
+    })
+});
+
+router.post('/entriesUpdate', async (req, res) => {
+    let entries_  = JSON.stringify(req.body);
+    let entriesJSON = JSON.parse(entries_);
+
+    let entryTuple = "";
+    let saldo, nuevoSaldo;
+
+    let first = true;
+    for(id in entriesJSON){
+        if(!first){
+            entryTuple += ",";
+        } else {
+            first = false;
+        }
+
+        saldo = entriesJSON[id].split(',');
+        nuevoSaldo = parseInt(saldo[0]) + parseInt(saldo[1]);
+        entryTuple += "(" +id+ "," + nuevoSaldo + ")";
+    }
+
+    let query = "INSERT INTO Medicamentos (MedicamentoId, Saldo) VALUES " + 
+                        entryTuple + 
+                    " ON DUPLICATE KEY UPDATE Saldo = VALUES(Saldo)";
+    try{
+        let response = await DB.query(query);
+        res.status(200).send(response);
+    } catch(e){
+        res.status(500).send(e);
+    }
+});
 /**************************** CRUD *******************************************/
 
 
@@ -65,13 +190,6 @@ router.post('/add', async (req, res) => { //Same URL as previous but with POST m
 });
 
 /**************** READ ****************/
-
-
-// router.get('/get', async (req, res) => {
-//     const meds = await DB.query('SELECT * FROM Medicamentos');
-//     res.send({data:meds})
-// });
-
 //Datatables Server-Side
 //https://newcodingera.com/datatables-server-side-processing-using-nodejs-mysql/
 router.get('/get-dt', (req,res,next)=> {
@@ -146,8 +264,6 @@ router.get('/get-dt', (req,res,next)=> {
 
 
 /**************** UPDATE ****************/
-
-
 router.post('/edit/:id', async (req, res) => {
     const { id } = req.params;
 
@@ -177,7 +293,6 @@ router.post('/edit/:id', async (req, res) => {
         res.status(500).send(e);
     }
     // req.flash('success', 'Med updated successfully');
-    res.send('OK').status(200);
 });
 
 /**************** DELETE ****************/

@@ -1,13 +1,4 @@
     /**************************** FUNCTIONS *******************************************/
-function reloadAJAX() {
-    // ?tableSearch.ajax.reload(null,false);
-}
-
-setInterval( function () {
-    reloadAJAX();
-}, 2000 );
-
-
 function messageModal(modal_, blink, message){
     modal_.modal("show");
     $('.modal-backdrop').css("opacity", "0");
@@ -22,77 +13,31 @@ function messageModal(modal_, blink, message){
     }
 }
 
+async function reloadAddTable(){
+    url_ = "/meds/get-addTable/"+JSON.stringify(idList); //Build a new url with the actual idList
+    await tableAdd.ajax.url(url_).load(null,false); //Reaload AJAX query
+}
 
-function editForm(med) {
+async function reloadEntry(MedicamentoID, isDelete){
+    //Update idList
+    if(MedicamentoID) {
+        const index = idList.indexOf(MedicamentoID);
+        if (index > -1) 
+            idList.splice(index, 1);
+    } else {
+        idList=["0"];
+    }
+    reloadAddTable();
+    //Update 'entries' Object
+    if(MedicamentoID) {
+        delete entries[MedicamentoID];
+    } else {
+        entries = {};
+    }
 
-    let activo = med.Activo ?
-        '<input id="active" type="checkbox" name="Activo" value="1" checked>' :
-        '<input id="active" type="checkbox" name="Activo" value="0">';
-
-    let html =
-        `
-    <form action="/meds/edit/`+ med.MedicamentoID + `" method="POST"> 
-        <div class="row">
-            <div class="col-xl-3 col-md-6 mb-1">
-                <div class="form-group">
-                    <input type="text" class="form-control" name="SustanciaActiva"
-                        placeholder="Sustancia Activa" title="Sustancia Activa"
-                        value=" `+ med.SustanciaActiva + ` ">
-                </div>
-            </div>
-            <div class="col-xl-3 col-md-6 mb-1">
-                <div class="form-group">
-                    <input type="text" class="form-control" name="Nombre" placeholder="Nombre" title="Nombre"
-                    value=" `+ med.Nombre + ` ">
-                </div>
-            </div>
-            <div class="col-xl-3 col-md-6 mb-1">
-                <div class="form-group">
-                    <input type="number" class="form-control" name="Saldo" placeholder="Saldo" title="Saldo"
-                    value= `+ med.Saldo + ` >
-                </div>
-            </div>
-            <div class="col-xl-3 col-md-6 mb-1">
-                <div class="form-group">
-                    <input type="text" class="form-control" name="Presentacion" title="Presentación"
-                        placeholder="Presentación" value=" `+ med.Presentacion + ` ">
-                </div>
-            </div>
-            <div class="col-xl-3 col-md-6 mb-1">
-                <div class="form-group">
-                    <input type="number" step="0.01" class="form-control" name="P_Proveedor" title="$ Proveedor"
-                        placeholder="$ Proveedor" value= `+ med.P_Proveedor + ` >
-                </div>
-            </div>
-            <div class="col-xl-3 col-md-6 mb-1">
-                <div class="form-group">
-                    <input type="number" step="0.01" class="form-control" name="P_Publico" title="$ Publico"
-                        placeholder="$ Público" value= `+ med.P_Publico + ` >
-                </div>
-            </div>
-            <div class="col-xl-3 col-md-6 mb-1">
-                <div class="form-group">
-                    <input type="number" step="0.01" class="form-control" name="P_Descuento" title="$ Descuento"
-                        placeholder="$ Descuento" value= `+ med.P_Descuento + ` >
-                </div>
-            </div>
-            <div class="col-xl-3 col-md-6 mb-1">
-                <div class="form-group">
-                    <div class="align-center">
-                        `+ activo + `
-                        <label for="Activo">Activo</label>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <button class="btn btn-primary btn-block">Save</button>
-        </div>
-    </form>
-    `;
-
-    return html;
+    //Reload tableSearch
+    if(!isDelete)
+        tableSearch.ajax.reload(null,false);
 }
 
 /**************************** EVENTS *******************************************/
@@ -172,6 +117,7 @@ $(document).ready(function () {
         ]
     });
     // ************ ADD TABLE **************
+    idList=["0"]; //List of tableSearch selected elements, to show in tableAdd
     tableAdd = $('#tbAdd').DataTable({
         dom: '<"top mt-4 row" frt><"bottom row" <"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>',
         "pagingType": "full",
@@ -182,7 +128,7 @@ $(document).ready(function () {
         "info": true,
         // "autoWidth": false,
         "serverSide": true,
-        "ajax": "/meds/get-dt",
+        "ajax": "/meds/get-addTable/"+JSON.stringify(idList),
         "language": {
             "info": "Medicamentos _START_-_END_/_TOTAL_ ",
             "lengthMenu": "Mostrar   _MENU_   medicamentos",
@@ -220,8 +166,14 @@ $(document).ready(function () {
             {},
             // 2-Nombre
             {},
-            // 3-Saldo
-            {},
+            // 3-Cantidad
+            {   
+                "data": null,
+                "render": function (data, type, row, meta){
+                    let entry_ = entries[data[0]];
+                    return entry_.split(',')[0]; //Display 'Quantity'
+                }
+            },
             // 4-Presentacion
             {},
             // 5-P_Proveedor
@@ -262,23 +214,48 @@ $(document).ready(function () {
 
 });
 
+// ********************* SEARH TABLE EVENTS **************************
 //Manage selected Items
 $('#tbSearch').on( 'click', 'tr', function () {
-    console.log('click');
 } );
 
+$(document).on('keyup', function(e) {
+    let rowSelected = tableSearch.row( { selected: true } ).data();
+    if (e.keyCode == 13 && rowSelected){ //When a row is Selected and 'Enter' pressed
+        $("#formEntry").trigger("reset");
+        $("#iID").val(rowSelected[0]);
+        $("#iNombreE").val(rowSelected[1]);
+        $("#iSaldoAE").val(rowSelected[3]);
+        $("#modalEntry").modal("show");
+    }
+});
+
 $(document).on("click", "#btnAdd", function(e){
-    console.log( tableSearch.row( { selected: true } ).data() );
+    let rowSelected = tableSearch.row( { selected: true } ).data();
+    if (rowSelected){
+        $("#formEntry").trigger("reset");
+        $("#iID").val(rowSelected[0]);
+        $("#iNombreE").val(rowSelected[1]);
+        $("#iSaldoAE").val(rowSelected[3]);
+        $("#modalEntry").modal("show");
+    }
 });
-///
 
+// ********************* MODAL ENTRIES EVENTS **************************
+let entries={};
+$(document).on('click', "#btnAddEntry", function(e) {
+    e.preventDefault();
 
-$('.modal-message').on('show.bs.modal', function (e) {
-    x = "bounce"
-    $('.modal-message .modal-dialog').attr('class', 'modal-dialog  ' + x + '  animated');
+    let id = $("#iID").val();
+    entries[id] = $("#iCantidad").val()+','+$("#iSaldoAE").val();
+    idList.push(id); //Add MedicineID into idList
+
+    $("#modalEntry").modal("hide");
+
+    reloadAddTable();
 });
 
-
+// ********************* ADD TABLE EVENTS **************************
 $(document).on("click", "#btnEdit", function (e) {
     var row = $(this).closest("tr");
     let MedicamentoID = $(row["prevObject"][0]).attr('data-MedicamentoId');
@@ -293,7 +270,8 @@ $(document).on("click", "#btnEdit", function (e) {
         // Display on Modal
         $("#iSustanciaActiva").val(med.SustanciaActiva);
         $("#iNombre").val(med.Nombre);
-        $("#iSaldo").val(med.Saldo);
+        $("#iSaldoA").val(med.Saldo);
+        $("#iSaldo").val(entries[MedicamentoID].split(',')[0]);
         $("#iPresentacion").val(med.Presentacion);
         $("#iPProveedor").val(med.P_Proveedor);
         $("#iPPublico").val(med.P_Publico);
@@ -308,7 +286,6 @@ $(document).on("click", "#btnEdit", function (e) {
         $("#iCaducidad").val(med.Caducidad.split('T')[0]);
         priceBinding();
 
-        opc = MedicamentoID;
     };
     xhttp.send();
 
@@ -316,7 +293,7 @@ $(document).on("click", "#btnEdit", function (e) {
     $(".modal-header").css("background-color", "#C0DE00");
     $(".modal-header").css("color", "white");
     $(".modal-title").text('Editar Medicamento');
-    $(".modal-secret").val(MedicamentoID);
+    $(".modal-option").val(MedicamentoID);
     $("#modalCU").modal('show');
 });
 
@@ -327,17 +304,32 @@ $(document).on("click", "#btnDelete", function () {
     var answer = confirm("¿Está seguro de quere eliminar?");
 
     if (answer) {
-        $.ajax({
-            url: "/meds/delete/" + MedicamentoID,
-            type: "POST",
-            success: function (res) {
-                tableMeds.row(row_.parents('tr')).remove().draw();
-                messageModal($("#modalMessageSuccess"), true, "ELIMINADO");  
-            },
-            error: function (res){
-                let message = res.responseJSON.code + '\n' + res.responseJSON.sqlMessage;
-                messageModal($("#modalMessageError"), false, message);
-            }
-        })
+        reloadEntry(MedicamentoID, true);
     }
-})
+});
+
+$(document).on("click", "#btnCompleteEntry", function () {
+    $.ajax({
+        url: "/meds/entriesUpdate",
+        type: "POST",
+        datatype: "json",
+        data: entries,
+        success: function (res) {
+            // req.flash('success', 'Med updated successfully');
+            let message = " EDITADO ";
+            messageModal($("#modalMessageSuccess"), true, message);  
+            reloadEntry();
+        },
+        error: function(res){
+            let message = res.responseJSON.code + '\n' + res.responseJSON.sqlMessage;
+            messageModal($("#modalMessageError"), false, message);
+        }
+    });
+    // reloadEntry();
+});
+
+//************************ MESSAGE EVENTS ***************************/
+$('.modal-message').on('show.bs.modal', function (e) {
+    x = "bounce"
+    $('.modal-message .modal-dialog').attr('class', 'modal-dialog  ' + x + '  animated');
+});
