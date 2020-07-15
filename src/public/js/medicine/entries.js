@@ -74,6 +74,7 @@ async function removeEntry(MedicamentoID, isDelete){
 
 $(document).ready(function () {
     sessionStorage.clear();
+    tabIndex = 0;
     // ********* SEARCH TABLE ***********
     tableSearch = $('#tbSearch').DataTable({
         dom: '<"top mt-4 row" frt><"bottom row" <"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>',
@@ -298,6 +299,26 @@ $(document).on('keyup', function(e) {
         $("#iSaldoAE").val(rowSelected[3]);
         $("#modalEntry").modal("show");
     }
+
+    //FOCUS EVENT
+    let busqueda = $("#tbSearch_filter input").val();
+    if (e.keyCode == 9 && busqueda){
+        row_ = tableSearch.row( tabIndex );
+        row_.select();
+        tabIndex += 1;
+    }
+});
+
+$("body").on('focus.spf', "*", function(e) {
+    console.log('foc', e)
+    e.stopPropagation();
+    e.preventDefault();
+    if(e.currentTarget != $("#tbSearch_filter input")[0]){
+        
+        if(!$("#modalEntry").hasClass("show") && !$("#modalCU").hasClass("show")){
+            $(this).blur();
+        }
+    }
 });
 
 $(document).on("click", "#btnAdd", function(e){
@@ -318,7 +339,7 @@ $(document).on('click', "#btnAddEntry", function(e) {
 
     let id = $("#iID").val();
     entries[id] = $("#iCantidad").val()+','+$("#iSaldoAE").val();
-    if (!(id.toString() in idList)){
+    if (idList.indexOf(id.toString()) == -1){
         idList.push(id); //Add MedicineID into idList
     } else {
         sessionStorage.removeItem(id); //If searchTable clicked on an item already stored on addTable, all changes will be reset.
