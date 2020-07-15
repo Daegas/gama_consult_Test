@@ -28,13 +28,14 @@ $("#formMeds").submit(function (e) {
 
     let opc = $(".modal-option").val();
     var quantity = parseInt($.trim($("#iQuantity").val()));
+    var saldo_ = $.trim($("#iSaldo").val())
 
     SustanciaActiva = $.trim($("#iSustanciaActiva").val());
     Nombre = $.trim($("#iNombre").val());
     if(quantity){
-        Saldo = (quantity + parseInt($.trim($("#iSaldo").val()))).toString();
+        Saldo = (quantity + parseInt(saldo_)).toString();
     } else {
-        Saldo = $.trim($("#iSaldo").val());
+        Saldo = saldo_;
     }
     Presentacion = $.trim($("#iPresentacion").val());
     P_Proveedor = $.trim($("#iPProveedor").val());
@@ -54,36 +55,36 @@ $("#formMeds").submit(function (e) {
     Caducidad = Caducidad == "" ? "0000-00-00" : Caducidad;
 
     let url_ = opc == -1 ? "/meds/add" : "/meds/edit/" + opc;
+    let data_ = {
+        SustanciaActiva, Nombre,
+        Saldo, Presentacion,
+        P_Proveedor, P_Publico,
+        P_Descuento, Descuento,
+        Gramaje, DosisMG,
+        Laboratorio, Proveedor,
+        Caducidad, Activo
+    }
 
-    $.ajax({
-        url: url_,
-        type: "POST",
-        datatype: "json",
-        data: {
-            SustanciaActiva, Nombre,
-            Saldo, Presentacion,
-            P_Proveedor, P_Publico,
-            P_Descuento, Descuento,
-            Gramaje, DosisMG,
-            Laboratorio, Proveedor,
-            Caducidad, Activo
-        },
-        success: function (res) {
-            // req.flash('success', 'Med updated successfully');
-            let message = opc == -1 ? " AGREGADO " : " EDITADO ";
-            messageModal($("#modalMessageSuccess"), true, message);  
-            if(quantity){
-                reloadEntry(opc, false);
-            } else {
+    if(quantity){
+        localEntryUpdate(opc, data_, quantity, saldo_);
+    } else {
+        $.ajax({
+            url: url_,
+            type: "POST",
+            datatype: "json",
+            data: data_,
+            success: function (res) {
+                // req.flash('success', 'Med updated successfully');
+                let message = opc == -1 ? " AGREGADO " : " EDITADO ";
+                messageModal($("#modalMessageSuccess"), true, message); 
                 reloadAJAX();
+            },
+            error: function(res){
+                let message = res.responseJSON.code + '\n' + res.responseJSON.sqlMessage;
+                messageModal($("#modalMessageError"), false, message);
             }
-            
-        },
-        error: function(res){
-            let message = res.responseJSON.code + '\n' + res.responseJSON.sqlMessage;
-            messageModal($("#modalMessageError"), false, message);
-        }
-    });
+        });
+    }
     $('#modalCU').modal('hide');
 });
 
