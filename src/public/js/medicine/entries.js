@@ -13,6 +13,19 @@ function messageModal(modal_, blink, message){
     }
 }
 
+function entryModal(rowSelected){
+    id = rowSelected[0];
+    if (idList.indexOf(id.toString()) == -1){
+        $("#formEntry").trigger("reset");
+        $("#iID").val(rowSelected[0]);
+        $("#iNombreE").val(rowSelected[1]);
+        $("#iSaldoAE").val(rowSelected[3]);
+        $("#modalEntry").modal("show");
+    } else if(!$("#modalEntry").hasClass("show")) {
+        alert('El elemento ya se encuntra en la lista "Medicamentos a Agregar". Use la segunda tabla para editar.');
+    }
+}
+
 function fillModalCU(med, MedicamentoID) {
     $("#iSustanciaActiva").val(med.SustanciaActiva).prop("disabled", true);
     $("#iNombre").val(med.Nombre).prop("disabled", true);
@@ -292,14 +305,11 @@ $('#tbSearch').on( 'click', 'tr', function () {
 
 $(document).on('keyup', function(e) {
     let rowSelected = tableSearch.row( { selected: true } ).data();
-    if (e.keyCode == 13 && rowSelected){ //When a row is Selected and 'Enter' pressed
-        $("#formEntry").trigger("reset");
-        $("#iID").val(rowSelected[0]);
-        $("#iNombreE").val(rowSelected[1]);
-        $("#iSaldoAE").val(rowSelected[3]);
-        $("#modalEntry").modal("show");
+   
+    if (e.keyCode == 13 && rowSelected ){ //When a row is Selected and 'Enter' pressed
+        entryModal(rowSelected);
     }
-
+    
     //FOCUS EVENT
     let busqueda = $("#tbSearch_filter input").val();
     if (e.keyCode == 9 && busqueda){
@@ -310,7 +320,6 @@ $(document).on('keyup', function(e) {
 });
 
 $("body").on('focus.spf', "*", function(e) {
-    console.log('foc', e)
     e.stopPropagation();
     e.preventDefault();
     if(e.currentTarget != $("#tbSearch_filter input")[0]){
@@ -324,11 +333,7 @@ $("body").on('focus.spf', "*", function(e) {
 $(document).on("click", "#btnAdd", function(e){
     let rowSelected = tableSearch.row( { selected: true } ).data();
     if (rowSelected){
-        $("#formEntry").trigger("reset");
-        $("#iID").val(rowSelected[0]);
-        $("#iNombreE").val(rowSelected[1]);
-        $("#iSaldoAE").val(rowSelected[3]);
-        $("#modalEntry").modal("show");
+        entryModal(rowSelected);
     }
 });
 
@@ -336,6 +341,7 @@ $(document).on("click", "#btnAdd", function(e){
 let entries={};
 $(document).on('click', "#btnAddEntry", function(e) {
     e.preventDefault();
+    e.stopPropagation();
 
     let id = $("#iID").val();
     entries[id] = $("#iCantidad").val()+','+$("#iSaldoAE").val();
@@ -345,7 +351,10 @@ $(document).on('click', "#btnAddEntry", function(e) {
         sessionStorage.removeItem(id); //If searchTable clicked on an item already stored on addTable, all changes will be reset.
     }
 
-    $("#modalEntry").modal("hide");
+    setTimeout( function(){
+        $("#modalEntry").modal("hide");
+    }, 200); //To avoid trigger any action when 'Enter' while Modal is open 
+    
 
     reloadAddTable();
 });
