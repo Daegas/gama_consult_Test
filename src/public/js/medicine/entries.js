@@ -13,12 +13,40 @@ function messageModal(modal_, blink, message){
     }
 }
 
+function fillModalCU(med, MedicamentoID) {
+    $("#iSustanciaActiva").val(med.SustanciaActiva).prop("disabled", true);
+    $("#iNombre").val(med.Nombre).prop("disabled", true);
+    $("#iSaldo").val(entries[MedicamentoID].split(',')[1]).prop("disabled", true);
+    $("#iQuantity").val(entries[MedicamentoID].split(',')[0]);
+    $("#iPresentacion").val(med.Presentacion).prop("disabled", true);
+    $("#iPProveedor").val(med.P_Proveedor);
+    $("#iPPublico").val(med.P_Publico);
+    $("#iDescuento").val(med.Descuento);
+    $("#iPDescuento").val(med.P_Descuento);
+    $("#iGramaje").val(med.Gramaje).prop("disabled", true);
+    $("#iDosis").val(med.DosisMG).prop("disabled", true);
+    $("#iLaboratorio").val(med.Laboratorio).prop("disabled", true);
+    $("#iProveedor").val(med.Proveedor).prop("disabled", true);
+    $("#ckActivo").val(med.Activo);
+    med.Activo == "1"? $("#ckActivo").prop("checked", true) : $("#ckActivo").prop("checked", false);
+    $("#iCaducidad").val(med.Caducidad.split('T')[0]);
+    priceBinding();
+}
+
+function localEntryUpdate(MedicamentoID, data_, quantity, saldo_){
+    sessionStorage.setItem(MedicamentoID, JSON.stringify(data_));
+    if(quantity){ //Covers case where quantity field has been updated in ModalCreateUpdate
+        entries[MedicamentoID] = quantity+","+saldo_;
+    }
+    reloadAddTable();
+}
+
 async function reloadAddTable(){
     url_ = "/meds/get-addTable/"+JSON.stringify(idList); //Build a new url with the actual idList
     await tableAdd.ajax.url(url_).load(null,false); //Reaload AJAX query
 }
 
-async function reloadEntry(MedicamentoID, isDelete){
+async function removeEntry(MedicamentoID, isDelete){
     //Update idList
     if(MedicamentoID) {
         const index = idList.indexOf(MedicamentoID);
@@ -31,8 +59,10 @@ async function reloadEntry(MedicamentoID, isDelete){
     //Update 'entries' Object
     if(MedicamentoID) {
         delete entries[MedicamentoID];
+        sessionStorage.removeItem(MedicamentoID);
     } else {
         entries = {};
+        sessionStorage.clear();
     }
 
     //Reload tableSearch
@@ -43,7 +73,7 @@ async function reloadEntry(MedicamentoID, isDelete){
 /**************************** EVENTS *******************************************/
 
 $(document).ready(function () {
-
+    sessionStorage.clear();
     // ********* SEARCH TABLE ***********
     tableSearch = $('#tbSearch').DataTable({
         dom: '<"top mt-4 row" frt><"bottom row" <"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>',
@@ -177,13 +207,53 @@ $(document).ready(function () {
             // 4-Presentacion
             {},
             // 5-P_Proveedor
-            {},
+            {
+                "data": null,
+                render: function(data, type, row, meta){
+                    let item_ = JSON.parse(sessionStorage.getItem(data[0]));
+                    if (item_ != null){ //If the medicine had been locally modified
+                        return item_.P_Proveedor;
+                    } else {
+                        return data[5];
+                    }
+                }
+            },
             // 6-P_Publico
-            {},
+            {
+                "data": null,
+                render: function(data, type, row, meta){
+                    let item_ = JSON.parse(sessionStorage.getItem(data[0]));
+                    if (item_ != null){ //If the medicine had been locally modified
+                        return item_.P_Publico;
+                    } else {
+                        return data[6];
+                    }
+                }
+            },
             // 7-Descuento
-            {},
+            {
+                "data": null,
+                render: function(data, type, row, meta){
+                    let item_ = JSON.parse(sessionStorage.getItem(data[0]));
+                    if (item_ != null){ //If the medicine had been locally modified
+                        return item_.Descuento;
+                    } else {
+                        return data[7];
+                    }
+                }
+            },
             // 8-Caducidad
-            {},
+            {
+                "data": null,
+                render: function(data, type, row, meta){
+                    let item_ = JSON.parse(sessionStorage.getItem(data[0]));
+                    if (item_ != null){ //If the medicine had been locally modified
+                        return item_.Caducidad;
+                    } else {
+                        return data[8];
+                    }
+                }
+            },
             //9-Edit button Only change the current table   go
             {
                 "data": null,
@@ -248,48 +318,38 @@ $(document).on('click', "#btnAddEntry", function(e) {
 
     let id = $("#iID").val();
     entries[id] = $("#iCantidad").val()+','+$("#iSaldoAE").val();
-    idList.push(id); //Add MedicineID into idList
+    if (!(id.toString() in idList)){
+        idList.push(id); //Add MedicineID into idList
+    } else {
+        sessionStorage.removeItem(id); //If searchTable clicked on an item already stored on addTable, all changes will be reset.
+    }
 
     $("#modalEntry").modal("hide");
 
     reloadAddTable();
 });
 
+
 // ********************* ADD TABLE EVENTS **************************
 $(document).on("click", "#btnEdit", function (e) {
     var row = $(this).closest("tr");
     let MedicamentoID = $(row["prevObject"][0]).attr('data-MedicamentoId');
 
-    var xhttp = new XMLHttpRequest();
-    xhttp.open('GET', '/meds/getMed/' + MedicamentoID);
-    xhttp.onload = function () {
-        var res = xhttp.responseText;
-        res = JSON.parse(res);
-
-        var med = res.med;
-        // Display on Modal
-        $("#iSustanciaActiva").val(med.SustanciaActiva);
-        $("#iNombre").val(med.Nombre);
-        $("#iSaldo").val(med.Saldo);
-        $("#iQuantity").val(entries[MedicamentoID].split(',')[0]);
-        $("#iPresentacion").val(med.Presentacion);
-        $("#iPProveedor").val(med.P_Proveedor);
-        $("#iPPublico").val(med.P_Publico);
-        $("#iDescuento").val(med.Descuento);
-        $("#iPDescuento").val(med.P_Descuento);
-        $("#iGramaje").val(med.Gramaje);
-        $("#iDosis").val(med.DosisMG);
-        $("#iLaboratorio").val(med.Laboratorio);
-        $("#iProveedor").val(med.Proveedor);
-        $("#ckActivo").val(med.Activo);
-        med.Activo == "1"? $("#ckActivo").prop("checked", true) : $("#ckActivo").prop("checked", false);
-        $("#iCaducidad").val(med.Caducidad.split('T')[0]);
-        priceBinding();
-
-    };
-    xhttp.send();
-
-
+    let item_ = JSON.parse(sessionStorage.getItem(MedicamentoID)); 
+    if (item_ != null) {//If medicine already in sessionStorage, which means previously getted by 'meds/getMed' method
+        fillModalCU(item_, MedicamentoID);
+    } else { //Otherwise, make request
+        var xhttp = new XMLHttpRequest();
+        xhttp.open('GET', '/meds/getMed/' + MedicamentoID);
+        xhttp.onload = function () {
+            var res = xhttp.responseText;
+            res = JSON.parse(res);
+            // Display on Modal
+            fillModalCU(res.med, MedicamentoID);
+        };
+        xhttp.send();
+    }
+    
     $(".modal-header").css("background-color", "#C0DE00");
     $(".modal-header").css("color", "white");
     $(".modal-title").text('Editar Medicamento');
@@ -304,28 +364,38 @@ $(document).on("click", "#btnDelete", function () {
     var answer = confirm("¿Está seguro de quere eliminar?");
 
     if (answer) {
-        reloadEntry(MedicamentoID, true);
+        removeEntry(MedicamentoID, true);
     }
 });
 
 $(document).on("click", "#btnCompleteEntry", function () {
+    
+    //Get Entries which had been updated by other fields
+    fullEntries = {}
+    for(let i=0; i< sessionStorage.length; i++){
+        key_ = sessionStorage.key(i)
+        fullEntries[key_] = sessionStorage.getItem(key_)
+    }
+
+    let all_entries = {}
+    all_entries[0] = entries;
+    all_entries[1] = fullEntries;
+    data_ = JSON.stringify(all_entries) //All entries
     $.ajax({
         url: "/meds/entriesUpdate",
         type: "POST",
         datatype: "json",
-        data: entries,
+        data: {data_},
         success: function (res) {
-            // req.flash('success', 'Med updated successfully');
             let message = " EDITADO ";
             messageModal($("#modalMessageSuccess"), true, message);  
-            reloadEntry();
+            removeEntry();
         },
         error: function(res){
             let message = res.responseJSON.code + '\n' + res.responseJSON.sqlMessage;
             messageModal($("#modalMessageError"), false, message);
         }
     });
-    // reloadEntry();
 });
 
 //************************ MESSAGE EVENTS ***************************/
