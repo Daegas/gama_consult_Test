@@ -127,6 +127,7 @@ router.post('/entriesUpdate', async (req, res) => {
     let allEntries = JSON.parse(req.body["data_"]);
     let simpleEntries = allEntries[0];
     let fullEntries = allEntries[1];
+    let isExit = allEntries[2];
 
     let simpleEntryTuple = "";
     let saldo, nuevoSaldo;
@@ -141,7 +142,7 @@ router.post('/entriesUpdate', async (req, res) => {
             }
     
             saldo = simpleEntries[id].split(',');
-            nuevoSaldo = parseInt(saldo[0]) + parseInt(saldo[1]);
+            nuevoSaldo = isExit? parseInt(saldo[1])-parseInt(saldo[0]) : parseInt(saldo[1])+parseInt(saldo[0]);
             simpleEntryTuple += "(" +id+ "," + nuevoSaldo + ")";
         }
     }

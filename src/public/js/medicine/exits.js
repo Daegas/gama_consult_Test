@@ -1,7 +1,10 @@
 /**************************** EVENTS *******************************************/
-
+tableSearch = null;
+tableAdd = null;
 $(document).ready(function () {
-
+    // ********* FUNCTIONALITY ***********
+    sessionStorage.clear();
+    tabIndex = 0;
     // ********* SEARCH TABLE ***********
     tableSearch = $('#tbSearch').DataTable({
         dom: '<"top mt-4 row" f><"row" <"col-12"t>><"bottom row" <"col-sm-4 col-lg-3"i> <"col-sm-5 col-lg-3"p>>',
@@ -75,6 +78,7 @@ $(document).ready(function () {
         ]
     });
     // ************ ADD TABLE **************
+    idList = ["0"]; //List of tableSearch selected elements, to show in tableAdd
     tableAdd = $('#tbAdd').DataTable({
         dom: '<"top mt-4 row" fr><"row" <"col-12"t>><"bottom row" <"col-sm-5 col-md-4"i><"col-sm-6 col-md-6"p>>',
         "pagingType": "full",
@@ -85,7 +89,7 @@ $(document).ready(function () {
         "info": true,
         // "autoWidth": false,
         "serverSide": true,
-        "ajax": "/meds/get-dt",
+        "ajax": "/meds/get-addTable/" +JSON.stringify(idList),
         "language": {
             "info": "Medicamentos _START_-_END_/_TOTAL_ ",
             "lengthMenu": "Mostrar   _MENU_   medicamentos",
@@ -114,7 +118,7 @@ $(document).ready(function () {
             {
                 "targets": [3, 5, 6, 7, 9, 10],
                 "searchable": false,
-                "targets": [ 1,5,8,9, 10],
+                "targets": [ 1,5,8],
                 "visible": false
             }
         ],
@@ -125,8 +129,14 @@ $(document).ready(function () {
             {},
             // 2-Nombre
             {},
-            // 3-Saldo
-            {},
+            // 3-Cantidad
+            {
+                "data": null,
+                "render": function (data, type, row, meta) {
+                    let entry_ = entries[data[0]];
+                    return entry_.split(',')[0]; //Display 'Quantity'
+                }
+            },
             // 4-Presentacion
             {},
             // 5-P_Proveedor
@@ -164,5 +174,24 @@ $(document).ready(function () {
             }
         ]
     });
-
 });
+
+// ********************* MODAL ENTRIES EVENTS **************************
+let entries = {};
+
+// ********************* ADD TABLE EVENTS **************************
+let _addSelectedRow;
+$(document).on("click", "#btnEdit", function (e) {
+    let rowSelected = _addSelectedRow.data();
+    $("#formEntry").trigger("reset");
+    $("#iID").val(rowSelected[0]);
+    $("#iNombreE").val(rowSelected[2]);
+    $("#iCantidad").val(entries[rowSelected[0]].split(",")[0]);
+    $("#iSaldoAE").val(rowSelected[3]);
+
+    $("#modalEntry").modal("show");
+});
+
+$('#tbAdd').on( 'click', 'tr', function () {
+    _addSelectedRow = tableAdd.row(this);
+} );

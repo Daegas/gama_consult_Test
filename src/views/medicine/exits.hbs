@@ -8,7 +8,7 @@
                 </h2>
                 <div class="card-body align-middle">
                     {{>medicine/list tbID="tbSearch" width=100}}
-
+                    {{>medicine/modalEntries}}
                     <button id="btnAdd" class="btn btn-primary btn-block"> Añadir</button>
 
                 </div>
@@ -24,9 +24,9 @@
                     Medicamentos a agregar
                 </h2>
                 <div class="card-body">
-                    {{> medicine/list tbID="tbAdd" modal=true  quantity=true width=100}}
+                    {{> medicine/list tbID="tbAdd" modal=false quantity=true width=100}}
                     <div class="form-group">
-                        <button class="btn btn-primary btn-block">Completar Entrada</button>
+                        <button id="btnCompleteEntry" class="btn btn-primary btn-block">Completar Entrada</button>
                     </div>
                 </div>
             </div>
@@ -37,4 +37,5 @@
 
 <!--SCRIPTS-->
 <script src="/js/medicine/exits.js"></script>
+<script src="/js/medicine/sharedEntriesExits.js"></script>
 <script src="/js/medicine/modalCreateUpdate.js"></script>
