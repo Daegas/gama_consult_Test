@@ -1,27 +1,27 @@
-    /**************************** FUNCTIONS *******************************************/
-function messageModal(modal_, blink, message){
+/**************************** FUNCTIONS *******************************************/
+function messageModal(modal_, blink, message) {
     modal_.modal("show");
     $('.modal-backdrop').css("opacity", "0");
 
-    if(blink){
+    if (blink) {
         $(".message").text(message);
-        setTimeout( ()=> {
+        setTimeout(() => {
             modal_.modal("hide");
         }, 3000);
-    } else{
+    } else {
         $(".message-details").text(message);
     }
 }
 
-function entryModal(rowSelected){
+function entryModal(rowSelected) {
     id = rowSelected[0];
-    if (idList.indexOf(id.toString()) == -1){
+    if (idList.indexOf(id.toString()) == -1) {
         $("#formEntry").trigger("reset");
         $("#iID").val(rowSelected[0]);
         $("#iNombreE").val(rowSelected[1]);
         $("#iSaldoAE").val(rowSelected[3]);
         $("#modalEntry").modal("show");
-    } else if(!$("#modalEntry").hasClass("show")) {
+    } else if (!$("#modalEntry").hasClass("show")) {
         alert('El elemento ya se encuntra en la lista "Medicamentos a Agregar". Use la segunda tabla para editar.');
     }
 }
@@ -29,7 +29,7 @@ function entryModal(rowSelected){
 function fillModalCU(med, MedicamentoID) {
     $("#iSustanciaActiva").val(med.SustanciaActiva).prop("disabled", true);
     $("#iNombre").val(med.Nombre).prop("disabled", true);
-    $("#iSaldo").val(entries[MedicamentoID].split(',')[1]).prop("disabled", true);
+    $("#iSaldo").val(entries[MedicamentoID].split(',')[1]);
     $("#iQuantity").val(entries[MedicamentoID].split(',')[0]);
     $("#iPresentacion").val(med.Presentacion).prop("disabled", true);
     $("#iPProveedor").val(med.P_Proveedor);
@@ -41,36 +41,36 @@ function fillModalCU(med, MedicamentoID) {
     $("#iLaboratorio").val(med.Laboratorio).prop("disabled", true);
     $("#iProveedor").val(med.Proveedor).prop("disabled", true);
     $("#ckActivo").val(med.Activo);
-    med.Activo == "1"? $("#ckActivo").prop("checked", true) : $("#ckActivo").prop("checked", false);
+    med.Activo == "1" ? $("#ckActivo").prop("checked", true) : $("#ckActivo").prop("checked", false);
     $("#iCaducidad").val(med.Caducidad.split('T')[0]);
     priceBinding();
 }
 
-function localEntryUpdate(MedicamentoID, data_, quantity, saldo_){
+function localEntryUpdate(MedicamentoID, data_, quantity, saldo_) {
     sessionStorage.setItem(MedicamentoID, JSON.stringify(data_));
-    if(quantity){ //Covers case where quantity field has been updated in ModalCreateUpdate
-        entries[MedicamentoID] = quantity+","+saldo_;
+    if (quantity) { //Covers case where quantity field has been updated in ModalCreateUpdate
+        entries[MedicamentoID] = quantity + "," + saldo_;
     }
     reloadAddTable();
 }
 
-async function reloadAddTable(){
-    url_ = "/meds/get-addTable/"+JSON.stringify(idList); //Build a new url with the actual idList
-    await tableAdd.ajax.url(url_).load(null,false); //Reaload AJAX query
+async function reloadAddTable() {
+    url_ = "/meds/get-addTable/" + JSON.stringify(idList); //Build a new url with the actual idList
+    await tableAdd.ajax.url(url_).load(null, false); //Reaload AJAX query
 }
 
-async function removeEntry(MedicamentoID, isDelete){
+async function removeEntry(MedicamentoID, isDelete) {
     //Update idList
-    if(MedicamentoID) {
+    if (MedicamentoID) {
         const index = idList.indexOf(MedicamentoID);
-        if (index > -1) 
+        if (index > -1)
             idList.splice(index, 1);
     } else {
-        idList=["0"];
+        idList = ["0"];
     }
     reloadAddTable();
     //Update 'entries' Object
-    if(MedicamentoID) {
+    if (MedicamentoID) {
         delete entries[MedicamentoID];
         sessionStorage.removeItem(MedicamentoID);
     } else {
@@ -79,13 +79,14 @@ async function removeEntry(MedicamentoID, isDelete){
     }
 
     //Reload tableSearch
-    if(!isDelete)
-        tableSearch.ajax.reload(null,false);
+    if (!isDelete)
+        tableSearch.ajax.reload(null, false);
 }
 
 /**************************** EVENTS *******************************************/
 
 $(document).ready(function () {
+    // ********* FUNCTIONALITY ***********
     sessionStorage.clear();
     tabIndex = 0;
     // ********* SEARCH TABLE ***********
@@ -110,7 +111,7 @@ $(document).ready(function () {
             "sZeroRecords": "No se encontraron resultados",
             "sEmptyTable": "Ningún dato disponible en esta tabla",
             "sInfoEmpty": "Medicamentos 0/0",
-            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+            "sInfoFiltered": "(_TOTAL_ Coincidencias)",
             "sInfoPostFix": "",
             "sSearch": "Buscar:",
             "sUrl": "",
@@ -131,7 +132,7 @@ $(document).ready(function () {
             {
                 "targets": [3, 5, 6, 7, 9, 10],
                 "searchable": false,
-                "targets": [ 9, 10],
+                "targets": [9, 10],
                 "visible": false
             }
         ],
@@ -161,7 +162,7 @@ $(document).ready(function () {
         ]
     });
     // ************ ADD TABLE **************
-    idList=["0"]; //List of tableSearch selected elements, to show in tableAdd
+    idList = ["0"]; //List of tableSearch selected elements, to show in tableAdd
     tableAdd = $('#tbAdd').DataTable({
         dom: '<"top mt-4 row" rt><"bottom row" <"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>',
         "pagingType": "full",
@@ -172,7 +173,7 @@ $(document).ready(function () {
         "info": true,
         // "autoWidth": false,
         "serverSide": true,
-        "ajax": "/meds/get-addTable/"+JSON.stringify(idList),
+        "ajax": "/meds/get-addTable/" + JSON.stringify(idList),
         "language": {
             "info": "Medicamentos _START_-_END_/_TOTAL_ ",
             "lengthMenu": "Mostrar   _MENU_   medicamentos",
@@ -211,9 +212,9 @@ $(document).ready(function () {
             // 2-Nombre
             {},
             // 3-Cantidad
-            {   
+            {
                 "data": null,
-                "render": function (data, type, row, meta){
+                "render": function (data, type, row, meta) {
                     let entry_ = entries[data[0]];
                     return entry_.split(',')[0]; //Display 'Quantity'
                 }
@@ -223,9 +224,9 @@ $(document).ready(function () {
             // 5-P_Proveedor
             {
                 "data": null,
-                render: function(data, type, row, meta){
+                render: function (data, type, row, meta) {
                     let item_ = JSON.parse(sessionStorage.getItem(data[0]));
-                    if (item_ != null){ //If the medicine had been locally modified
+                    if (item_ != null) { //If the medicine had been locally modified
                         return item_.P_Proveedor;
                     } else {
                         return data[5];
@@ -235,9 +236,9 @@ $(document).ready(function () {
             // 6-P_Publico
             {
                 "data": null,
-                render: function(data, type, row, meta){
+                render: function (data, type, row, meta) {
                     let item_ = JSON.parse(sessionStorage.getItem(data[0]));
-                    if (item_ != null){ //If the medicine had been locally modified
+                    if (item_ != null) { //If the medicine had been locally modified
                         return item_.P_Publico;
                     } else {
                         return data[6];
@@ -247,9 +248,9 @@ $(document).ready(function () {
             // 7-Descuento
             {
                 "data": null,
-                render: function(data, type, row, meta){
+                render: function (data, type, row, meta) {
                     let item_ = JSON.parse(sessionStorage.getItem(data[0]));
-                    if (item_ != null){ //If the medicine had been locally modified
+                    if (item_ != null) { //If the medicine had been locally modified
                         return item_.Descuento;
                     } else {
                         return data[7];
@@ -259,9 +260,9 @@ $(document).ready(function () {
             // 8-Caducidad
             {
                 "data": null,
-                render: function(data, type, row, meta){
+                render: function (data, type, row, meta) {
                     let item_ = JSON.parse(sessionStorage.getItem(data[0]));
-                    if (item_ != null){ //If the medicine had been locally modified
+                    if (item_ != null) { //If the medicine had been locally modified
                         return item_.Caducidad;
                     } else {
                         return data[8];
@@ -296,65 +297,76 @@ $(document).ready(function () {
         ]
     });
 
+
 });
 
 // ********************* SEARH TABLE EVENTS **************************
-//Manage selected Items
-$('#tbSearch').on( 'click', 'tr', function () {
-} );
+// Manage selected Items
+$(document).on('keyup', function (e) {
+    let rowSelected = tableSearch.row({ selected: true }).data();
 
-$(document).on('keyup', function(e) {
-    let rowSelected = tableSearch.row( { selected: true } ).data();
-   
-    if (e.keyCode == 13 && rowSelected ){ //When a row is Selected and 'Enter' pressed
+    if (e.keyCode == 13 && rowSelected) { //When a row is Selected and 'Enter' pressed
         entryModal(rowSelected);
+        $("#tbSearch_filter input").focus();
     }
-    
+
     //FOCUS EVENT
-    let busqueda = $("#tbSearch_filter input").val();
-    if (e.keyCode == 9 && busqueda){
-        row_ = tableSearch.row( tabIndex );
-        row_.select();
-        tabIndex += 1;
+    if (!$("#modalEntry").hasClass("show") && !$("#modalCU").hasClass("show")) {
+        let busqueda = $("#tbSearch_filter input").val();
+        if (e.keyCode == 9 && busqueda) {
+            row_ = tableSearch.row(tabIndex);
+            row_.select();
+            tabIndex += 1;
+        }
     }
+
 });
 
-$("body").on('focus.spf', "*", function(e) {
+window.onload = function () {
+    $("#tbSearch_filter input").focus();
+    //Reset when search is modified
+    $("#tbSearch_filter input").on('keyup', function () {
+        tabIndex =0;
+    });
+};
+
+$("body").on('focus.spf', "*", function (e) {
     e.stopPropagation();
     e.preventDefault();
-    if(e.currentTarget != $("#tbSearch_filter input")[0]){
-        
-        if(!$("#modalEntry").hasClass("show") && !$("#modalCU").hasClass("show")){
+    if (e.currentTarget != $("#tbSearch_filter input")[0]) {
+        if (!$("#modalEntry").hasClass("show") && !$("#modalCU").hasClass("show")) {
             $(this).blur();
         }
     }
 });
 
-$(document).on("click", "#btnAdd", function(e){
-    let rowSelected = tableSearch.row( { selected: true } ).data();
-    if (rowSelected){
+$(document).on("click", "#btnAdd", function (e) {
+    let rowSelected = tableSearch.row({ selected: true }).data();
+    if (rowSelected) {
         entryModal(rowSelected);
+        $("#tbSearch_filter input").focus();
+
     }
 });
 
 // ********************* MODAL ENTRIES EVENTS **************************
-let entries={};
-$(document).on('click', "#btnAddEntry", function(e) {
+let entries = {};
+$(document).on('click', "#btnAddEntry", function (e) {
     e.preventDefault();
     e.stopPropagation();
 
     let id = $("#iID").val();
-    entries[id] = $("#iCantidad").val()+','+$("#iSaldoAE").val();
-    if (idList.indexOf(id.toString()) == -1){
+    entries[id] = $("#iCantidad").val() + ',' + $("#iSaldoAE").val();
+    if (idList.indexOf(id.toString()) == -1) {
         idList.push(id); //Add MedicineID into idList
     } else {
         sessionStorage.removeItem(id); //If searchTable clicked on an item already stored on addTable, all changes will be reset.
     }
 
-    setTimeout( function(){
+    setTimeout(function () {
         $("#modalEntry").modal("hide");
     }, 200); //To avoid trigger any action when 'Enter' while Modal is open 
-    
+
 
     reloadAddTable();
 });
@@ -365,7 +377,7 @@ $(document).on("click", "#btnEdit", function (e) {
     var row = $(this).closest("tr");
     let MedicamentoID = $(row["prevObject"][0]).attr('data-MedicamentoId');
 
-    let item_ = JSON.parse(sessionStorage.getItem(MedicamentoID)); 
+    let item_ = JSON.parse(sessionStorage.getItem(MedicamentoID));
     if (item_ != null) {//If medicine already in sessionStorage, which means previously getted by 'meds/getMed' method
         fillModalCU(item_, MedicamentoID);
     } else { //Otherwise, make request
@@ -379,7 +391,7 @@ $(document).on("click", "#btnEdit", function (e) {
         };
         xhttp.send();
     }
-    
+
     $(".modal-header").css("background-color", "#C0DE00");
     $(".modal-header").css("color", "white");
     $(".modal-title").text('Editar Medicamento');
@@ -399,10 +411,10 @@ $(document).on("click", "#btnDelete", function () {
 });
 
 $(document).on("click", "#btnCompleteEntry", function () {
-    
+
     //Get Entries which had been updated by other fields
     fullEntries = {}
-    for(let i=0; i< sessionStorage.length; i++){
+    for (let i = 0; i < sessionStorage.length; i++) {
         key_ = sessionStorage.key(i)
         fullEntries[key_] = sessionStorage.getItem(key_)
     }
@@ -415,13 +427,13 @@ $(document).on("click", "#btnCompleteEntry", function () {
         url: "/meds/entriesUpdate",
         type: "POST",
         datatype: "json",
-        data: {data_},
+        data: { data_ },
         success: function (res) {
             let message = " EDITADO ";
-            messageModal($("#modalMessageSuccess"), true, message);  
+            messageModal($("#modalMessageSuccess"), true, message);
             removeEntry();
         },
-        error: function(res){
+        error: function (res) {
             let message = res.responseJSON.code + '\n' + res.responseJSON.sqlMessage;
             messageModal($("#modalMessageError"), false, message);
         }

@@ -41,6 +41,7 @@ $(document).ready(function () {
         "ordering": true,
         "info": true,
         // "autoWidth": false,
+        "order": [[ 1, 'asc' ], [ 0, 'asc' ]],
         "serverSide": true,
         "ajax": "/meds/get-dt",
         "language": {
