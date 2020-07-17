@@ -302,22 +302,25 @@ $(document).ready(function () {
 
 // ********************* SEARH TABLE EVENTS **************************
 // Manage selected Items
-$(document).on('keyup', function (e) {
-    let rowSelected = tableSearch.row({ selected: true }).data();
+$('#tbSearch').on( 'click', 'tr', function () {
+    tabIndex = tableSearch.row(this).index();
+} );
 
-    if (e.keyCode == 13 && rowSelected) { //When a row is Selected and 'Enter' pressed
-        entryModal(rowSelected);
+$(document).on('keyup', function (e) {
+    let rowSelected = tableSearch.row({ selected: true });
+
+    if (e.keyCode == 13 && rowSelected.data()) { //When a row is Selected and 'Enter' pressed
+        entryModal(rowSelected.data());
         $("#tbSearch_filter input").focus();
+        rowSelected.select(false);
     }
 
     //FOCUS EVENT
-    if (!$("#modalEntry").hasClass("show") && !$("#modalCU").hasClass("show")) {
-        let busqueda = $("#tbSearch_filter input").val();
-        if (e.keyCode == 9 && busqueda) {
-            row_ = tableSearch.row(tabIndex);
-            row_.select();
-            tabIndex += 1;
-        }
+    let busqueda = $("#tbSearch_filter input").val();
+    if (e.keyCode == 9 && busqueda) {
+        row_ = tableSearch.row(tabIndex);
+        row_.select();
+        tabIndex += 1;
     }
 
 });
@@ -341,11 +344,11 @@ $("body").on('focus.spf', "*", function (e) {
 });
 
 $(document).on("click", "#btnAdd", function (e) {
-    let rowSelected = tableSearch.row({ selected: true }).data();
-    if (rowSelected) {
-        entryModal(rowSelected);
+    let rowSelected = tableSearch.row({ selected: true });
+    if (rowSelected.data()) {
+        entryModal(rowSelected.data());
         $("#tbSearch_filter input").focus();
-
+        rowSelected.select(false);
     }
 });
 
@@ -363,9 +366,7 @@ $(document).on('click', "#btnAddEntry", function (e) {
         sessionStorage.removeItem(id); //If searchTable clicked on an item already stored on addTable, all changes will be reset.
     }
 
-    setTimeout(function () {
-        $("#modalEntry").modal("hide");
-    }, 200); //To avoid trigger any action when 'Enter' while Modal is open 
+    $("#modalEntry").modal("hide"); 
 
 
     reloadAddTable();
