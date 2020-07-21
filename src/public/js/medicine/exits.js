@@ -7,7 +7,7 @@ $(document).ready(function () {
     tabIndex = 0;
     // ********* SEARCH TABLE ***********
     tableSearch = $('#tbSearch').DataTable({
-        dom: '<"top mt-4 row" f><"row" <"col-12"t>><"bottom row" <"col-sm-4 col-lg-3"i> <"col-sm-5 col-lg-3"p>>',
+        dom: '<"top mt-4 row" f><"row" <"col-12"t>><"bottom row" <"col-sm-5 col-md-4"i><"col-sm-6 col-md-6"p>>',
         select: {
             style: 'single'
         },
@@ -81,7 +81,7 @@ $(document).ready(function () {
     // ************ ADD TABLE **************
     idList = ["0"]; //List of tableSearch selected elements, to show in tableAdd
     tableAdd = $('#tbAdd').DataTable({
-        dom: '<"top mt-4 row" fr><"row" <"col-12"t>><"bottom row" <"col-sm-5 col-md-4"i><"col-sm-6 col-md-6"p>>',
+        dom: '<"top mt-4 row"><"row" <"col-12"t>><"bottom row" <"col-sm-5 col-md-4"i><"col-sm-6 col-md-6"p>>',
         "pagingType": "full",
         "lengthMenu": [7],
         "paging": true,

@@ -227,9 +227,6 @@ $(document).ready(function () {
 
 });
 
-// ********************* SEARH TABLE EVENTS **************************
-
-
 // ********************* MODAL ENTRIES EVENTS **************************
 let entries = {};
 
