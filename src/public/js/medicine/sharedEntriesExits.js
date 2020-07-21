@@ -93,26 +93,31 @@ $(document).on("click", "#btnAdd", function (e) {
     let rowSelected = tableSearch.row({ selected: true });
     if (rowSelected.data()) {
         entryModal(rowSelected.data());
-        $("#tbSearch_filter input").focus();
         rowSelected.select(false);
+        $("#tbSearch_filter input").focus();
+
     }
 });
 
 $(document).on('keyup', function (e) {
     let rowSelected = tableSearch.row({ selected: true });
 
+    if(e.keyCode == 27){
+        $("#tbSearch_filter input").focus();
+    }
     if (e.keyCode == 13 && rowSelected.data()) { //When a row is Selected and 'Enter' pressed
         entryModal(rowSelected.data());
-        $("#tbSearch_filter input").focus();
         rowSelected.select(false);
+        $("#tbSearch_filter input").focus();
     }
 
     //FOCUS EVENT
-    let busqueda = $("#tbSearch_filter input").val();
-    if (e.keyCode == 9 && busqueda) {
-        row_ = tableSearch.row(tabIndex);
-        row_.select();
-        tabIndex += 1;
+    if (!$("#modalEntry").hasClass("show") && !$("#modalCU").hasClass("show")) {
+        if (e.keyCode == 9 && $("#tbSearch_filter input").focus()) {
+            row_ = tableSearch.row(tabIndex);
+            row_.select();
+            tabIndex += 1;
+        }
     }
 
 });
@@ -137,6 +142,7 @@ $(document).on('click', "#btnAddEntry", function (e) {
         idList.push(id); //Add MedicineID into idList
 
     $("#modalEntry").modal("hide"); 
+    $("#tbSearch_filter input").focus();
 
     reloadAddTable();
 });

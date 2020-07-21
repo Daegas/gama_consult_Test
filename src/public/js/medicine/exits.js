@@ -3,7 +3,7 @@ tableSearch = null;
 tableAdd = null;
 $(document).ready(function () {
     // ********* FUNCTIONALITY ***********
-    sessionStorage.clear();
+    // sessionStorage.clear();
     tabIndex = 0;
     // ********* SEARCH TABLE ***********
     tableSearch = $('#tbSearch').DataTable({
@@ -20,6 +20,7 @@ $(document).ready(function () {
         "autoWidth": false,
         "serverSide": true,
         "ajax": "/meds/get-dt",
+        "order": [[ 1, 'asc' ], [ 0, 'asc' ]],
         "language": {
             "info": "Medicamentos _START_-_END_/_TOTAL_ ",
             "lengthMenu": "Mostrar   _MENU_   medicamentos",
@@ -88,6 +89,7 @@ $(document).ready(function () {
         "ordering": true,
         "info": true,
         // "autoWidth": false,
+        "order": [[ 1, 'asc' ], [ 0, 'asc' ]],
         "serverSide": true,
         "ajax": "/meds/get-addTable/" +JSON.stringify(idList),
         "language": {

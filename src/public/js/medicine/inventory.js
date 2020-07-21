@@ -34,6 +34,9 @@ $(document).ready(function () {
             `;
             $('div.toolbar').html(html);
         },
+        select: {
+            style: 'single'
+        },
         "pagingType": "full",
         "lengthMenu": [5, 10, 25, 50],
         "paging": true,
@@ -70,6 +73,10 @@ $(document).ready(function () {
         },
         "columnDefs":[
             {
+                "targets": [1,2],
+                "width":200,
+                "targets": [0,3, 5,6 ,7],
+                "width":30,
                 "targets": [3, 5, 6, 7, 9,10],
                 "searchable": false
             }
@@ -125,6 +132,14 @@ $(document).ready(function () {
             }
         ]
     });
+});
+window.onload = function () {
+    $("#tbMeds_filter input").focus();
+};
+$(document).on ('keyup', function(e){
+    if(e.keyCode == 27){
+        $("#tbMeds_filter input").focus();
+    }
 });
 
 $('.modal-message').on('show.bs.modal', function (e) {
