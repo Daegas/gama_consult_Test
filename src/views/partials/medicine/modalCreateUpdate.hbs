@@ -33,14 +33,14 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="Saldo" class="col-form-label">Saldo{{#if quantity}} Anterior{{/if}}: <span class="text-danger">*</span></label>
-                                <input id="iSaldo" type="number" class="form-control" step="1" name="Saldo" required>
+                                <input id="iSaldo" type="number" class="form-control" step="1" min="0" name="Saldo" required>
                             </div>
                         </div>
                         {{#if quantity}} 
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="Quantity" class="col-form-label">Cantidad: <span class="text-danger">*</span></label>
-                                    <input id="iQuantity" type="number" class="form-control" step="1" name="Quantity" required>
+                                    <input id="iQuantity" type="number" class="form-control" step="1" min="1" name="Quantity" required>
                                 </div>
                             </div>
                         {{/if}} 
@@ -55,13 +55,13 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="P_Proveedor" class="col-form-label">$ Proveedor: <span class="text-danger">*</span></label>
-                                <input id="iPProveedor" type="number" step="any" class="form-control" name="P_Proveedor" required>
+                                <input id="iPProveedor" type="number" step="any" min="0" class="form-control" name="P_Proveedor" required>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="P_Publico" class="col-form-label">$ Público: <span class="text-danger">*</span></label>
-                                <input id="iPPublico" type="number" step="any" class="form-control" name="P_Publico" required>
+                                <input id="iPPublico" type="number" step="any" min="0" class="form-control" name="P_Publico" required>
                             </div>
                         </div>
                     </div>
@@ -75,7 +75,7 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="P_Descuento" class="col-form-label">$ Descuento: <span class="text-danger">*</span></label>
-                                <input id="iPDescuento" type="number" step="any" class="form-control" name="P_Descuento" disabled required>
+                                <input id="iPDescuento" type="number" step="any" min="0" class="form-control" name="P_Descuento" disabled required>
                             </div>
                         </div>
                     </div>
@@ -152,3 +152,5 @@
         </div>
     </div>
 </div>
+
+<script src="/js/medicine/modalCreateUpdate.js"></script>

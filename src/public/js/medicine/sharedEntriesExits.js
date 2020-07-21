@@ -1,18 +1,4 @@
 /**************************** FUNCTIONS *******************************************/
-function messageModal(modal_, blink, message) {
-    modal_.modal("show");
-    $('.modal-backdrop').css("opacity", "0");
-
-    if (blink) {
-        $(".message").text(message);
-        setTimeout(() => {
-            modal_.modal("hide");
-        }, 3000);
-    } else {
-        $(".message-details").text(message);
-    }
-}
-
 function entryModal(rowSelected) {
     id = rowSelected[0];
     if (idList.indexOf(id.toString()) == -1) {
@@ -132,7 +118,7 @@ $("body").on('focus.spf', "*", function (e) {
     }
 });
 // ********************* MODAL ENTRIES EVENTS **************************
-$(document).on('click', "#btnAddEntry", function (e) {
+$("#formEntry").submit(function (e) {
     e.preventDefault();
     e.stopPropagation();
 
@@ -189,10 +175,4 @@ $(document).on("click", "#btnCompleteEntry", function () {
             messageModal($("#modalMessageError"), false, message);
         }
     });
-});
-
-//************************ MESSAGE EVENTS ***************************/
-$('.modal-message').on('show.bs.modal', function (e) {
-    x = "bounce"
-    $('.modal-message .modal-dialog').attr('class', 'modal-dialog  ' + x + '  animated');
 });
