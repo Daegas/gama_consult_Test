@@ -1,4 +1,24 @@
 /**************************** FUNCTIONS *******************************************/
+function fillModalCU(med, MedicamentoID) {
+    $("#iSustanciaActiva").val(med.SustanciaActiva).prop("disabled", true);
+    $("#iNombreComercial").val(med.NombreComercial).prop("disabled", true);
+    $("#iSaldo").val(entries[MedicamentoID].split(',')[1]);
+    $("#iQuantity").val(entries[MedicamentoID].split(',')[0]);
+    $("#iPresentacion").val(med.Presentacion).prop("disabled", true);
+    $("#iPProveedor").val(med.P_Proveedor);
+    $("#iPPublico").val(med.P_Publico);
+    $("#iDescuento").val(med.Descuento);
+    $("#iPDescuento").val(med.P_Descuento);
+    $("#iContenido").val(med.Contenido).prop("disabled", true);
+    $("#iDosis").val(med.DosisMG).prop("disabled", true);
+    $("#iLaboratorio").val(med.Laboratorio).prop("disabled", true);
+    $("#iProveedor").val(med.Proveedor).prop("disabled", true);
+    $("#ckActivo").val(med.Activo);
+    med.Activo == "1" ? $("#ckActivo").prop("checked", true) : $("#ckActivo").prop("checked", false);
+    $("#iCaducidad").val(med.Caducidad.split('T')[0]);
+    priceBinding();
+}
+
 function localEntryUpdate(MedicamentoID, data_, quantity, saldo_) {
     sessionStorage.setItem(MedicamentoID, JSON.stringify(data_));
     if (quantity) { //Covers case where quantity field has been updated in ModalCreateUpdate
@@ -67,7 +87,7 @@ $(document).ready(function () {
             {},
             // 1-SustanciaActiva
             {},
-            // 2-Nombre
+            // 2-NombreComercial
             {},
             // 3-Saldo
             {},
@@ -136,7 +156,7 @@ $(document).ready(function () {
             {},
             // 1-SustanciaActiva
             {},
-            // 2-Nombre
+            // 2-NombreComercial
             {},
             // 3-Cantidad
             {

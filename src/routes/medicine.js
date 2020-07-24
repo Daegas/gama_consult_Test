@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
 
 router.get('/getMed/:id', async (req, res) => {
     const { id } = req.params;
-    const med = await DB.query('SELECT * FROM Medicamentos WHERE MedicamentoID = ?', [id]);
+    const med = await DB.query('SELECT * FROM Meds WHERE MedicamentoID = ?', [id]);
 
     res.send({med: med[0]});
 });
@@ -27,23 +27,6 @@ router.get('/entries', (req, res) => { //Here 'get' method can be understood as 
 router.get('/exits', (req, res) => { //Here 'get' method can be understood as -getting a view- through an URL
     res.render('../views/medicine/exits.hbs');
 });
-
-/**************************** ENTRIES *******************************************/
-// router.post('/entriesAdd', async (req, res) => {
-//     const { MedicamentoID, Cantidad } = req.body;
-
-//     const newEntry = {
-//         MedicamentoID,
-//         Cantidad
-//     };
-
-//     try {
-//         let response = await DB.query('INSERT INTO Entradas set ?', [newEntry]);
-//         res.status(200).send(response);
-//     } catch(e) {
-//         res.status(500).send(e);
-//     }
-// });
 
 router.get('/get-addTable/:idList', (req,res,next)=> {
     //Query de Datatables
@@ -61,7 +44,7 @@ router.get('/get-addTable/:idList', (req,res,next)=> {
           dt: 1
         },
         {
-          db: "Nombre",
+          db: "NombreComercial",
           dt: 2
         }, 
         {
@@ -106,8 +89,7 @@ router.get('/get-addTable/:idList', (req,res,next)=> {
             query_ += ', ';
         }
     });
-    const query = "SELECT * FROM Medicamentos WHERE MedicamentoID IN (" + query_ + ")";
-    const tableName = "Medicamentos"
+    const query = "SELECT * FROM Meds WHERE MedicamentoID IN (" + query_ + ")";
 
     //Primary Key (Required NodeTable)
     const primaryKey = "MedicamentoID"
@@ -147,7 +129,7 @@ router.post('/entriesUpdate', async (req, res) => {
         }
     }
 
-    let simple_query = "INSERT INTO Medicamentos (MedicamentoId, Saldo) VALUES " + 
+    let simple_query = "INSERT INTO Meds (MedicamentoId, Saldo) VALUES " + 
                         simpleEntryTuple + 
                     " ON DUPLICATE KEY UPDATE Saldo = VALUES(Saldo)";
 
@@ -165,7 +147,7 @@ router.post('/entriesUpdate', async (req, res) => {
     }
 
     if(fullEntryTuple != "")
-        full_query = "INSERT INTO Medicamentos (MedicamentoID, Saldo, P_Proveedor, P_Publico, P_Descuento," +
+        full_query = "INSERT INTO Meds (MedicamentoID, Saldo, P_Proveedor, P_Publico, P_Descuento," +
                     "Descuento, Caducidad, Activo) VALUES " + fullEntryTuple + " ON DUPLICATE KEY UPDATE " +
                     "Saldo = VALUES(Saldo), P_Proveedor = VALUES(P_Proveedor), P_Publico = VALUES(P_Publico), " +
                     "P_Descuento = VALUES(P_Descuento), Descuento = VALUES(Descuento), Caducidad = VALUES(Caducidad), "+
@@ -188,20 +170,20 @@ router.post('/entriesUpdate', async (req, res) => {
 /**************** CREATE ****************/
 router.post('/add', async (req, res) => { //Same URL as previous but with POST method.
     const { 
-        SustanciaActiva, Nombre, 
+        SustanciaActiva, NombreComercial, 
         Saldo, Presentacion, 
         P_Proveedor, P_Publico, 
         P_Descuento, Descuento,
-        Gramaje, DosisMG,
+        Contenido, DosisMG,
         Laboratorio, Proveedor,
         Caducidad, Activo} = req.body;
 
     const newMed = {
-        SustanciaActiva, Nombre,
+        SustanciaActiva, NombreComercial,
         Saldo, Presentacion,
         P_Proveedor, P_Publico,
         P_Descuento, Descuento,
-        Gramaje, DosisMG,
+        Contenido, DosisMG,
         Laboratorio, Proveedor,
         Caducidad, Activo
     }; 
@@ -210,7 +192,7 @@ router.post('/add', async (req, res) => { //Same URL as previous but with POST m
     //Meaning that next DB.query will take some time, and until that task has finished 'res.send' will get execute
     //We need to add 'await' to the Async request and 'async' to the main function
     try {
-        let response = await DB.query('INSERT INTO Medicamentos set ?', [newMed]); 
+        let response = await DB.query('INSERT INTO Meds set ?', [newMed]); 
         res.status(200).send(response);
     } catch(e){
         res.status(500).send(e);
@@ -235,7 +217,7 @@ router.get('/get-dt', (req,res,next)=> {
           dt: 1
         },
         {
-          db: "Nombre",
+          db: "NombreComercial",
           dt: 2
         }, 
         {
@@ -273,7 +255,7 @@ router.get('/get-dt', (req,res,next)=> {
       ];
 
     //Select table in DB - Or define any custum QUERY
-    const tableName = "Medicamentos"
+    const tableName = "Meds"
 
     //Primary Key (Required NodeTable)
     const primaryKey = "MedicamentoID"
@@ -297,26 +279,26 @@ router.post('/edit/:id', async (req, res) => {
     const { id } = req.params;
 
     const { 
-        SustanciaActiva, Nombre, 
+        SustanciaActiva, NombreComercial, 
         Saldo, Presentacion, 
         P_Proveedor, P_Publico, 
         P_Descuento, Descuento,
-        Gramaje, DosisMG,
+        Contenido, DosisMG,
         Laboratorio, Proveedor,
         Caducidad, Activo } = req.body;
 
     const alter_med = {
-        SustanciaActiva, Nombre,
+        SustanciaActiva, NombreComercial,
         Saldo, Presentacion,
         P_Proveedor, P_Publico,
         P_Descuento, Descuento,
-        Gramaje, DosisMG,
+        Contenido, DosisMG,
         Laboratorio, Proveedor,
         Caducidad, Activo
     }; 
 
     try{
-        let response = await DB.query('UPDATE Medicamentos set ? WHERE MedicamentoID = ?', [alter_med, id]);
+        let response = await DB.query('UPDATE Meds set ? WHERE MedicamentoID = ?', [alter_med, id]);
         res.status(200).send(response);
     } catch(e){
         res.status(500).send(e);
@@ -329,7 +311,7 @@ router.post('/delete/:id', async (req, res) => {
     const { id } = req.params;
 
     try{
-        let response = await DB.query('DELETE FROM Medicamentos WHERE MedicamentoID = ?', [id]);
+        let response = await DB.query('DELETE FROM Meds WHERE MedicamentoID = ?', [id]);
         res.status(200).send(response);
     } catch(e) {
         res.status(500).send(e);

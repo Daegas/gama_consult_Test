@@ -86,7 +86,7 @@ $(document).ready(function () {
             {},
             // 1-SustanciaActiva
             {},
-            // 2-Nombre
+            // 2-NombreComercial
             {},
             // 3-Saldo
             {},
@@ -169,14 +169,14 @@ $(document).on("click", "#btnEdit", function (e) {
         var med = res.med;
         // Display on Modal
         $("#iSustanciaActiva").val(med.SustanciaActiva);
-        $("#iNombre").val(med.Nombre);
+        $("#iNombreComercial").val(med.NombreComercial);
         $("#iSaldo").val(med.Saldo);
         $("#iPresentacion").val(med.Presentacion);
         $("#iPProveedor").val(med.P_Proveedor);
         $("#iPPublico").val(med.P_Publico);
         $("#iDescuento").val(med.Descuento);
         $("#iPDescuento").val(med.P_Descuento);
-        $("#iGramaje").val(med.Gramaje);
+        $("#iContenido").val(med.Contenido);
         $("#iDosis").val(med.DosisMG);
         $("#iLaboratorio").val(med.Laboratorio);
         $("#iProveedor").val(med.Proveedor);

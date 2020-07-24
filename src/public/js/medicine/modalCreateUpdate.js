@@ -31,7 +31,7 @@ $("#formMeds").submit(function (e) {
     var saldo_ = $.trim($("#iSaldo").val())
 
     SustanciaActiva = $.trim($("#iSustanciaActiva").val());
-    Nombre = $.trim($("#iNombre").val());
+    NombreComercial = $.trim($("#iNombreComercial").val());
     if(quantity){
         Saldo = (quantity + parseInt(saldo_)).toString();
     } else {
@@ -42,7 +42,7 @@ $("#formMeds").submit(function (e) {
     P_Publico = $.trim($("#iPPublico").val());
     P_Descuento = $.trim($("#iPDescuento").val());
     Descuento = $.trim($("#iDescuento").val());
-    Gramaje = $.trim($("#iGramaje").val());
+    Contenido = $.trim($("#iContenido").val());
     DosisMG = $.trim($("#iDosis").val());
     Laboratorio = $.trim($("#iLaboratorio").val());
     Proveedor = $.trim($("#iProveedor").val());
@@ -56,11 +56,11 @@ $("#formMeds").submit(function (e) {
 
     let url_ = opc == -1 ? "/meds/add" : "/meds/edit/" + opc;
     let data_ = {
-        SustanciaActiva, Nombre,
+        SustanciaActiva, NombreComercial,
         Saldo, Presentacion,
         P_Proveedor, P_Publico,
         P_Descuento, Descuento,
-        Gramaje, DosisMG,
+        Contenido, DosisMG,
         Laboratorio, Proveedor,
         Caducidad, Activo
     }
