@@ -24,16 +24,16 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label for="Nombre" class="col-form-label">Nombre: <span class="text-danger">*</span></label>
-                                <input id="iNombre" type="text" class="form-control" name="Nombre" required>
+                                <label for="NombreComercial" class="col-form-label">Nombre Comercial: <span class="text-danger">*</span></label>
+                                <input id="iNombreComercial" type="text" class="form-control" name="NombreComercial" required>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label for="Saldo" class="col-form-label">Saldo{{#if quantity}} Anterior{{/if}}: <span class="text-danger">*</span></label>
-                                <input id="iSaldo" type="number" class="form-control" step="1" min="0" name="Saldo" required>
+                                <label for="Saldo" class="col-form-label">Saldo{{#if quantity}} Anterior{{/if}}:</label>
+                                <input id="iSaldo" type="number" class="form-control" step="1" min="0" name="Saldo">
                             </div>
                         </div>
                         {{#if quantity}} 
@@ -46,8 +46,8 @@
                         {{/if}} 
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label for="Presentacion" class="col-form-label">Presentación: <span class="text-danger">*</span></label>
-                                <input id="iPresentacion" type="text" class="form-control" name="Presentacion" required>
+                                <label for="Presentacion" class="col-form-label">Presentación:</label>
+                                <input id="iPresentacion" type="text" class="form-control" name="Presentacion">
                             </div>
                         </div>
                     </div>
@@ -82,8 +82,8 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label for="Gramaje" class="col-form-label">Gramaje:</label>
-                                <input id="iGramaje" type="text" class="form-control" name="Gramaje">
+                                <label for="Contenido" class="col-form-label">Contenido:</label>
+                                <input id="iContenido" type="text" class="form-control" name="Contenido">
                             </div>
                         </div>
                         <div class="col-lg-6">
@@ -102,8 +102,8 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label for="Proveedor" class="col-form-label">Proveedor:</label>
-                                <input id="iProveedor" type="text" class="form-control" name="Proveedor">
+                                <label for="Proveedor" class="col-form-label">Proveedor:  <span class="text-danger">*</span></label>
+                                <input id="iProveedor" type="text" class="form-control" name="Proveedor" required>
                             </div>
                         </div>
                     </div>

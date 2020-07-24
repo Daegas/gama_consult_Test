@@ -28,23 +28,6 @@ router.get('/exits', (req, res) => { //Here 'get' method can be understood as -g
     res.render('../views/medicine/exits.hbs');
 });
 
-/**************************** ENTRIES *******************************************/
-// router.post('/entriesAdd', async (req, res) => {
-//     const { MedicamentoID, Cantidad } = req.body;
-
-//     const newEntry = {
-//         MedicamentoID,
-//         Cantidad
-//     };
-
-//     try {
-//         let response = await DB.query('INSERT INTO Entradas set ?', [newEntry]);
-//         res.status(200).send(response);
-//     } catch(e) {
-//         res.status(500).send(e);
-//     }
-// });
-
 router.get('/get-addTable/:idList', (req,res,next)=> {
     //Query de Datatables
     const requestQuery = req.query;
@@ -61,7 +44,7 @@ router.get('/get-addTable/:idList', (req,res,next)=> {
           dt: 1
         },
         {
-          db: "Nombre",
+          db: "NombreComercial",
           dt: 2
         }, 
         {
@@ -107,7 +90,6 @@ router.get('/get-addTable/:idList', (req,res,next)=> {
         }
     });
     const query = "SELECT * FROM Medicamentos WHERE MedicamentoID IN (" + query_ + ")";
-    const tableName = "Medicamentos"
 
     //Primary Key (Required NodeTable)
     const primaryKey = "MedicamentoID"
@@ -188,20 +170,20 @@ router.post('/entriesUpdate', async (req, res) => {
 /**************** CREATE ****************/
 router.post('/add', async (req, res) => { //Same URL as previous but with POST method.
     const { 
-        SustanciaActiva, Nombre, 
+        SustanciaActiva, NombreComercial, 
         Saldo, Presentacion, 
         P_Proveedor, P_Publico, 
         P_Descuento, Descuento,
-        Gramaje, DosisMG,
+        Contenido, DosisMG,
         Laboratorio, Proveedor,
         Caducidad, Activo} = req.body;
 
     const newMed = {
-        SustanciaActiva, Nombre,
+        SustanciaActiva, NombreComercial,
         Saldo, Presentacion,
         P_Proveedor, P_Publico,
         P_Descuento, Descuento,
-        Gramaje, DosisMG,
+        Contenido, DosisMG,
         Laboratorio, Proveedor,
         Caducidad, Activo
     }; 
@@ -235,7 +217,7 @@ router.get('/get-dt', (req,res,next)=> {
           dt: 1
         },
         {
-          db: "Nombre",
+          db: "NombreComercial",
           dt: 2
         }, 
         {
@@ -297,20 +279,20 @@ router.post('/edit/:id', async (req, res) => {
     const { id } = req.params;
 
     const { 
-        SustanciaActiva, Nombre, 
+        SustanciaActiva, NombreComercial, 
         Saldo, Presentacion, 
         P_Proveedor, P_Publico, 
         P_Descuento, Descuento,
-        Gramaje, DosisMG,
+        Contenido, DosisMG,
         Laboratorio, Proveedor,
         Caducidad, Activo } = req.body;
 
     const alter_med = {
-        SustanciaActiva, Nombre,
+        SustanciaActiva, NombreComercial,
         Saldo, Presentacion,
         P_Proveedor, P_Publico,
         P_Descuento, Descuento,
-        Gramaje, DosisMG,
+        Contenido, DosisMG,
         Laboratorio, Proveedor,
         Caducidad, Activo
     }; 

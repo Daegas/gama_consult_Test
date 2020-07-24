@@ -58,7 +58,7 @@ $(document).ready(function () {
             {},
             // 1-SustanciaActiva
             {},
-            // 2-Nombre
+            // 2-NombreComercial
             {},
             // 3-Saldo
             {},
@@ -129,7 +129,7 @@ $(document).ready(function () {
             {},
             // 1-SustanciaActiva
             {},
-            // 2-Nombre
+            // 2-NombreComercial
             {},
             // 3-Cantidad
             {
