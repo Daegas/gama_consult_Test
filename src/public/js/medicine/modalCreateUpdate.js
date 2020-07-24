@@ -50,6 +50,7 @@ $("#formMeds").submit(function (e) {
     Caducidad = $.trim($("#iCaducidad").val());
 
     //Parse Not String values
+    Saldo = Saldo == "" ? "0": Saldo;
     Descuento = Descuento == "" ? "0.0" : Descuento;
     Activo = Activo ? "1" : "0";
     Caducidad = Caducidad == "" ? "0000-00-00" : Caducidad;

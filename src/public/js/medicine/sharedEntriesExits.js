@@ -126,7 +126,6 @@ $(document).on("click", "#btnDelete", function () {
 });
 
 $(document).on("click", "#btnCompleteEntry", function () {
-    console.log('here')
 
     //Get Entries which had been updated by other fields
     fullEntries = {}
