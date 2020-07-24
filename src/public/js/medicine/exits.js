@@ -83,7 +83,7 @@ $(document).ready(function () {
     tableAdd = $('#tbAdd').DataTable({
         dom: '<"top mt-4 row"><"row" <"col-12"t>><"bottom row" <"col-sm-5 col-md-4"i><"col-sm-6 col-md-6"p>>',
         "pagingType": "full",
-        "lengthMenu": [7],
+        "alengthMenu": ["All"],
         "paging": true,
         "responsive": true,
         "ordering": true,
