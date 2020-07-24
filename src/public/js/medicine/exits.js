@@ -49,7 +49,7 @@ $(document).ready(function () {
             {
                 "targets": [3, 5, 6, 7, 9, 10],
                 "searchable": false,
-                "targets": [ 1,3,5,8,9, 10],
+                "targets": [ 1,3,4,5,8,9, 10],
                 "visible": false
             }
         ],
@@ -59,7 +59,12 @@ $(document).ready(function () {
             // 1-SustanciaActiva
             {},
             // 2-NombreComercial
-            {},
+            {
+                "data": null,
+                "render": function(data){
+                    return formatName(data);
+                }
+            },
             // 3-Saldo
             {},
             // 4-Presentacion
@@ -120,7 +125,7 @@ $(document).ready(function () {
             {
                 "targets": [3, 5, 6, 7, 9, 10],
                 "searchable": false,
-                "targets": [ 1,5,8],
+                "targets": [ 1,4,5,8],
                 "visible": false
             }
         ],
@@ -130,7 +135,12 @@ $(document).ready(function () {
             // 1-SustanciaActiva
             {},
             // 2-NombreComercial
-            {},
+            {
+                "data": null,
+                "render": function(data){
+                    return formatName(data);
+                }
+            },
             // 3-Cantidad
             {
                 "data": null,

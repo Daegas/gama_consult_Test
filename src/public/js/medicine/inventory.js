@@ -78,7 +78,9 @@ $(document).ready(function () {
                 "targets": [0,3, 5,6 ,7],
                 "width":30,
                 "targets": [3, 5, 6, 7, 9,10],
-                "searchable": false
+                "searchable": false,
+                "targets": [4],
+                "visible": false
             }
         ],  
         "columns": [
@@ -87,7 +89,12 @@ $(document).ready(function () {
             // 1-SustanciaActiva
             {},
             // 2-NombreComercial
-            {},
+            {
+                "data": null,
+                "render": function(data, type, row, meta) {
+                    return formatName(data);
+                }
+            },
             // 3-Saldo
             {},
             // 4-Presentacion
@@ -101,8 +108,7 @@ $(document).ready(function () {
             // 8-Caducidad
             {
                 "render": function(data, type, row, meta) {
-                    let formatData = data.split("T")[0].split("-").reverse().join("/");
-                    return formatData
+                    return formatDate(data);
                 }
             },
             //9-Edit button

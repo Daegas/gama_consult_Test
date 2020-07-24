@@ -78,7 +78,7 @@ $(document).ready(function () {
             {
                 "targets": [3, 5, 6, 7, 9, 10],
                 "searchable": false,
-                "targets": [9, 10],
+                "targets": [4, 9, 10],
                 "visible": false
             }
         ],
@@ -88,7 +88,12 @@ $(document).ready(function () {
             // 1-SustanciaActiva
             {},
             // 2-NombreComercial
-            {},
+            {
+                "data": null,
+                "render": function(data, type, row, meta) {
+                    return formatName(data);
+                }
+            },
             // 3-Saldo
             {},
             // 4-Presentacion
@@ -100,7 +105,11 @@ $(document).ready(function () {
             // 7-Descuento
             {},
             // 8-Caducidad
-            {},
+            {
+                "render": function(data){
+                    return formatDate(data);
+                }
+            },
             //9-Edit button
             {},
             //10-Delete button
@@ -148,7 +157,9 @@ $(document).ready(function () {
         "columnDefs": [
             {
                 "targets": [3, 5, 6, 7, 9, 10],
-                "searchable": false
+                "searchable": false,
+                "targets": [4],
+                "visible": false
             }
         ],
         "columns": [
@@ -157,7 +168,12 @@ $(document).ready(function () {
             // 1-SustanciaActiva
             {},
             // 2-NombreComercial
-            {},
+            {
+                "data": null,
+                "render": function(data){
+                    return formatName(data);
+                }
+            },
             // 3-Cantidad
             {
                 "data": null,
@@ -210,9 +226,9 @@ $(document).ready(function () {
                 render: function (data, type, row, meta) {
                     let item_ = JSON.parse(sessionStorage.getItem(data[0]));
                     if (item_ != null) { //If the medicine had been locally modified
-                        return item_.Caducidad;
+                        return formatDate(item_.Caducidad);
                     } else {
-                        return data[8];
+                        return formatDate(data[8]);
                     }
                 }
             },
