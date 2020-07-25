@@ -3,9 +3,9 @@ function reloadAJAX() {
     tableMeds.ajax.reload(null,false);
 }
 
-setInterval( function () {
-    reloadAJAX();
-}, 2000 );
+// setInterval( function () {
+//     reloadAJAX();
+// }, 2000 );
 
 
 function messageModal(modal_, blink, message){
@@ -25,7 +25,7 @@ function messageModal(modal_, blink, message){
 /**************************** EVENTS *******************************************/
 $(document).ready(function () {
     tableMeds = $('#tbMeds').DataTable({
-        dom: '<"top mt-4 row" l <"toolbar mx-auto mb-2"> frt><"bottom row" <"col-sm-12 col-md-5"i> <"col-sm-12 col-md-7"p>>', //Se agrega clase 'toolbar' a la plantilla
+        dom: '<"top mt-4 row" p<"toolbar mx-auto mb-2">frt><"bottom row" <"col-sm-12 col-md-5"i> <"col-sm-12 col-md-2"l>>', //Se agrega clase 'toolbar' a la plantilla
         fnInitComplete: function () { //Function to display content in 'toolbar' class
             html = `
             <button id="btnNew" class="btn btn-info rounded">
@@ -43,7 +43,6 @@ $(document).ready(function () {
         "responsive":true,
         "ordering": true,
         "info": true,
-        // "autoWidth": false,
         "order": [[ 1, 'asc' ], [ 0, 'asc' ]],
         "serverSide": true,
         "ajax": "/meds/get-dt",
@@ -73,14 +72,28 @@ $(document).ready(function () {
         },
         "columnDefs":[
             {
+                "targets": [0,4,8,9,10,11,12],
+                "width":30,
+            },
+            {
                 "targets": [1,2],
                 "width":200,
-                "targets": [0,3, 5,6 ,7],
-                "width":30,
-                "targets": [3, 5, 6, 7, 9,10],
-                "searchable": false,
-                "targets": [4],
-                "visible": false
+            },
+            {
+                "targets": [2,], 
+                "className": "right-aligned-cell"
+            },
+            // {
+            //     "targets": [1], 
+            //     "className": "text-adjust"
+            // },
+            {
+                "targets": [4,8,9,10,11], 
+                "className": "center-aligned-cell"
+            },
+            {
+                "targets": [9,10,11,12,14,15],
+                "searchable": false
             }
         ],  
         "columns": [
@@ -89,29 +102,35 @@ $(document).ready(function () {
             // 1-SustanciaActiva
             {},
             // 2-NombreComercial
-            {
-                "data": null,
-                "render": function(data, type, row, meta) {
-                    return formatName(data);
-                }
+            { 
             },
-            // 3-Saldo
+            // 3-Presentacion
             {},
-            // 4-Presentacion
+            // 4-Saldo
             {},
-            // 5-P_Proveedor
+            // 5-Contenido
             {},
-            // 6-P_Publico
+            // 6-Dosis
             {},
-            // 7-Descuento
+            // 7-Laboratorio
             {},
-            // 8-Caducidad
+            // 8-Proveedor
+            {},
+            // 9-P_Proveedor
+            {},
+            // 10-P_Publico
+            {},
+            // 11-Descuento
+            {},
+            // 12-P_Descuento
+            {},
+            // 13-Caducidad
             {
                 "render": function(data, type, row, meta) {
                     return formatDate(data);
                 }
             },
-            //9-Edit button
+            //14-Edit button
             {   
                 "data": null,
                 "orderable": false,
@@ -124,7 +143,7 @@ $(document).ready(function () {
                     return html;
                 }
             },
-            //10-Delete button
+            //15-Delete button
             {   
                 "data": null,
                 "orderable": false,
@@ -165,6 +184,7 @@ $(document).on("click", "#btnNew", function () {
 $(document).on("click", "#btnEdit", function (e) {
     var row = $(this).closest("tr");
     let MedicamentoID = $(row["prevObject"][0]).attr('data-MedicamentoId');
+    console.log(MedicamentoID);
 
     var xhttp = new XMLHttpRequest();
     xhttp.open('GET', '/meds/getMed/' + MedicamentoID);
@@ -205,6 +225,7 @@ $(document).on("click", "#btnEdit", function (e) {
 $(document).on("click", "#btnDelete", function () {
     var row_ = $(this).closest("tr");
     let MedicamentoID = $(row_["prevObject"][0]).attr('data-MedicamentoId');
+    
 
     var answer = confirm("¿Está seguro de quere eliminar?");
 

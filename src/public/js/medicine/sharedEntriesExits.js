@@ -5,6 +5,8 @@ function entryModal(rowSelected) {
         $("#formEntry").trigger("reset");
         $("#iID").val(rowSelected[0]);
         $("#iNombreE").val(rowSelected[2]);
+        console.log(rowSelected[2]);
+        console.log(rowSelected[3]);
         $("#iSaldoAE").val(rowSelected[3]);
         $("#modalEntry").modal("show");
     } else if (!$("#modalEntry").hasClass("show")) {

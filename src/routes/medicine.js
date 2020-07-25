@@ -222,35 +222,55 @@ router.get('/get-dt', (req,res,next)=> {
         }, 
         {
           db: "Saldo",
-          dt: 3
-        },
-        {
-          db: "Presentacion",
           dt: 4
         },
         {
-          db: "P_Proveedor",
-          dt: 5
+          db: "Presentacion",
+          dt: 3
         },
         {
-            db: "P_Publico",
+            db: "Contenido",
+            dt: 5
+        },
+        {
+            db: "DosisMG",
             dt: 6
         },
         {
-            db: "Descuento",
+            db: "Laboratorio",
             dt: 7
         },
         {
-            db: "Caducidad",
+            db: "Proveedor",
             dt: 8
         },
         {
-            db: "MedicamentoID",
-            dt: 9
+          db: "P_Proveedor",
+          dt: 9
+        },
+        {
+            db: "P_Publico",
+            dt: 10
+        },
+        {
+            db: "Descuento",
+            dt: 11
+        },
+        {
+            db: "P_Descuento",
+            dt: 12
+        },
+        {
+            db: "Caducidad",
+            dt: 13
         },
         {
             db: "MedicamentoID",
-            dt: 10
+            dt: 14
+        },
+        {
+            db: "MedicamentoID",
+            dt: 15
         }
       ];
 

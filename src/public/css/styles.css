@@ -10896,6 +10896,18 @@ h3 {
   background-color: red;
 }
 
+.right-aligned-cell {
+  text-align: right;
+}
+
+.center-aligned-cell {
+  text-align: center;
+}
+
+.text-adjust {
+  font-size: small;
+}
+
 footer.sticky-footer {
   padding: 2rem 0;
   flex-shrink: 0;

@@ -76,9 +76,11 @@ $(document).ready(function () {
         },
         "columnDefs": [
             {
-                "targets": [3, 5, 6, 7, 9, 10],
-                "searchable": false,
-                "targets": [4, 9, 10],
+                "targets": [4,9,10,11,12,14,15],
+                "searchable": false
+            },
+            {   
+                "targets": [14,15],
                 "visible": false
             }
         ],
@@ -88,32 +90,40 @@ $(document).ready(function () {
             // 1-SustanciaActiva
             {},
             // 2-NombreComercial
-            {
-                "data": null,
-                "render": function(data, type, row, meta) {
-                    return formatName(data);
-                }
+            { 
             },
-            // 3-Saldo
+            // 3-Presentacion
             {},
-            // 4-Presentacion
+            // 4-Saldo
             {},
-            // 5-P_Proveedor
+            // 5-Contenido
             {},
-            // 6-P_Publico
+            // 6-Dosis
             {},
-            // 7-Descuento
+            // 7-Laboratorio
             {},
-            // 8-Caducidad
+            // 8-Proveedor
+            {},
+            // 9-P_Proveedor
+            {},
+            // 10-P_Publico
+            {},
+            // 11-Descuento
+            {},
+            // 12-Descuento
+            {},
+            // 13-Caducidad
             {
-                "render": function(data){
+                "render": function(data, type, row, meta) {
                     return formatDate(data);
                 }
             },
-            //9-Edit button
-            {},
-            //10-Delete button
-            {}
+            //14-Edit button
+            { 
+            },
+            //15-Delete button
+            {   
+            }
         ]
     });
     // ************ ADD TABLE **************
@@ -156,10 +166,8 @@ $(document).ready(function () {
         },
         "columnDefs": [
             {
-                "targets": [3, 5, 6, 7, 9, 10],
+                "targets": [4,9,10,11,12,14,15],
                 "searchable": false,
-                "targets": [4],
-                "visible": false
             }
         ],
         "columns": [
@@ -169,22 +177,26 @@ $(document).ready(function () {
             {},
             // 2-NombreComercial
             {
-                "data": null,
-                "render": function(data){
-                    return formatName(data);
-                }
             },
-            // 3-Cantidad
+            // 3-Presentacion
+            {},
+            // 4-Cantidad
             {
                 "data": null,
                 "render": function (data, type, row, meta) {
                     let entry_ = entries[data[0]];
                     return entry_.split(',')[0]; //Display 'Quantity'
                 }
-            },
-            // 4-Presentacion
+            },        
+            // 5-Contenido
             {},
-            // 5-P_Proveedor
+            // 6-DosisMG
+            {},
+            // 7-Laboratorio
+            {},
+            // 8-Proveedor
+            {},
+            // 9-P_Proveedor
             {
                 "data": null,
                 render: function (data, type, row, meta) {
@@ -196,7 +208,7 @@ $(document).ready(function () {
                     }
                 }
             },
-            // 6-P_Publico
+            // 10-P_Publico
             {
                 "data": null,
                 render: function (data, type, row, meta) {
@@ -208,7 +220,7 @@ $(document).ready(function () {
                     }
                 }
             },
-            // 7-Descuento
+            // 11-Descuento
             {
                 "data": null,
                 render: function (data, type, row, meta) {
@@ -220,7 +232,7 @@ $(document).ready(function () {
                     }
                 }
             },
-            // 8-Caducidad
+            // 12-Caducidad
             {
                 "data": null,
                 render: function (data, type, row, meta) {
@@ -232,7 +244,7 @@ $(document).ready(function () {
                     }
                 }
             },
-            //9-Edit button Only change the current table   go
+            //13-Edit button Only change the current table   go
             {
                 "data": null,
                 "orderable": false,
@@ -245,7 +257,7 @@ $(document).ready(function () {
                     return html;
                 }
             },
-            //10-Delete button This button should delete it only from the tbAdd table,
+            //14-Delete button This button should delete it only from the tbAdd table,
             {
                 "data": null,
                 "orderable": false,
