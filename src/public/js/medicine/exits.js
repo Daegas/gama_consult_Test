@@ -47,9 +47,11 @@ $(document).ready(function () {
         },
         "columnDefs": [
             {
-                "targets": [3, 5, 6, 7, 9, 10],
-                "searchable": false,
-                "targets": [ 1,3,4,5,8,9, 10],
+                "targets": [4,9,10,11,12,14,15],
+                "searchable": false
+            },
+            {
+                "targets": [ 9,13,14,15],
                 "visible": false
             }
         ],
@@ -59,28 +61,40 @@ $(document).ready(function () {
             // 1-SustanciaActiva
             {},
             // 2-NombreComercial
+            { 
+            },
+            // 3-Presentacion
+            {},
+            // 4-Saldo
+            {},
+            // 5-Contenido
+            {},
+            // 6-Dosis
+            {},
+            // 7-Laboratorio
+            {},
+            // 8-Proveedor
+            {},
+            // 9-P_Proveedor
+            {},
+            // 10-P_Publico
+            {},
+            // 11-Descuento
+            {},
+            // 12-P_Descuento
+            {},
+            // 13-Caducidad
             {
-                "data": null,
-                "render": function(data){
-                    return formatName(data);
+                "render": function(data, type, row, meta) {
+                    return formatDate(data);
                 }
             },
-            // 3-Saldo
-            {},
-            // 4-Presentacion
-            {},
-            // 5-P_Proveedor
-            {},
-            // 6-P_Publico
-            {},
-            // 7-Descuento
-            {},
-            // 8-Caducidad
-            {},
-            //9-Edit button
-            {},
-            //10-Delete button
-            {}
+            //14-Edit button
+            { 
+            },
+            //15-Delete button
+            {   
+            }
         ]
     });
     // ************ ADD TABLE **************
@@ -123,9 +137,11 @@ $(document).ready(function () {
         },
         "columnDefs": [
             {
-                "targets": [3, 5, 6, 7, 9, 10],
-                "searchable": false,
-                "targets": [ 1,4,5,8],
+                "targets": [4,9,10,11,12,14,15],
+                "searchable": false
+            },
+            {
+                "targets": [ 9,13,14,15],
                 "visible": false
             }
         ],
@@ -136,49 +152,96 @@ $(document).ready(function () {
             {},
             // 2-NombreComercial
             {
-                "data": null,
-                "render": function(data){
-                    return formatName(data);
-                }
             },
-            // 3-Cantidad
+            // 3-Presentacion
+            {},
+            // 4-Cantidad
             {
                 "data": null,
                 "render": function (data, type, row, meta) {
                     let entry_ = entries[data[0]];
                     return entry_.split(',')[0]; //Display 'Quantity'
                 }
+            },        
+            // 5-Contenido
+            {},
+            // 6-DosisMG
+            {},
+            // 7-Laboratorio
+            {},
+            // 8-Proveedor
+            {},
+            // 9-P_Proveedor
+            {
+                "data": null,
+                render: function (data, type, row, meta) {
+                    let item_ = JSON.parse(sessionStorage.getItem(data[0]));
+                    if (item_ != null) { //If the medicine had been locally modified
+                        return item_.P_Proveedor;
+                    } else {
+                        return data[9];
+                    }
+                }
             },
-            // 4-Presentacion
-            {},
-            // 5-P_Proveedor
-            {},
-            // 6-P_Publico
-            {},
-            // 7-Descuento
-            {},
-            // 8-Caducidad
-            {},
-            //9-Edit button Only change the current table   go
+            // 10-P_Publico
+            {
+                "data": null,
+                render: function (data, type, row, meta) {
+                    let item_ = JSON.parse(sessionStorage.getItem(data[0]));
+                    if (item_ != null) { //If the medicine had been locally modified
+                        return item_.P_Publico;
+                    } else {
+                        return data[10];
+                    }
+                }
+            },
+            // 11-Descuento
+            {
+                "data": null,
+                render: function (data, type, row, meta) {
+                    let item_ = JSON.parse(sessionStorage.getItem(data[0]));
+                    if (item_ != null) { //If the medicine had been locally modified
+                        return item_.Descuento;
+                    } else {
+                        return data[11];
+                    }
+                }
+            },
+            // 12-Descuento
+            {
+            },
+            // 13-Caducidad
+            {
+                "data": null,
+                render: function (data, type, row, meta) {
+                    let item_ = JSON.parse(sessionStorage.getItem(data[0]));
+                    if (item_ != null) { //If the medicine had been locally modified
+                        return formatDate(item_.Caducidad);
+                    } else {
+                        return formatDate(data[13]);
+                    }
+                }
+            },
+            //14-Edit button Only change the current table   go
             {
                 "data": null,
                 "orderable": false,
                 "className": 'details-control',
                 "render": function (data, type, row, meta) {
                     let html = `
-                            <i id="btnEdit" data-MedicamentoID=${data[9]}
+                            <i id="btnEdit" data-MedicamentoID=${data[14]}
                             class="fa fa-pencil text-info pointer" title="Editar">
                             </i>`;
                     return html;
                 }
             },
-            //10-Delete button This button should delete it only from the tbAdd table,
+            //15-Delete button This button should delete it only from the tbAdd table,
             {
                 "data": null,
                 "orderable": false,
                 "render": function (data, type, row, meta) {
                     let html = `
-                                <i id="btnDelete" data-MedicamentoID=${data[10]}
+                                <i id="btnDelete" data-MedicamentoID=${data[15]}
                                 class="fa fa-close text-danger pointer" title="Eliminar">
                                 </i>`;
                     return html;

@@ -3,9 +3,9 @@ function reloadAJAX() {
     tableMeds.ajax.reload(null,false);
 }
 
-// setInterval( function () {
-//     reloadAJAX();
-// }, 2000 );
+setInterval( function () {
+    reloadAJAX();
+}, 2000 );
 
 
 function messageModal(modal_, blink, message){
@@ -137,7 +137,7 @@ $(document).ready(function () {
                 "className": 'details-control',
                 "render": function (data, type, row, meta) {
                     let html = `
-                        <i id="btnEdit" data-MedicamentoID=${data[9]}
+                        <i id="btnEdit" data-MedicamentoID=${data[14]}
                         class="fa fa-pencil text-info pointer" title="Editar">
                         </i>`;
                     return html;
@@ -149,7 +149,7 @@ $(document).ready(function () {
                 "orderable": false,
                 "render": function (data, type, row, meta) {
                     let html = `
-                            <i id="btnDelete" data-MedicamentoID=${data[10]}
+                            <i id="btnDelete" data-MedicamentoID=${data[15]}
                             class="fa fa-trash text-danger pointer" title="Eliminar">
                             </i>`;
                     return html;
@@ -184,7 +184,6 @@ $(document).on("click", "#btnNew", function () {
 $(document).on("click", "#btnEdit", function (e) {
     var row = $(this).closest("tr");
     let MedicamentoID = $(row["prevObject"][0]).attr('data-MedicamentoId');
-    console.log(MedicamentoID);
 
     var xhttp = new XMLHttpRequest();
     xhttp.open('GET', '/meds/getMed/' + MedicamentoID);

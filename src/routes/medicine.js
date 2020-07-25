@@ -48,37 +48,57 @@ router.get('/get-addTable/:idList', (req,res,next)=> {
           dt: 2
         }, 
         {
-          db: "Saldo",
-          dt: 3
-        },
-        {
-          db: "Presentacion",
-          dt: 4
-        },
-        {
-          db: "P_Proveedor",
-          dt: 5
-        },
-        {
-            db: "P_Publico",
-            dt: 6
-        },
-        {
-            db: "Descuento",
-            dt: 7
-        },
-        {
-            db: "Caducidad",
-            dt: 8
-        },
-        {
-            db: "MedicamentoID",
+            db: "Saldo",
+            dt: 4
+          },
+          {
+            db: "Presentacion",
+            dt: 3
+          },
+          {
+              db: "Contenido",
+              dt: 5
+          },
+          {
+              db: "DosisMG",
+              dt: 6
+          },
+          {
+              db: "Laboratorio",
+              dt: 7
+          },
+          {
+              db: "Proveedor",
+              dt: 8
+          },
+          {
+            db: "P_Proveedor",
             dt: 9
-        },
-        {
-            db: "MedicamentoID",
-            dt: 10
-        }
+          },
+          {
+              db: "P_Publico",
+              dt: 10
+          },
+          {
+              db: "Descuento",
+              dt: 11
+          },
+          {
+              db: "P_Descuento",
+              dt: 12
+          },
+          {
+              db: "Caducidad",
+              dt: 13
+          },
+          {
+              db: "MedicamentoID",
+              dt: 14
+          },
+          {
+              db: "MedicamentoID",
+              dt: 15
+          }
       ];
 
     //Select table in DB - Or define any custum QUERY

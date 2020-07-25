@@ -110,7 +110,7 @@ $(document).ready(function () {
             {},
             // 11-Descuento
             {},
-            // 12-Descuento
+            // 12-P_Descuento
             {},
             // 13-Caducidad
             {
@@ -204,7 +204,7 @@ $(document).ready(function () {
                     if (item_ != null) { //If the medicine had been locally modified
                         return item_.P_Proveedor;
                     } else {
-                        return data[5];
+                        return data[9];
                     }
                 }
             },
@@ -216,7 +216,7 @@ $(document).ready(function () {
                     if (item_ != null) { //If the medicine had been locally modified
                         return item_.P_Publico;
                     } else {
-                        return data[6];
+                        return data[10];
                     }
                 }
             },
@@ -228,11 +228,14 @@ $(document).ready(function () {
                     if (item_ != null) { //If the medicine had been locally modified
                         return item_.Descuento;
                     } else {
-                        return data[7];
+                        return data[11];
                     }
                 }
             },
-            // 12-Caducidad
+            // 12-Descuento
+            {
+            },
+            // 13-Caducidad
             {
                 "data": null,
                 render: function (data, type, row, meta) {
@@ -240,30 +243,30 @@ $(document).ready(function () {
                     if (item_ != null) { //If the medicine had been locally modified
                         return formatDate(item_.Caducidad);
                     } else {
-                        return formatDate(data[8]);
+                        return formatDate(data[13]);
                     }
                 }
             },
-            //13-Edit button Only change the current table   go
+            //14-Edit button Only change the current table   go
             {
                 "data": null,
                 "orderable": false,
                 "className": 'details-control',
                 "render": function (data, type, row, meta) {
                     let html = `
-                            <i id="btnEdit" data-MedicamentoID=${data[9]}
+                            <i id="btnEdit" data-MedicamentoID=${data[14]}
                             class="fa fa-pencil text-info pointer" title="Editar">
                             </i>`;
                     return html;
                 }
             },
-            //14-Delete button This button should delete it only from the tbAdd table,
+            //15-Delete button This button should delete it only from the tbAdd table,
             {
                 "data": null,
                 "orderable": false,
                 "render": function (data, type, row, meta) {
                     let html = `
-                                <i id="btnDelete" data-MedicamentoID=${data[10]}
+                                <i id="btnDelete" data-MedicamentoID=${data[15]}
                                 class="fa fa-close text-danger pointer" title="Eliminar">
                                 </i>`;
                     return html;
