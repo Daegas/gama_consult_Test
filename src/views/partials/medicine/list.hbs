@@ -1,4 +1,5 @@
 <div class="container mb-2">
+    <button type="button" id="btnCol{{tbID}}" class="btn btn-secondary btnColumns">Columnas</button>
     <table id={{tbID}} class="table table-striped table-hover  table-responsive table-sm" {{#if width}} style="width:{{width}}%"{{else}} style="width:100%"{{/if}}>
         <thead class="bg-light-green text-gray-800">
             <tr>
@@ -6,6 +7,7 @@
                 <th>Sustancia Activa</th>
                 <th>Nombre</th>
                 <th>Presentación</th>
+                <th>Saldo Anterior</th>
                 {{#if quantity}}
                 <th>Cantidad</th>
                 {{else}}
@@ -31,6 +33,7 @@
                 <th>Sustancia Activa</th>
                 <th>Nombre</th>
                 <th>Presentación</th>
+                <th>Saldo Anterior</th>
                 {{#if quantity}}
                 <th>Cantidad</th>
                 {{else}}
@@ -60,6 +63,7 @@
     {{/if}}
 {{/if}}
 
+{{> medicine/modalColumns tbID=tbID source=source quantity=quantity}}
 
 {{!-- ********** ONLY DATATABLES SCRIPTS ******************* --}}
 <!--Datatables-->

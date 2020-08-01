@@ -48,56 +48,61 @@ router.get('/get-addTable/:idList', (req,res,next)=> {
           dt: 2
         }, 
         {
+            db: "Presentacion",
+            dt: 3
+        },
+        {
             db: "Saldo",
             dt: 4
           },
           {
-            db: "Presentacion",
-            dt: 3
+            db: "Saldo",
+            dt: 5
           },
+          
           {
               db: "Contenido",
-              dt: 5
-          },
-          {
-              db: "DosisMG",
               dt: 6
           },
           {
-              db: "Laboratorio",
+              db: "DosisMG",
               dt: 7
           },
           {
-              db: "Proveedor",
+              db: "Laboratorio",
               dt: 8
           },
           {
+              db: "Proveedor",
+              dt: 9
+          },
+          {
             db: "P_Proveedor",
-            dt: 9
+            dt: 10
           },
           {
               db: "P_Publico",
-              dt: 10
-          },
-          {
-              db: "Descuento",
               dt: 11
           },
           {
-              db: "P_Descuento",
+              db: "Descuento",
               dt: 12
           },
           {
-              db: "Caducidad",
+              db: "P_Descuento",
               dt: 13
           },
           {
-              db: "MedicamentoID",
+              db: "Caducidad",
               dt: 14
           },
           {
               db: "MedicamentoID",
               dt: 15
+          },
+          {
+              db: "MedicamentoID",
+              dt: 16
           }
       ];
 
@@ -241,56 +246,60 @@ router.get('/get-dt', (req,res,next)=> {
           dt: 2
         }, 
         {
+            db: "Presentacion",
+            dt: 3
+          },
+        {
           db: "Saldo",
           dt: 4
         },
         {
-          db: "Presentacion",
-          dt: 3
-        },
-        {
-            db: "Contenido",
+            db: "Saldo",
             dt: 5
         },
         {
-            db: "DosisMG",
+            db: "Contenido",
             dt: 6
         },
         {
-            db: "Laboratorio",
+            db: "DosisMG",
             dt: 7
         },
         {
-            db: "Proveedor",
+            db: "Laboratorio",
             dt: 8
         },
         {
+            db: "Proveedor",
+            dt: 9
+        },
+        {
           db: "P_Proveedor",
-          dt: 9
+          dt: 10
         },
         {
             db: "P_Publico",
-            dt: 10
-        },
-        {
-            db: "Descuento",
             dt: 11
         },
         {
-            db: "P_Descuento",
+            db: "Descuento",
             dt: 12
         },
         {
-            db: "Caducidad",
+            db: "P_Descuento",
             dt: 13
         },
         {
-            db: "MedicamentoID",
+            db: "Caducidad",
             dt: 14
         },
         {
             db: "MedicamentoID",
             dt: 15
+        },
+        {
+            db: "MedicamentoID",
+            dt: 16
         }
       ];
 

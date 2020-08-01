@@ -1,5 +1,6 @@
 /**************************** FUNCTIONS *******************************************/
 function reloadAJAX() {
+    hiddenColsMeds=[0,1,2]
     tableMeds.ajax.reload(null,false);
 }
 
@@ -23,6 +24,7 @@ function messageModal(modal_, blink, message){
 }
 
 /**************************** EVENTS *******************************************/
+hiddenColsMeds = []
 $(document).ready(function () {
     tableMeds = $('#tbMeds').DataTable({
         dom: '<"top mt-4 row" p<"toolbar mx-auto mb-2">frt><"bottom row" <"col-sm-12 col-md-5"i> <"col-sm-12 col-md-2"l>>', //Se agrega clase 'toolbar' a la plantilla
@@ -72,7 +74,7 @@ $(document).ready(function () {
         },
         "columnDefs":[
             {
-                "targets": [0,4,8,9,10,11,12],
+                "targets": [0,5,9,10,11,12,13],
                 "width":30,
             },
             {
@@ -88,12 +90,20 @@ $(document).ready(function () {
             //     "className": "text-adjust"
             // },
             {
-                "targets": [4,8,9,10,11], 
+                "targets": [5,9,10,11,12], 
                 "className": "center-aligned-cell"
             },
             {
-                "targets": [9,10,11,12,14,15],
+                "targets": [10,11,12,13,15,16],
                 "searchable": false
+            },
+            {
+                "targets": [4],
+                "visible": false
+            },
+            {
+                "targets": hiddenColsMeds,
+                "visible": false
             }
         ],  
         "columns": [
@@ -102,54 +112,55 @@ $(document).ready(function () {
             // 1-SustanciaActiva
             {},
             // 2-NombreComercial
-            { 
-            },
+            {},
             // 3-Presentacion
             {},
-            // 4-Saldo
+            // 4-Saldo Anterior (Oculto)
             {},
-            // 5-Contenido
+            // 5-Saldo
             {},
-            // 6-Dosis
+            // 6-Contenido
             {},
-            // 7-Laboratorio
+            // 7-Dosis
             {},
-            // 8-Proveedor
+            // 8-Laboratorio
             {},
-            // 9-P_Proveedor
+            // 9-Proveedor
             {},
-            // 10-P_Publico
+            // 10-P_Proveedor
             {},
-            // 11-Descuento
+            // 11-P_Publico
             {},
-            // 12-P_Descuento
+            // 12-Descuento
             {},
-            // 13-Caducidad
+            // 13-P_Descuento
+            {},
+            // 14-Caducidad
             {
                 "render": function(data, type, row, meta) {
                     return formatDate(data);
                 }
             },
-            //14-Edit button
+            //15-Edit button
             {   
                 "data": null,
                 "orderable": false,
                 "className": 'details-control',
                 "render": function (data, type, row, meta) {
                     let html = `
-                        <i id="btnEdit" data-MedicamentoID=${data[14]}
+                        <i id="btnEdit" data-MedicamentoID=${data[15]}
                         class="fa fa-pencil text-info pointer" title="Editar">
                         </i>`;
                     return html;
                 }
             },
-            //15-Delete button
+            //16-Delete button
             {   
                 "data": null,
                 "orderable": false,
                 "render": function (data, type, row, meta) {
                     let html = `
-                            <i id="btnDelete" data-MedicamentoID=${data[15]}
+                            <i id="btnDelete" data-MedicamentoID=${data[16]}
                             class="fa fa-trash text-danger pointer" title="Eliminar">
                             </i>`;
                     return html;

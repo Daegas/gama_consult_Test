@@ -1,6 +1,8 @@
 /**************************** EVENTS *******************************************/
 tableSearch = null;
 tableAdd = null;
+hiddenColsSearch = [];
+hiddenColsAdd = [];
 $(document).ready(function () {
     // ********* FUNCTIONALITY ***********
     // sessionStorage.clear();
@@ -47,11 +49,15 @@ $(document).ready(function () {
         },
         "columnDefs": [
             {
-                "targets": [4,9,10,11,12,14,15],
+                "targets": [5,10,11,12,13,15,16],
                 "searchable": false
             },
             {
-                "targets": [ 9,13,14,15],
+                "targets": [ 4,10,14,15,16],
+                "visible": false
+            },
+            {
+                "targets": hiddenColsSearch,
                 "visible": false
             }
         ],
@@ -65,34 +71,36 @@ $(document).ready(function () {
             },
             // 3-Presentacion
             {},
-            // 4-Saldo
+            // 4-Saldo - A (oculto)
             {},
-            // 5-Contenido
+            // 5-Saldo
             {},
-            // 6-Dosis
+            // 6-Contenido
             {},
-            // 7-Laboratorio
+            // 7-Dosis
             {},
-            // 8-Proveedor
+            // 8-Laboratorio
             {},
-            // 9-P_Proveedor
+            // 9-Proveedor
             {},
-            // 10-P_Publico
+            // 10-P_Proveedor
             {},
-            // 11-Descuento
+            // 11-P_Publico
             {},
-            // 12-P_Descuento
+            // 12-Descuento
             {},
-            // 13-Caducidad
+            // 13-P_Descuento
+            {},
+            // 14-Caducidad
             {
                 "render": function(data, type, row, meta) {
                     return formatDate(data);
                 }
             },
-            //14-Edit button
+            //15-Edit button
             { 
             },
-            //15-Delete button
+            //16-Delete button
             {   
             }
         ]
@@ -137,11 +145,15 @@ $(document).ready(function () {
         },
         "columnDefs": [
             {
-                "targets": [4,9,10,11,12,14,15],
+                "targets": [5,10,11,12,13,15,16],
                 "searchable": false
             },
             {
-                "targets": [ 9,13,14,15],
+                "targets": [ 10,14],
+                "visible": false
+            },
+            {
+                "targets": hiddenColsAdd,
                 "visible": false
             }
         ],
@@ -155,7 +167,15 @@ $(document).ready(function () {
             },
             // 3-Presentacion
             {},
-            // 4-Cantidad
+            // 4-Saldo Anterior
+            {
+                "data": null,
+                "render": function (data, type, row, meta) {
+                    let entry_ = entries[data[0]];
+                    return entry_.split(',')[1]; //Display 'Saldo'
+                }
+            },  
+            // 5-Cantidad
             {
                 "data": null,
                 "render": function (data, type, row, meta) {
@@ -163,15 +183,15 @@ $(document).ready(function () {
                     return entry_.split(',')[0]; //Display 'Quantity'
                 }
             },        
-            // 5-Contenido
+            // 6-Contenido
             {},
-            // 6-DosisMG
+            // 7-DosisMG
             {},
-            // 7-Laboratorio
+            // 8-Laboratorio
             {},
-            // 8-Proveedor
+            // 9-Proveedor
             {},
-            // 9-P_Proveedor
+            // 10-P_Proveedor
             {
                 "data": null,
                 render: function (data, type, row, meta) {
@@ -179,11 +199,11 @@ $(document).ready(function () {
                     if (item_ != null) { //If the medicine had been locally modified
                         return item_.P_Proveedor;
                     } else {
-                        return data[9];
+                        return data[10];
                     }
                 }
             },
-            // 10-P_Publico
+            // 11-P_Publico
             {
                 "data": null,
                 render: function (data, type, row, meta) {
@@ -191,11 +211,11 @@ $(document).ready(function () {
                     if (item_ != null) { //If the medicine had been locally modified
                         return item_.P_Publico;
                     } else {
-                        return data[10];
+                        return data[11];
                     }
                 }
             },
-            // 11-Descuento
+            // 12-Descuento
             {
                 "data": null,
                 render: function (data, type, row, meta) {
@@ -203,45 +223,35 @@ $(document).ready(function () {
                     if (item_ != null) { //If the medicine had been locally modified
                         return item_.Descuento;
                     } else {
-                        return data[11];
+                        return data[12];
                     }
                 }
             },
-            // 12-Descuento
+            // 13-Descuento
             {
             },
-            // 13-Caducidad
-            {
-                "data": null,
-                render: function (data, type, row, meta) {
-                    let item_ = JSON.parse(sessionStorage.getItem(data[0]));
-                    if (item_ != null) { //If the medicine had been locally modified
-                        return formatDate(item_.Caducidad);
-                    } else {
-                        return formatDate(data[13]);
-                    }
-                }
-            },
-            //14-Edit button Only change the current table   go
+            // 14-Caducidad
+            {},
+            //15-Edit button Only change the current table   go
             {
                 "data": null,
                 "orderable": false,
                 "className": 'details-control',
                 "render": function (data, type, row, meta) {
                     let html = `
-                            <i id="btnEdit" data-MedicamentoID=${data[14]}
+                            <i id="btnEdit" data-MedicamentoID=${data[15]}
                             class="fa fa-pencil text-info pointer" title="Editar">
                             </i>`;
                     return html;
                 }
             },
-            //15-Delete button This button should delete it only from the tbAdd table,
+            //16-Delete button This button should delete it only from the tbAdd table,
             {
                 "data": null,
                 "orderable": false,
                 "render": function (data, type, row, meta) {
                     let html = `
-                                <i id="btnDelete" data-MedicamentoID=${data[15]}
+                                <i id="btnDelete" data-MedicamentoID=${data[16]}
                                 class="fa fa-close text-danger pointer" title="Eliminar">
                                 </i>`;
                     return html;
@@ -262,7 +272,8 @@ $(document).on("click", "#btnEdit", function (e) {
     $("#iID").val(rowSelected[0]);
     $("#iNombreE").val(rowSelected[2]);
     $("#iCantidad").val(entries[rowSelected[0]].split(",")[0]);
-    $("#iSaldoAE").val(rowSelected[3]);
+    $("#iSaldoAE").attr("disabled", false)
+    $("#iSaldoAE").val(entries[rowSelected[0]].split(",")[1]);
 
     $("#modalEntry").modal("show");
 });
