@@ -1,31 +1,6 @@
 /**************************** FUNCTIONS *******************************************/
-function reloadAJAX() {
-    hiddenColsMeds=[0,1,2]
-    tableMeds.ajax.reload(null,false);
-}
-
-setInterval( function () {
-    reloadAJAX();
-}, 2000 );
-
-
-function messageModal(modal_, blink, message){
-    modal_.modal("show");
-    $('.modal-backdrop').css("opacity", "0");
-
-    if(blink){
-        $(".message").text(message);
-        setTimeout( ()=> {
-            modal_.modal("hide");
-        }, 3000);
-    } else{
-        $(".message-details").text(message);
-    }
-}
-
-/**************************** EVENTS *******************************************/
 hiddenColsMeds = []
-$(document).ready(function () {
+function tableDefinition(tableRef="tableMeds"){
     tableMeds = $('#tbMeds').DataTable({
         dom: '<"top mt-4 row" p<"toolbar mx-auto mb-2">frt><"bottom row" <"col-sm-12 col-md-5"i> <"col-sm-12 col-md-2"l>>', //Se agrega clase 'toolbar' a la plantilla
         fnInitComplete: function () { //Function to display content in 'toolbar' class
@@ -168,6 +143,36 @@ $(document).ready(function () {
             }
         ]
     });
+}
+function reloadAJAX() {
+    tableMeds.ajax.reload(null,true);
+}
+
+setInterval( function () {
+    reloadAJAX();
+}, 2000 );
+// setTimeout( function(){
+//     reloadAJAX();
+// }, 5000);
+
+
+function messageModal(modal_, blink, message){
+    modal_.modal("show");
+    $('.modal-backdrop').css("opacity", "0");
+
+    if(blink){
+        $(".message").text(message);
+        setTimeout( ()=> {
+            modal_.modal("hide");
+        }, 3000);
+    } else{
+        $(".message-details").text(message);
+    }
+}
+
+/**************************** EVENTS *******************************************/
+$(document).ready(function () {
+    defineTable();
 });
 window.onload = function () {
     $("#tbMeds_filter input").focus();

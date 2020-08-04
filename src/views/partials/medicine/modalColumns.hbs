@@ -15,19 +15,19 @@
                     <div class="row">
                         <div class="col-lg-4">
                             <div class="form-group">
-                                <input type="checkbox" id="col_0_{{tbID}}" class="column" name="ID" checked>
+                                <input type="checkbox" id="col_0_{{tbID}}" class="checkbx_column" name="ID" checked>
                                 <label for="ID" class="col-form-label">ID</label>
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="form-group">
-                                <input type="checkbox" id="col_1_{{tbID}}" class="column" name="SustanciaActiva" checked>
+                                <input type="checkbox" id="col_1_{{tbID}}" class="checkbx_column" name="SustanciaActiva" checked>
                                 <label for="SustanciaActiva" class="col-form-label">SustanciaActiva</label>                               
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="form-group">
-                                <input type="checkbox" id="col_2_{{tbID}}" class="column" name="Nombre"checked>
+                                <input type="checkbox" id="col_2_{{tbID}}" class="checkbx_column" name="Nombre"checked>
                                 <label for="Nombre" class="col-form-label">Nombre</label>
                             </div>
                         </div>
@@ -35,28 +35,34 @@
                     <div class="row">
                         <div class="col-lg-4">
                             <div class="form-group">
-                                <input type="checkbox" id="col_3_{{tbID}}" class="column" name="Presentacion" checked>
+                                <input type="checkbox" id="col_3_{{tbID}}" class="checkbx_column" name="Presentacion" checked>
                                 <label for="Presentacion" class="col-form-label">Presentación</label>
                             </div>
                         </div>
                         {{#if quantity}}
                         <div class="col-lg-4">
                             <div class="form-group">
-                                <input type="checkbox" id="col_4_{{tbID}}" class="column" name="Cantidad" checked>
+                                <input type="checkbox" id="col_4_{{tbID}}" class="checkbx_column" name="SaldoAnterior" checked>
+                                <label for="SaldoAnterior" class="col-form-label">Saldo Anterior</label>                               
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <input type="checkbox" id="col_5_{{tbID}}" class="checkbx_column" name="Cantidad" checked>
                                 <label for="Cantidad" class="col-form-label">Cantidad</label>                               
                             </div>
                         </div>
                         {{else}}
                         <div class="col-lg-4">
                             <div class="form-group">
-                                <input type="checkbox" id="col_4_{{tbID}}" class="column" name="Saldo" checked>
+                                <input type="checkbox" id="col_5_{{tbID}}" class="checkbx_column" name="Saldo" checked>
                                 <label for="Saldo" class="col-form-label">Saldo</label>                               
                             </div>
                         </div>
                         {{/if}}
                         <div class="col-lg-4">
                             <div class="form-group">
-                                <input type="checkbox" id="col_5_{{tbID}}" class="column" name="Contenido"checked>
+                                <input type="checkbox" id="col_6_{{tbID}}" class="checkbx_column" name="Contenido"checked>
                                 <label for="Contenido" class="col-form-label">Contenido</label>
                             </div>
                         </div>
@@ -64,19 +70,19 @@
                     <div class="row">
                         <div class="col-lg-4">
                             <div class="form-group">
-                                <input type="checkbox" id="col_6_{{tbID}}" class="column" name="Dosis" checked>
+                                <input type="checkbox" id="col_7_{{tbID}}" class="checkbx_column" name="Dosis" checked>
                                 <label for="Dosis" class="col-form-label">Dosis</label>
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="form-group">
-                                <input type="checkbox" id="col_7_{{tbID}}" class="column" name="Laboratorio" checked>
+                                <input type="checkbox" id="col_8_{{tbID}}" class="checkbx_column" name="Laboratorio" checked>
                                 <label for="Laboratorio" class="col-form-label">Laboratorio</label>                               
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="form-group">
-                                <input type="checkbox" id="col_8_{{tbID}}" class="column" name="Proveedor"checked>
+                                <input type="checkbox" id="col_9_{{tbID}}" class="checkbx_checkbx_column" name="Proveedor"checked>
                                 <label for="Proveedor" class="col-form-label">Proveedor</label>
                             </div>
                         </div>
@@ -85,33 +91,33 @@
                         {{#if source}}
                         <div class="col-lg-4">
                             <div class="form-group">
-                                <input type="checkbox" id="col_9_{{tbID}}" class="column" name="P_Proveedor" checked>
+                                <input type="checkbox" id="col_10_{{tbID}}" class="checkbx_column" name="P_Proveedor" checked>
                                 <label for="P_Proveedor" class="col-form-label">P. Proveedor</label>
                             </div>
                         </div>
                         {{/if}}
                         <div class="col-lg-4">
                             <div class="form-group">
-                                <input type="checkbox" id="col_10_{{tbID}}" class="column" name="P_Publico" checked>
+                                <input type="checkbox" id="col_11_{{tbID}}" class="checkbx_column" name="P_Publico" checked>
                                 <label for="P_Publico" class="col-form-label">P. Público</label>
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="form-group">
-                                <input type="checkbox" id="col_11_{{tbID}}" class="column" name="Descuento" checked>
+                                <input type="checkbox" id="col_12_{{tbID}}" class="checkbx_column" name="Descuento" checked>
                                 <label for="Descuento" class="col-form-label">Descuento</label>                               
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="form-group">
-                                <input type="checkbox" id="col_12_{{tbID}}" class="column" name="P_Descuento"checked>
+                                <input type="checkbox" id="col_13_{{tbID}}" class="checkbx_column" name="P_Descuento"checked>
                                 <label for="P_Descuento" class="col-form-label">P. Descuento</label>
                             </div>
                         </div>
                         {{#if source}}
                         <div class="col-lg-4">
                             <div class="form-group">
-                                <input type="checkbox" id="col_13_{{tbID}}" class="column" name="Caducidad" checked>
+                                <input type="checkbox" id="col_14_{{tbID}}" class="checkbx_column" name="Caducidad" checked>
                                 <label for="Caducidad" class="col-form-label">Caducidad</label>
                             </div>
                         </div>
@@ -121,7 +127,7 @@
 
                 <div class="modal-footer">
                     <button type="button" id="btnCancelColumns_{{tbID}}" class="btn btn-secondary mx-auto btnCancelColumns" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" id="btnSumbitColumns_{{tbId}}" class="btn btn-primary px-3 mx-auto btnSubmitColumns">Aceptar</button>
+                    <button type="submit" id="btnSumbitColumns_{{tbID}}" class="btn btn-primary px-3 mx-auto btnSubmitColumns">Aceptar</button>
                 </div>
             </form>
         </div>
