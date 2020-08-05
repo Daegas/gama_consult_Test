@@ -4,7 +4,8 @@
   "description": "Repositorio para pruebas de Gama Consult Project",
   "main": "index.js",
   "scripts": {
-    "dev": "sass src/public/sass/main.scss src/public/css/styles.css && nodemon src/index.js"
+    "dev": "sass src/public/sass/main.scss src/public/css/styles.css && nodemon src/index.js",
+    "app": "node src/index.js"
   },
   "repository": {
     "type": "git",
@@ -14,9 +15,9 @@
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/SandraPAM/gama_consult_Test/issues"
+    "url": "https://github.com/Daegas/gama_consult_Test/issues"
   },
-  "homepage": "https://github.com/SandraPAM/gama_consult_Test#readme",
+  "homepage": "https://github.com/Daegas/gama_consult_Test#readme",
   "devDependencies": {
     "nodemon": "^2.0.4"
   },
