@@ -7,7 +7,7 @@ function formatDate(data) {
 
 /**************************** EVENTS *******************************************/
 
-//Hide Columns
+/******** HIDE COLUMNS ********/
 $(document).on("click", ".btnColumns", function (e){
     let tableRef = this.id.slice(6, this.id.length);
     $("#modalColumns_"+tableRef).modal("show");
@@ -76,3 +76,4 @@ $(".btnCancelColumns").on("click", function(e) {
     tableRef = this.id.split("_")[1];
     $("#modalColumns_"+tableRef).modal("hide");
 });
+

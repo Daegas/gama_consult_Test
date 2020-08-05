@@ -1,11 +1,13 @@
 /**************************** FUNCTIONS *******************************************/
-function updatePDescuneto(){
+function updatePDescuneto() {
     let P_Publico = $("#iPPublico").val();
     let Descuento = $("#iDescuento").val();
     let P_Descuento;
-    
-    if (Descuento > 0.0){
-        P_Descuento = P_Publico - (P_Publico * (Descuento/100));
+
+    if (Descuento > 0.0) {
+        P_Descuento = P_Publico - (P_Publico * (Descuento / 100.0));
+        //Round to two decimals
+        P_Descuento = Math.round(P_Descuento * 100) / 100;
     } else {
         P_Descuento = P_Publico;
     }
@@ -13,11 +15,23 @@ function updatePDescuneto(){
     $("#iPDescuento").val(P_Descuento);
 }
 
+function toUpperEach(str) {
+    return str
+        .toLowerCase()
+        .split(' ')
+        .map(function(word) {
+            console.log("First capital letter: "+word[0]);
+            console.log("remain letters: "+ word.substr(1));
+            return word[0].toUpperCase() + word.substr(1);
+        })
+        .join(' ');
+     }
+
 /**************************** OPTIONAL *******************************************/
-function priceBinding(){
+function priceBinding() {
     let P_Publico = $("#iPPublico").val();
     let P_Descuento = $("#iPDescuento").val();
-    if (P_Publico == 0.00){
+    if (P_Publico == 0.00) {
         $("#iPPublico").val(P_Descuento);
     }
 }
@@ -32,7 +46,7 @@ $("#formMeds").submit(function (e) {
 
     SustanciaActiva = $.trim($("#iSustanciaActiva").val());
     NombreComercial = $.trim($("#iNombreComercial").val());
-    if(quantity){
+    if (quantity) {
         Saldo = (quantity + parseInt(saldo_)).toString();
     } else {
         Saldo = saldo_;
@@ -50,10 +64,17 @@ $("#formMeds").submit(function (e) {
     Caducidad = $.trim($("#iCaducidad").val());
 
     //Parse Not String values
-    Saldo = Saldo == "" ? "0": Saldo;
+    Saldo = Saldo == "" ? "0" : Saldo;
     Descuento = Descuento == "" ? "0.0" : Descuento;
     Activo = Activo ? "1" : "0";
     Caducidad = Caducidad == "" ? "0000-00-00" : Caducidad;
+
+    //Edit Data
+    SustanciaActiva= SustanciaActiva.toUpperCase();
+    NombreComercial= toUpperEach(NombreComercial);
+    Presentacion = toUpperEach(Presentacion);
+    Laboratorio = toUpperEach(Laboratorio);
+    Proveedor = toUpperEach(Proveedor);
 
     let url_ = opc == -1 ? "/meds/add" : "/meds/edit/" + opc;
     let data_ = {
@@ -66,7 +87,7 @@ $("#formMeds").submit(function (e) {
         Caducidad, Activo
     }
 
-    if(quantity){
+    if (quantity) {
         localEntryUpdate(opc, data_, quantity, saldo_);
     } else {
         $.ajax({
@@ -77,10 +98,10 @@ $("#formMeds").submit(function (e) {
             success: function (res) {
                 // req.flash('success', 'Med updated successfully');
                 let message = opc == -1 ? " AGREGADO " : " EDITADO ";
-                messageModal($("#modalMessageSuccess"), true, message); 
+                messageModal($("#modalMessageSuccess"), true, message);
                 reloadAJAX();
             },
-            error: function(res){
+            error: function (res) {
                 let message = res.responseJSON.code + '\n' + res.responseJSON.sqlMessage;
                 messageModal($("#modalMessageError"), false, message);
             }
@@ -89,10 +110,10 @@ $("#formMeds").submit(function (e) {
     $('#modalCU').modal('hide');
 });
 
-$(document).on('keyup', "#iPPublico", function() {
+$(document).on('keyup', "#iPPublico", function () {
     updatePDescuneto();
 });
 
-$(document).on('keyup', "#iDescuento", function() {
+$(document).on('keyup', "#iDescuento", function () {
     updatePDescuneto();
 });

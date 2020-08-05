@@ -1,35 +1,41 @@
-{{!-- *********************** SEARCH TABLE ********************************** --}}
-<div class="container">
-    <div class="card mt-4">
-        <h1 class="card-header">
-            Búsqueda
-        </h1>
-        <div class="card-body">
-            {{>medicine/list tbID="tbSearch" modal=false source="entries"}}
-            {{>medicine/modalEntries}}
-            <div class="form-group">
-                <button id="btnAdd" class="btn btn-primary btn-block"> Añadir</button>
+<div class="row w-100 col-12 m-0">
+    <h1>Entradas</h1>
+    <div class="row w-100 col-12 m-0">
+        {{!-- *********************** SEARCH TABLE ********************************** --}}
+        <div class="container">
+
+            <div class="card mt-4">
+                <h1 class="card-header">
+                    Búsqueda
+                </h1>
+                <div class="card-body">
+                    {{>medicine/list tbID="tbSearch" modal=false source="entries"}}
+                    {{>medicine/modalEntriesExits edit=true}}
+                    <div class="form-group">
+                        <button id="btnAdd" class="btn btn-primary btn-block"> Añadir</button>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
 
 
-    {{!-- *********************** ADD TABLE********************************** --}}
-    <div class="card mt-4">
-        <h1 class="card-header">
-            Medicamentos a agregar
-        </h1>
-        <div class="card-body">
-            {{> medicine/list tbID="tbAdd" modal=true  quantity=true source="entries"}}
-            <div class="form-group">
-                <button id="btnCompleteEntry" class="btn btn-primary btn-block">Completar Entrada</button>
+            {{!-- *********************** ADD TABLE********************************** --}}
+            <div class="card mt-4">
+                <h1 class="card-header">
+                    Medicamentos a agregar
+                </h1>
+                <div class="card-body">
+                    {{> medicine/list tbID="tbAdd" modal=true  quantity=true source="entries"}}
+                    <div class="form-group">
+                        <button id="btnCompleteEntry" class="btn bg-pink btn-block">Completar Entrada</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-
 <!--SCRIPTS-->
 <script src="/js/medicine/entries.js"></script>
-<script src="/js/medicine/generalFunctions.js"></script>
-<script src="/js/medicine/sharedEntriesExits.js"></script>
+<script src="/js/medicine/Sh-GeneralFunctions.js"></script>
+<script src="/js/medicine/Sh-EntriesExits.js"></script>
+<script src="/js/medicine/Sh-List.js"></script>
