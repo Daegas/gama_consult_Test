@@ -47,7 +47,7 @@ function removeEntry(MedicamentoID, isDelete) {
 window.onload = function () {
     $(inputSearch).focus();
     //Reset when search is modified
-    $(inputSearh).on('keyup', function () {
+    $(inputSearch).on('keyup', function () {
         tabIndex =0;
     });
 };
@@ -65,12 +65,12 @@ $(document).on('keyup', function (e) {
     if (e.keyCode == 13 && rowSelected.data()) { //When a row is Selected and 'Enter' pressed
         entryModal(rowSelected.data());
         rowSelected.select(false);
-        $(inputSearh).focus();
+        $(inputSearch).focus();
     }
 
     /******** FOCUS ********/
     if (!$("#modalEntry").hasClass("show") && !$("#modalCU").hasClass("show")) {
-        if (e.keyCode == 9 && $(inputSearh).focus()) {
+        if (e.keyCode == 9 && $(inputSearch).focus()) {
             row_ = tableSearch.row(tabIndex);
             row_.select();
             tabIndex += 1;
@@ -92,7 +92,7 @@ $(document).on('click', inputSearch, function (e) {
 $("body").on('focus.spf', "*", function (e) {
     e.stopPropagation();
     e.preventDefault();
-    if (e.currentTarget != $(inputSearh)[0]) {
+    if (e.currentTarget != $(inputSearch)[0]) {
         if (!$("#modalEntry").hasClass("show") && !$("#modalCU").hasClass("show")) {
             $(this).blur();
         }
@@ -109,7 +109,7 @@ $(document).on("click", "#btnAdd", function (e) {
 
     }
 });
-/**************************** MODAL ENTRIES EVENTS *******************************************/
+/**************************** MODAL QUANTITY EVENTS *******************************************/
 $("#formEntry").submit(function (e) {
     e.preventDefault();
     e.stopPropagation();
@@ -124,6 +124,8 @@ $("#formEntry").submit(function (e) {
 
     reloadAddTable();
 });
+
+
 
 /**************************** ADD TABLE EVENTS *******************************************/
 $(document).on("click", "#btnDelete", function () {

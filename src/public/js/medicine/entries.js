@@ -140,6 +140,34 @@ function localEntryUpdate(MedicamentoID, data_, quantity, saldo_) {
     reloadAddTable();
 }
 
+function goToModalUpdate(MedicamentoID,requ,item_){
+
+    if (requ==false) {//If medicine already in sessionStorage, which means previously getted by 'meds/getMed' method
+        fillModalCU(item_, MedicamentoID);
+    } else { //Otherwise, make request
+        var xhttp = new XMLHttpRequest();
+        xhttp.open('GET', '/meds/getMed/' + MedicamentoID);
+        xhttp.onload = function () {
+            var res = xhttp.responseText;
+            res = JSON.parse(res);
+            // Display on Modal
+            fillModalCU(res.med, MedicamentoID);
+        };
+        xhttp.send();
+    }
+
+    $(".modal-header").css("background-color", "#C0DE00");
+    $(".modal-header").css("color", "white");
+    $(".modal-title").text('Editar Medicamento');
+    $(".modal-option").val(MedicamentoID);
+    $("#modalCU").modal('show');
+    reloadAddTable();
+
+    $("#modalEntry").modal("hide"); 
+
+    reloadAddTable();
+}
+
 
 
 /**************************** EVENTS *******************************************/
@@ -162,30 +190,28 @@ $(document).ready(function () {
 
 // ********************* MODAL ENTRIES EVENTS **************************
 let entries = {};
+$("#formEntry").on('click', '#btnEditModal', function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    entries[id] = $("#iCantidad").val() + ',' + $("#iSaldoAE").val();
+
+    let ID = $("#iID").val();
+
+    goToModalUpdate(ID,true, null);
+    
+    
+});
 
 // ********************* ADD TABLE EVENTS **************************
 $(document).on("click", "#btnEdit", function (e) {
     var row = $(this).closest("tr");
-    let MedicamentoID = $(row["prevObject"][0]).attr('data-MedicamentoId');
+    let ID = $(row["prevObject"][0]).attr('data-MedicamentoId');
 
-    let item_ = JSON.parse(sessionStorage.getItem(MedicamentoID));
+    let item_ = JSON.parse(sessionStorage.getItem(ID));
     if (item_ != null) {//If medicine already in sessionStorage, which means previously getted by 'meds/getMed' method
-        fillModalCU(item_, MedicamentoID);
+        goToModalUpdate(ID, false, item_);
     } else { //Otherwise, make request
-        var xhttp = new XMLHttpRequest();
-        xhttp.open('GET', '/meds/getMed/' + MedicamentoID);
-        xhttp.onload = function () {
-            var res = xhttp.responseText;
-            res = JSON.parse(res);
-            // Display on Modal
-            fillModalCU(res.med, MedicamentoID);
-        };
-        xhttp.send();
+        goToModalUpdate(ID,true, item_);
     }
-
-    $(".modal-header").css("background-color", "#C0DE00");
-    $(".modal-header").css("color", "white");
-    $(".modal-title").text('Editar Medicamento');
-    $(".modal-option").val(MedicamentoID);
-    $("#modalCU").modal('show');
+   
 });
