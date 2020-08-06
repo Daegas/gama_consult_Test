@@ -9,3 +9,8 @@
     color: $value;
   }
 }
+
+.bg-pink{
+  color: white !important;
+  border-color: theme-color("pink") !important;
+}

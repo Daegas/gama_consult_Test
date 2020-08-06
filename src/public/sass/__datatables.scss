@@ -4,12 +4,8 @@
   -webkit-border-radius: $border-radius;
     table-layout: fixed !important;
     word-wrap:break-word;
-  }
-  .table-active,
-  .table-active > th,
-  .table-active > td
-  .table-active > tr {
-    background-color: red;
+
+    
   }
   .right-aligned-cell{
     text-align: right;
@@ -17,8 +13,20 @@
   .center-aligned-cell{
     text-align: center;
   }
-  .text-adjust{
-    font-size:small;
+  .left-aligned-cell{
+    text-align: left;
   }
+
+  .emphasize{
+    color: theme-color("dark-green");
+  }
+
+  .icontable{
+    font-size: 1.4rem !important;
+  }
+  
+  // .text-adjust{
+  //   font-size:small;
+  // }
 
   

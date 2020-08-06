@@ -5,13 +5,27 @@ function updatePDescuneto() {
     let P_Descuento;
 
     if (Descuento > 0.0) {
-        P_Descuento = P_Publico - (P_Publico * (Descuento / 100));
+        P_Descuento = P_Publico - (P_Publico * (Descuento / 100.0));
+        //Round to two decimals
+        P_Descuento = Math.round(P_Descuento * 100) / 100;
     } else {
         P_Descuento = P_Publico;
     }
 
     $("#iPDescuento").val(P_Descuento);
 }
+
+function toUpperEach(str) {
+    return str
+        .toLowerCase()
+        .split(' ')
+        .map(function(word) {
+            console.log("First capital letter: "+word[0]);
+            console.log("remain letters: "+ word.substr(1));
+            return word[0].toUpperCase() + word.substr(1);
+        })
+        .join(' ');
+     }
 
 /**************************** OPTIONAL *******************************************/
 function priceBinding() {
@@ -54,6 +68,13 @@ $("#formMeds").submit(function (e) {
     Descuento = Descuento == "" ? "0.0" : Descuento;
     Activo = Activo ? "1" : "0";
     Caducidad = Caducidad == "" ? "0000-00-00" : Caducidad;
+
+    //Edit Data
+    SustanciaActiva= SustanciaActiva.toUpperCase();
+    NombreComercial= toUpperEach(NombreComercial);
+    Presentacion = toUpperEach(Presentacion);
+    Laboratorio = toUpperEach(Laboratorio);
+    Proveedor = toUpperEach(Proveedor);
 
     let url_ = opc == -1 ? "/meds/add" : "/meds/edit/" + opc;
     let data_ = {
