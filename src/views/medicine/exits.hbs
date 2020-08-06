@@ -1,37 +1,44 @@
-{{!-- *********************** SEARCH TABLE ********************************** --}}
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-12 col-xl-6 p-1">
-            <div class="card mt-4 ">
-                <h2 class="card-header">
-                    Búsqueda
-                </h2>
-                <div class="card-body align-middle">
-                    {{>medicine/list tbID="tbSearch" width=100 source="exits"}}
-                    {{>medicine/modalEntries}}
-                    <button id="btnAdd" class="btn btn-primary btn-block"> Añadir</button>
+<div class="row w-100 col-12 m-0">
+    <h1>Salidas</h1>
+    <div class="row w-100 col-12 m-0">
+        {{!-- *********************** SEARCH TABLE ********************************** --}}
+        <div class="container-fluid">
+            <div class="row">
+                
+                <div class="col-12 col-xl-6 p-1">
+                    <div class="card mt-4 ">
+                        <h2 class="card-header">
+                            Búsqueda
+                        </h2>
+                        <div class="card-body align-middle">
+                            {{>medicine/list tbID="tbSearch" width=100 source="exits"}}
+                            {{>medicine/modalEntriesExits}}
+                            <button id="btnAdd" class="btn btn-primary btn-block"> Extraer</button>
+
+                        </div>
+                    </div>
 
                 </div>
-            </div>
-
-        </div>
 
 
-        {{!-- *********************** ADD TABLE********************************** --}}
-        <div class="col-12 col-xl-6 p-1">
-            <div class="card mt-4 ">
-                <h2 class="card-header">
-                    Medicamentos a agregar
-                </h2>
-                <div class="card-body">
-                    {{> medicine/list tbID="tbAdd" modal=false quantity=true width=100}}
-                    <div class="form-group">
-                        <button id="btnCompleteEntry" class="btn btn-primary btn-block">Completar Salida</button>
+                {{!-- *********************** ADD TABLE********************************** --}}
+                <div class="col-12 col-xl-6 p-1">
+                    <div class="card mt-4 ">
+                        <h2 class="card-header">
+                            Medicamentos a agregar
+                        </h2>
+                        <div class="card-body">
+                            {{> medicine/list tbID="tbAdd" modal=false quantity=true width=100}}
+                            <div class="form-group">
+                                <button id="btnCompleteEntry" class="btn bg-pink btn-block">Completar
+                                    Salida</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
             </div>
         </div>
-
     </div>
 </div>
 

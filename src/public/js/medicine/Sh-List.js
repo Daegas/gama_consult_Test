@@ -11,6 +11,7 @@ function commonTable() {
         "ordering": true,
         "info": true,
         "serverSide": true,
+        rowId: 0,
         "language": {
             "info": "Medicamentos _START_-_END_/_TOTAL_ ",
             "lengthMenu": "Mostrar   _MENU_   medicamentos",
@@ -18,7 +19,7 @@ function commonTable() {
             "sZeroRecords": "No se encontraron resultados",
             "sEmptyTable": "Ningún dato disponible en esta tabla",
             "sInfoEmpty": "Medicamentos 0/0",
-            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+            "sInfoFiltered": "(de _MAX_)",
             "sInfoPostFix": "",
             "sSearch": "Buscar:",
             "sUrl": "",
@@ -49,13 +50,26 @@ function commonTable() {
                 "orderable": false,
             },
             {
+                "targets": [4,5,11,13],
+                "className": "emphasize"
+            },
+            {
                 "targets": [2],
                 "className": "right-aligned-cell"
             },
             {
-                "targets": [5, 9, 10, 11, 12],
+                "targets": [6, 8, 9, 10, 11, 12],
                 "className": "center-aligned-cell"
+            },
+            {
+                "targets": [4,5],
+                "className": "left-aligned-cell"
+            },
+            {
+                "targets": [17],
+                "visible": false,
             }
+            
         ],
         "columns": [
             // 0-ID 
@@ -79,13 +93,29 @@ function commonTable() {
             // 9-Proveedor
             {},
             // 10-P_Proveedor
-            {},
+            {
+                "render": function (data, type, row, meta) {
+                    return '$'+ data;
+                }
+            },
             // 11-P_Publico
-            {},
+            {
+                "render": function (data, type, row, meta) {
+                    return '$'+ data;
+                }
+            },
             // 12-Descuento
-            {},
+            {
+                "render": function (data, type, row, meta) {
+                    return '%'+ data;
+                }
+            },
             // 13-P_Descuento
-            {},
+            {
+                "render": function (data, type, row, meta) {
+                    return '$'+ data;
+                }
+            },
             // 14-Caducidad
             {
                 "render": function (data, type, row, meta) {
@@ -99,7 +129,7 @@ function commonTable() {
                 "render": function (data, type, row, meta) {
                     let html = `
                     <i id="btnEdit" data-MedicamentoID=${data[15]}
-                    class="fa fa-pencil text-info pointer" title="Editar">
+                    class="fa fa-pencil icontable text-info pointer" title="Editar">
                     </i>`;
                     return html;
                 }
@@ -110,11 +140,13 @@ function commonTable() {
                 "render": function (data, type, row, meta) {
                     let html = `
                         <i id="btnDelete" data-MedicamentoID=${data[16]}
-                        class="fa fa-trash text-danger pointer" title="Eliminar">
+                        class="fa fa-trash icontable text-danger pointer" title="Eliminar">
                         </i>`;
                     return html;
                 }
-            }
+            },
+            //17- Codigo
+            {}
         ]
     };
     return table;

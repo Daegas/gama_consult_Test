@@ -76,3 +76,4 @@ $(".btnCancelColumns").on("click", function(e) {
     tableRef = this.id.split("_")[1];
     $("#modalColumns_"+tableRef).modal("hide");
 });
+

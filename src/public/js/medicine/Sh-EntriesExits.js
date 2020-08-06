@@ -41,11 +41,13 @@ function removeEntry(MedicamentoID, isDelete) {
         tableSearch.ajax.reload(null, false);
 }
 
-// ********************* SEARH TABLE EVENTS **************************
+
+
+/**************************** SEARCH TABLE EVENTS *******************************************/
 window.onload = function () {
-    $("#tbSearch_filter input").focus();
+    $(inputSearch).focus();
     //Reset when search is modified
-    $("#tbSearch_filter input").on('keyup', function () {
+    $(inputSearh).on('keyup', function () {
         tabIndex =0;
     });
 };
@@ -55,49 +57,59 @@ $('#tbSearch').on( 'click', 'tr', function () {
     tabIndex = tableSearch.row(this).index();
 } );
 
-$(document).on("click", "#btnAdd", function (e) {
-    let rowSelected = tableSearch.row({ selected: true });
-    if (rowSelected.data()) {
-        entryModal(rowSelected.data());
-        rowSelected.select(false);
-        $("#tbSearch_filter input").focus();
-
-    }
-});
 
 $(document).on('keyup', function (e) {
     let rowSelected = tableSearch.row({ selected: true });
 
-    if(e.keyCode == 27){
-        $("#tbSearch_filter input").focus();
-    }
+    
     if (e.keyCode == 13 && rowSelected.data()) { //When a row is Selected and 'Enter' pressed
         entryModal(rowSelected.data());
         rowSelected.select(false);
-        $("#tbSearch_filter input").focus();
+        $(inputSearh).focus();
     }
 
-    //FOCUS EVENT
+    /******** FOCUS ********/
     if (!$("#modalEntry").hasClass("show") && !$("#modalCU").hasClass("show")) {
-        if (e.keyCode == 9 && $("#tbSearch_filter input").focus()) {
+        if (e.keyCode == 9 && $(inputSearh).focus()) {
             row_ = tableSearch.row(tabIndex);
             row_.select();
             tabIndex += 1;
         }
     }
+    if (e.keyCode == 27) {
+        $(inputSearch).focus().select();
+    }
+
+});
+
+/******** FOCUS ********/
+var inputSearch="#tbSearch_filter input"
+$(document).on('click', inputSearch, function (e) {
+    $(inputSearch).select();
 
 });
 
 $("body").on('focus.spf', "*", function (e) {
     e.stopPropagation();
     e.preventDefault();
-    if (e.currentTarget != $("#tbSearch_filter input")[0]) {
+    if (e.currentTarget != $(inputSearh)[0]) {
         if (!$("#modalEntry").hasClass("show") && !$("#modalCU").hasClass("show")) {
             $(this).blur();
         }
     }
 });
-// ********************* MODAL ENTRIES EVENTS **************************
+
+/******** BTNADD*****/
+$(document).on("click", "#btnAdd", function (e) {
+    let rowSelected = tableSearch.row({ selected: true });
+    if (rowSelected.data()) {
+        entryModal(rowSelected.data());
+        rowSelected.select(false);
+        $(inputSearh).focus();
+
+    }
+});
+/**************************** MODAL ENTRIES EVENTS *******************************************/
 $("#formEntry").submit(function (e) {
     e.preventDefault();
     e.stopPropagation();
@@ -108,12 +120,12 @@ $("#formEntry").submit(function (e) {
         idList.push(id); //Add MedicineID into idList
 
     $("#modalEntry").modal("hide"); 
-    $("#tbSearch_filter input").focus();
+    $(inputSearch).focus();
 
     reloadAddTable();
 });
 
-// ********************* ADD TABLE EVENTS **************************
+/**************************** ADD TABLE EVENTS *******************************************/
 $(document).on("click", "#btnDelete", function () {
     var row_ = $(this).closest("tr");
     let MedicamentoID = $(row_["prevObject"][0]).attr('data-MedicamentoId');

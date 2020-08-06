@@ -103,7 +103,11 @@ router.get('/get-addTable/:idList', (req,res,next)=> {
           {
               db: "MedicamentoID",
               dt: 16
-          }
+          },
+          {
+            db: "Codigo",
+            dt: 17
+        }
       ];
 
     //Select table in DB - Or define any custum QUERY
@@ -168,7 +172,7 @@ router.post('/entriesUpdate', async (req, res) => {
         }
         med = JSON.parse(fullEntries[id]);
         fullEntryTuple += "(" + id + "," + med.Saldo + "," + med.P_Proveedor + "," + med.P_Publico +
-                        "," + med.P_Descuento + "," + med.Descuento + ",'" + med.Caducidad + "'," + med.Activo + ")" 
+                        "," + med.P_Descuento + "," + med.Descuento + ",'" + med.Caducidad + "'," + med.Activo + "," + med.Codigo + ")" 
     }
 
     if(fullEntryTuple != "")
@@ -176,7 +180,7 @@ router.post('/entriesUpdate', async (req, res) => {
                     "Descuento, Caducidad, Activo) VALUES " + fullEntryTuple + " ON DUPLICATE KEY UPDATE " +
                     "Saldo = VALUES(Saldo), P_Proveedor = VALUES(P_Proveedor), P_Publico = VALUES(P_Publico), " +
                     "P_Descuento = VALUES(P_Descuento), Descuento = VALUES(Descuento), Caducidad = VALUES(Caducidad), "+
-                    "Activo = VALUES(Activo)";
+                    "Activo = VALUES(Activo), Codigo = VALUES(Codigo)";
     try{
         if(simpleEntryTuple != ""){
             response = await DB.query(simple_query);
@@ -201,7 +205,7 @@ router.post('/add', async (req, res) => { //Same URL as previous but with POST m
         P_Descuento, Descuento,
         Contenido, DosisMG,
         Laboratorio, Proveedor,
-        Caducidad, Activo} = req.body;
+        Caducidad, Activo, Codigo} = req.body;
 
     const newMed = {
         SustanciaActiva, NombreComercial,
@@ -210,7 +214,7 @@ router.post('/add', async (req, res) => { //Same URL as previous but with POST m
         P_Descuento, Descuento,
         Contenido, DosisMG,
         Laboratorio, Proveedor,
-        Caducidad, Activo
+        Caducidad, Activo, Codigo
     }; 
 
     //Async request
@@ -300,6 +304,10 @@ router.get('/get-dt', (req,res,next)=> {
         {
             db: "MedicamentoID",
             dt: 16
+        },
+        {
+            db: "Codigo",
+            dt: 17
         }
       ];
 
@@ -334,7 +342,7 @@ router.post('/edit/:id', async (req, res) => {
         P_Descuento, Descuento,
         Contenido, DosisMG,
         Laboratorio, Proveedor,
-        Caducidad, Activo } = req.body;
+        Caducidad, Activo, Codigo } = req.body;
 
     const alter_med = {
         SustanciaActiva, NombreComercial,
@@ -343,7 +351,7 @@ router.post('/edit/:id', async (req, res) => {
         P_Descuento, Descuento,
         Contenido, DosisMG,
         Laboratorio, Proveedor,
-        Caducidad, Activo
+        Caducidad, Activo, Codigo
     }; 
 
     try{

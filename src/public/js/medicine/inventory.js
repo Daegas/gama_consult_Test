@@ -37,7 +37,7 @@ function tableDefinition(tableRef = "tableMeds") {
 
 /******** AJAX ********/
 function reloadAJAX() {/*Columns*/
-    tableMeds.ajax.reload(null, true);
+    tableMeds.ajax.reload(null, false);
 }
 
 setInterval(function () {
@@ -68,18 +68,25 @@ $(document).ready(function () {
     tableDefinition();
 });
 
-window.onload = function () {
-    $("#tbMeds_filter input").focus();
-};
-$(document).on('keyup', function (e) {
-    if (e.keyCode == 27) {
-        $("#tbMeds_filter input").focus();
-    }
-});
 
 $('.modal-message').on('show.bs.modal', function (e) {
     x = "bounce"
     $('.modal-message .modal-dialog').attr('class', 'modal-dialog  ' + x + '  animated');
+});
+/******** FOCUS ********/
+var inputSearch="#tbMeds_filter input"
+
+window.onload = function () {
+    $(inputSearch).focus();
+};
+$(document).on('keyup', function (e) {
+    if (e.keyCode == 27) {
+        $(inputSearch).focus().select();
+    }
+});
+$(document).on('click', inputSearch, function (e) {
+        $(inputSearch).select();
+  
 });
 
 /******** BTN_NEW ********/

@@ -103,7 +103,7 @@ function tableDefinition(tableRef) {
         table2.columns[16].render = function (data, type, row, meta) {
             let html = `
                             <i id="btnDelete" data-MedicamentoID=${data[16]}
-                            class="fa fa-close text-danger pointer" title="Eliminar">
+                            class="fa fa-close icontable text-danger pointer" title="Eliminar">
                             </i>`;
             return html;
 
@@ -112,11 +112,14 @@ function tableDefinition(tableRef) {
         tableAdd = $('#tbAdd').DataTable(table2);
     }
 };
+
+
 /**************************** EVENTS *******************************************/
 tableSearch = null;
 tableAdd = null;
 hiddenColsSearch = [];
 hiddenColsAdd = [];
+
 $(document).ready(function () {
     // ********* FUNCTIONALITY ***********
     tabIndex = 0;
@@ -125,6 +128,7 @@ $(document).ready(function () {
     idList = ["0"]; //List of tableSearch selected elements, to show in tableAdd
     tableDefinition("tbAdd");
 });
+
 
 // ********************* MODAL ENTRIES EVENTS **************************
 let entries = {};
