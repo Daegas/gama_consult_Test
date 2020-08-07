@@ -20,8 +20,6 @@ function toUpperEach(str) {
         .toLowerCase()
         .split(' ')
         .map(function(word) {
-            console.log("First capital letter: "+word[0]);
-            console.log("remain letters: "+ word.substr(1));
             return word[0].toUpperCase() + word.substr(1);
         })
         .join(' ');
@@ -60,6 +58,7 @@ $("#formMeds").submit(function (e) {
     DosisMG = $.trim($("#iDosis").val());
     Laboratorio = $.trim($("#iLaboratorio").val());
     Proveedor = $.trim($("#iProveedor").val());
+    Codigo = $.trim($("#iCodigo").val());
     Activo = $("#ckActive").prop('checked');
     Caducidad = $.trim($("#iCaducidad").val());
 
@@ -69,12 +68,26 @@ $("#formMeds").submit(function (e) {
     Activo = Activo ? "1" : "0";
     Caducidad = Caducidad == "" ? "0000-00-00" : Caducidad;
 
+<<<<<<< HEAD
     //Edit Data
     SustanciaActiva= SustanciaActiva.toUpperCase();
     NombreComercial= toUpperEach(NombreComercial);
     Presentacion = toUpperEach(Presentacion);
     Laboratorio = toUpperEach(Laboratorio);
     Proveedor = toUpperEach(Proveedor);
+=======
+    //Adjust Data
+    SustanciaActiva= SustanciaActiva.toUpperCase();
+    NombreComercial= toUpperEach(NombreComercial);
+    Proveedor = toUpperEach(Proveedor);
+    if(Presentacion){
+        console.log('entro')
+        Presentacion = toUpperEach(Presentacion);
+    };
+    if (Laboratorio){
+        Laboratorio = toUpperEach(Laboratorio);
+    };
+>>>>>>> prueba2
 
     let url_ = opc == -1 ? "/meds/add" : "/meds/edit/" + opc;
     let data_ = {
@@ -84,7 +97,7 @@ $("#formMeds").submit(function (e) {
         P_Descuento, Descuento,
         Contenido, DosisMG,
         Laboratorio, Proveedor,
-        Caducidad, Activo
+        Caducidad, Activo, Codigo
     }
 
     if (quantity) {

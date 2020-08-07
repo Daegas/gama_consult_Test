@@ -60,11 +60,11 @@
                                 <input id="iDosis" type="text" class="form-control" name="Dosis">
                             </div>
                         </div>
-                        {{!-- ******** SALDO ANTERIOR ******** --}}
+                        {{!-- ******** SALDO/ SALDO ANTERIOR ******** --}}
                         <div class="col-xl-3 col-md-6 mb-4">
                             <div class="form-group">
-                                <label for="Saldo" class="col-form-label">Saldo{{#if quantity}} Anterior{{/if}}:</label>
-                                <input id="iSaldo" type="number" class="form-control" step="1" min="0" name="Saldo">
+                                <label for="Presentacion" class="col-form-label">Presentación:</label>
+                                <input id="iPresentacion" type="text" class="form-control" name="Presentacion">
                             </div>
                         </div>
 
@@ -79,20 +79,25 @@
                             </div>
                         </div>
                         {{/if}}
-                        {{!-- ******** CADUCIDAD ******** --}}
+
+                        {{!-- ******** LABORATORIO ******** --}}
                         <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="mx-auto">
-                                <div class="form-group">
-                                    <div class="align-center">
-                                        <label for="Caducidad" class="col-form-label ml-5 pl-3">Caducidad</label>
-                                        <input id="iCaducidad" type="date" class="form-control pointer"
-                                            name="Caducidad">
-                                    </div>
-                                </div>
+                            <div class="form-group">
+                                <label for="Laboratorio" class="col-form-label">Laboratorio:</label>
+                                <input id="iLaboratorio" type="text" class="form-control" name="Laboratorio">
                             </div>
-
-
                         </div>
+
+                        {{!-- ******** PROVEEDOR ******** --}}
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="form-group">
+                                <label for="Proveedor" class="col-form-label">Proveedor: <span
+                                        class="text-danger">*</span></label>
+                                <input id="iProveedor" type="text" class="form-control" name="Proveedor" required>
+                            </div>
+                        </div>
+
+
                     </div>
 
                     <div class="row">
@@ -113,6 +118,8 @@
                                 <input id="iPPublico" type="number" step="any" min="0" class="form-control"
                                     name="P_Publico" required>
                             </div>
+
+
                         </div>
                         {{!-- ******** % DESCUENTO ******** --}}
                         <div class="col-xl-3 col-md-6 mb-4">
@@ -136,6 +143,27 @@
                     </div>
 
                     <div class="row">
+                        {{!-- ******** CADUCIDAD ******** --}}
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="mx-auto">
+                                <div class="form-group">
+                                    <div class="align-center">
+                                        <label for="Caducidad" class="col-form-label ml-5 pl-3">Caducidad</label>
+                                        <input id="iCaducidad" type="date" class="form-control pointer"
+                                            name="Caducidad">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{!-- ******** CODIGO ******** --}}
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="form-group">
+                                <label for="Codigo" class="col-form-label">Código de Barras:</label>
+                                <input id="iCodigo" type="text" class="form-control" name="Codigo">
+                            </div>
+                        </div>
+
                         {{!-- ******** ACTIVO ******** --}}
                         <div class="col-xl-3 col-md-6 mb-4">
                             <div class="form-group">

@@ -11,6 +11,7 @@ function commonTable() {
         "ordering": true,
         "info": true,
         "serverSide": true,
+        rowId: 0,
         "language": {
             "info": "Medicamentos _START_-_END_/_TOTAL_ ",
             "lengthMenu": "Mostrar   _MENU_   medicamentos",
@@ -63,6 +64,10 @@ function commonTable() {
             {
                 "targets": [4,5],
                 "className": "left-aligned-cell"
+            },
+            {
+                "targets": [17],
+                "visible": false,
             }
             
         ],
@@ -139,7 +144,9 @@ function commonTable() {
                         </i>`;
                     return html;
                 }
-            }
+            },
+            //17- Codigo
+            {}
         ]
     };
     return table;
