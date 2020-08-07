@@ -65,20 +65,13 @@ $(document).on('keyup', function (e) {
     if (e.keyCode == 13 && rowSelected.data()) { //When a row is Selected and 'Enter' pressed
         entryModal(rowSelected.data());
         rowSelected.select(false);
-<<<<<<< HEAD:src/public/js/medicine/Sh-EntriesExits.js
         $(inputSearch).focus();
-=======
-        $(inputSearh).focus();
->>>>>>> prueba2:src/public/js/medicine/Sh-EntriesExits.js
+
     }
 
     /******** FOCUS ********/
     if (!$("#modalEntry").hasClass("show") && !$("#modalCU").hasClass("show")) {
-<<<<<<< HEAD:src/public/js/medicine/Sh-EntriesExits.js
         if (e.keyCode == 9 && $(inputSearch).focus()) {
-=======
-        if (e.keyCode == 9 && $(inputSearh).focus()) {
->>>>>>> prueba2:src/public/js/medicine/Sh-EntriesExits.js
             row_ = tableSearch.row(tabIndex);
             row_.select();
             tabIndex += 1;
@@ -100,11 +93,7 @@ $(document).on('click', inputSearch, function (e) {
 $("body").on('focus.spf', "*", function (e) {
     e.stopPropagation();
     e.preventDefault();
-<<<<<<< HEAD:src/public/js/medicine/Sh-EntriesExits.js
     if (e.currentTarget != $(inputSearch)[0]) {
-=======
-    if (e.currentTarget != $(inputSearh)[0]) {
->>>>>>> prueba2:src/public/js/medicine/Sh-EntriesExits.js
         if (!$("#modalEntry").hasClass("show") && !$("#modalCU").hasClass("show")) {
             $(this).blur();
         }
@@ -121,11 +110,8 @@ $(document).on("click", "#btnAdd", function (e) {
 
     }
 });
-<<<<<<< HEAD:src/public/js/medicine/Sh-EntriesExits.js
+
 /**************************** MODAL QUANTITY EVENTS *******************************************/
-=======
-/**************************** MODAL ENTRIES EVENTS *******************************************/
->>>>>>> prueba2:src/public/js/medicine/Sh-EntriesExits.js
 $("#formEntry").submit(function (e) {
     e.preventDefault();
     e.stopPropagation();
@@ -141,11 +127,6 @@ $("#formEntry").submit(function (e) {
     reloadAddTable();
 });
 
-<<<<<<< HEAD:src/public/js/medicine/Sh-EntriesExits.js
-
-
-=======
->>>>>>> prueba2:src/public/js/medicine/Sh-EntriesExits.js
 /**************************** ADD TABLE EVENTS *******************************************/
 $(document).on("click", "#btnDelete", function () {
     var row_ = $(this).closest("tr");

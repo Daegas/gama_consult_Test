@@ -20,6 +20,8 @@ function toUpperEach(str) {
         .toLowerCase()
         .split(' ')
         .map(function(word) {
+            console.log("First capital letter: "+word[0]);
+            console.log("remain letters: "+ word.substr(1));
             return word[0].toUpperCase() + word.substr(1);
         })
         .join(' ');
@@ -68,14 +70,6 @@ $("#formMeds").submit(function (e) {
     Activo = Activo ? "1" : "0";
     Caducidad = Caducidad == "" ? "0000-00-00" : Caducidad;
 
-<<<<<<< HEAD
-    //Edit Data
-    SustanciaActiva= SustanciaActiva.toUpperCase();
-    NombreComercial= toUpperEach(NombreComercial);
-    Presentacion = toUpperEach(Presentacion);
-    Laboratorio = toUpperEach(Laboratorio);
-    Proveedor = toUpperEach(Proveedor);
-=======
     //Adjust Data
     SustanciaActiva= SustanciaActiva.toUpperCase();
     NombreComercial= toUpperEach(NombreComercial);
@@ -87,7 +81,6 @@ $("#formMeds").submit(function (e) {
     if (Laboratorio){
         Laboratorio = toUpperEach(Laboratorio);
     };
->>>>>>> prueba2
 
     let url_ = opc == -1 ? "/meds/add" : "/meds/edit/" + opc;
     let data_ = {
