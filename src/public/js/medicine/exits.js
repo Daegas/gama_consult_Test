@@ -15,14 +15,14 @@ function tableDefinition(tableRef) {
     if (tableRef == "tbSearch") {
         var table1 = table;
         table1.lengthMenu = [7];
-        table1.ajax = "/meds/get-dt";
+        table1.ajax = "/meds/get-dt/"+showActive;
         table1.columnDefs.push(
             {
-                "targets": [4, 10, 14, 15, 16],
+                "targets": [4, 15, 16], //SaldoAnterior, Edit, Delete  - Mandatory Hidden Columns for tbSearch
                 "visible": false
             },
             {
-                "targets": hiddenColsSearch,
+                "targets": hiddenColsSearch, //Optional Hidden Columns
                 "visible": false
             }
         );
@@ -37,10 +37,6 @@ function tableDefinition(tableRef) {
         table2.alengthMenu = ["All"];
 
         table2.columnDefs.push(
-            {
-                "targets": [10, 14],
-                "visible": false
-            },
             {
                 "targets": hiddenColsAdd,
                 "visible": false
@@ -115,10 +111,11 @@ function tableDefinition(tableRef) {
 
 
 /**************************** EVENTS *******************************************/
+showActive = true;
 tableSearch = null;
 tableAdd = null;
-hiddenColsSearch = [];
-hiddenColsAdd = [];
+hiddenColsSearch = [10, 14]; //Default Hidden Columns - This could be costumize by users
+hiddenColsAdd = [10, 14]; //Default Hidden Columns - This could be costumize by users
 
 $(document).ready(function () {
     // ********* FUNCTIONALITY ***********

@@ -1,4 +1,9 @@
 /**************************** FUNCTIONS *******************************************/
+async function reloadSearchTable(){
+    url_ = "/meds/get-dt/" + JSON.stringify(showActive); //Build a new url
+    await tableSearch.ajax.url(url_).load(null, false); //Reaload AJAX query
+}
+
 function entryModal(rowSelected) {
     id = rowSelected[0];
     if (idList.indexOf(id.toString()) == -1) {

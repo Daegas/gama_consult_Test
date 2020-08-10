@@ -57,10 +57,21 @@
 
 
     </table>
-    <div class="text-right">
-        <button type="button" id="btnCol{{tbID}}" class="btn btn-secondary btnColumns mt-1"><i class="fa fa-eye-slash pointer" title="Hide"></i></button>
-        
-    </div>
+    {{#if quantity}}
+        <div class="text-right">
+            <button type="button" id="btnCol{{tbID}}" class="btn btn-secondary btnColumns mt-1"><i class="fa fa-eye-slash pointer" title="Hide"></i></button>
+            </div>
+        </div>
+    {{else}}
+        <div class="row">
+            <div class="col-6">
+                <button type="button" id="btnActivo_{{tbID}}" class="btn btn-info btnActivos active mt-1"><i class="fa fa-toggle-on pointer" title="Activos"></i> Activos</button>    
+            </div>
+            <div class="col-6 text-right">
+                <button type="button" id="btnCol{{tbID}}" class="btn btn-secondary btnColumns mt-1"><i class="fa fa-eye-slash pointer" title="Hide"></i></button>
+            </div>
+        </div>
+    {{/if}}
     
 </div>
 

@@ -232,9 +232,11 @@ router.post('/add', async (req, res) => { //Same URL as previous but with POST m
 /**************** READ ****************/
 //Datatables Server-Side
 //https://newcodingera.com/datatables-server-side-processing-using-nodejs-mysql/
-router.get('/get-dt', (req,res,next)=> {
+router.get('/get-dt/:isActive', (req,res,next)=> {
     //Query de Datatables
     const requestQuery = req.query;
+    let { isActive } = req.params;
+    isActive = JSON.parse(isActive);
     //
     let columnsMap = [
         {
@@ -313,11 +315,12 @@ router.get('/get-dt', (req,res,next)=> {
 
     //Select table in DB - Or define any custum QUERY
     const tableName = "Medicamentos"
+    const query = "SELECT * FROM Medicamentos WHERE Activo = " + isActive;
 
     //Primary Key (Required NodeTable)
     const primaryKey = "MedicamentoID"
 
-    const nodeTable = new NodeTable(requestQuery,DB, tableName, primaryKey, columnsMap);
+    const nodeTable = new NodeTable(requestQuery,DB, query, primaryKey, columnsMap);
 
     nodeTable.output((err, data)=>{
         if (err) {

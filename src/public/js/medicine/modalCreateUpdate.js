@@ -105,7 +105,7 @@ $("#formMeds").submit(function (e) {
                 // req.flash('success', 'Med updated successfully');
                 let message = opc == -1 ? " AGREGADO " : " EDITADO ";
                 messageModal($("#modalMessageSuccess"), true, message);
-                reloadAJAX();
+                reloadInventoryTable();
             },
             error: function (res) {
                 let message = res.responseJSON.code + '\n' + res.responseJSON.sqlMessage;

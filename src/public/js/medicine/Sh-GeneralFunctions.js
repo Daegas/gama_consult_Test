@@ -23,7 +23,7 @@ $(document).on("click", ".btnColumns", function (e){
 
     //Fill checkboxes
     newhiddenCols = [];
-    for(let i=0; i< 14; i++) {
+    for(let i=0; i< 15; i++) {
         colID = $("#col_"+i+"_"+tableRef);
         if(hiddenCols.indexOf(i) > -1){
             colID.prop("checked", false);
@@ -77,3 +77,25 @@ $(".btnCancelColumns").on("click", function(e) {
     $("#modalColumns_"+tableRef).modal("hide");
 });
 
+$(".btnActivos").on("click", function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    let this_ = $(this)
+    let tableRef = this_[0].id.split('_')[1];
+    if(this_.hasClass("active")){
+        this_.removeClass("active").addClass("no-active").removeClass("btn-info").addClass("btn-secondary");
+        this_[0].innerHTML = '<i class="fa fa-toggle-off pointer" title="Activos" aria-hidden="true"></i><span class="sr-only">Activos</span>';
+    } else {
+        this_.removeClass("no-active").addClass("active").removeClass("btn-secondary").addClass("btn-info");
+        this_[0].innerHTML = '<i class="fa fa-toggle-on pointer" title="Activos" aria-hidden="true"></i><span class="sr-only">Activos</span> Activos';
+    }
+
+    showActive = !showActive;
+    if(tableRef=="tbMeds"){
+        reloadInventoryTable();
+    } else {
+        reloadSearchTable();
+    }
+    
+});

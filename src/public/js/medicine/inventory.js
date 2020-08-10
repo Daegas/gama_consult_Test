@@ -1,5 +1,6 @@
 /**************************** FUNCTIONS *******************************************/
 hiddenColsMeds = []
+showActive = true;
 function tableDefinition(tableRef = "tableMeds") {
     var table = commonTable();
 
@@ -14,7 +15,7 @@ function tableDefinition(tableRef = "tableMeds") {
         `;
         $('div.toolbar').html(html);
     };
-    table.ajax = "/meds/get-dt";
+    table.ajax = "/meds/get-dt/"+ showActive;
     table.lengthMenu = [5, 10, 25, 50];
     table.order = [[1, 'asc'], [0, 'asc']];
     table.columnDefs.push({
@@ -35,18 +36,16 @@ function tableDefinition(tableRef = "tableMeds") {
     tableMeds = $('#tbMeds').DataTable(table);
 }
 
-/******** AJAX ********/
-function reloadAJAX() {/*Columns*/
-    tableMeds.ajax.reload(null, false);
+/******** InventoryTable ********/
+function reloadInventoryTable() {/*Columns*/
+    url_ = "/meds/get-dt/" + JSON.stringify(showActive); 
+    tableMeds.ajax.url(url_).load(null, false);
 }
 
 setInterval(function () {
-    reloadAJAX();
+    reloadInventoryTable();
 }, 10000);
 
-// setTimeout( function(){
-//     reloadAJAX();
-// }, 5000);
 
 /******** MODAL_MSG ********/
 function messageModal(modal_, blink, message) {
@@ -155,7 +154,7 @@ $(document).on("click", "#btnDelete", function () {
             success: function (res) {
                 tableMeds.row(row_.parents('tr')).remove().draw();
                 messageModal($("#modalMessageSuccess"), true, "ELIMINADO");
-                reloadAJAX();
+                reloadInventoryTable();
             },
             error: function (res) {
                 let message = res.responseJSON.code + '\n' + res.responseJSON.sqlMessage;
