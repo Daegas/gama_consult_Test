@@ -61,7 +61,7 @@ $("#formMeds").submit(function (e) {
     Laboratorio = $.trim($("#iLaboratorio").val());
     Proveedor = $.trim($("#iProveedor").val());
     Codigo = $.trim($("#iCodigo").val());
-    Activo = $("#ckActive").prop('checked');
+    Activo = $("#ckActivo").prop('checked');
     Caducidad = $.trim($("#iCaducidad").val());
 
     //Parse Not String values
@@ -75,7 +75,6 @@ $("#formMeds").submit(function (e) {
     NombreComercial= toUpperEach(NombreComercial);
     Proveedor = toUpperEach(Proveedor);
     if(Presentacion){
-        console.log('entro')
         Presentacion = toUpperEach(Presentacion);
     };
     if (Laboratorio){

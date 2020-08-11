@@ -109,6 +109,8 @@ function tableDefinition(tableRef) {
     }
 };
 function fillModalCU(med, MedicamentoID) {
+    $("#formMeds").trigger("reset");
+    
     $("#iSustanciaActiva").val(med.SustanciaActiva).prop("disabled", true);
     $("#iNombreComercial").val(med.NombreComercial).prop("disabled", true);
     $("#iSaldo").val(entries[MedicamentoID].split(',')[1]);
@@ -125,6 +127,7 @@ function fillModalCU(med, MedicamentoID) {
     $("#ckActivo").val(med.Activo);
     med.Activo == "1" ? $("#ckActivo").prop("checked", true) : $("#ckActivo").prop("checked", false);
     $("#iCaducidad").val(med.Caducidad.split('T')[0]);
+    $("#iCodigo").val(med.Codigo=="-POR ASIGNAR-"?"":med.Codigo);
     priceBinding();
 }
 

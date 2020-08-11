@@ -172,7 +172,7 @@ router.post('/entriesUpdate', async (req, res) => {
         }
         med = JSON.parse(fullEntries[id]);
         fullEntryTuple += "(" + id + "," + med.Saldo + "," + med.P_Proveedor + "," + med.P_Publico +
-                        "," + med.P_Descuento + "," + med.Descuento + ",'" + med.Caducidad + "'," + med.Activo + "," + med.Codigo + ")" 
+                        "," + med.P_Descuento + "," + med.Descuento + ",'" + med.Caducidad + "'," + med.Activo + ",'" + med.Codigo + "')" 
     }
 
     if(fullEntryTuple != "")

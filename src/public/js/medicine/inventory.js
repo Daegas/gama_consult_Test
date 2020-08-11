@@ -84,6 +84,8 @@ $(document).on("click", "#btnNew", function () {
 
 /******** BTN_EDIT ********/
 $(document).on("click", "#btnEdit", function (e) {
+    $("#formMeds").trigger("reset");
+
     var row = $(this).closest("tr");
     let MedicamentoID = $(row["prevObject"][0]).attr('data-MedicamentoId');
 
@@ -110,6 +112,7 @@ $(document).on("click", "#btnEdit", function (e) {
         $("#ckActivo").val(med.Activo);
         med.Activo == "1" ? $("#ckActivo").prop("checked", true) : $("#ckActivo").prop("checked", false);
         $("#iCaducidad").val(med.Caducidad.split('T')[0]);
+        $("#iCodigo").val(med.Codigo=="-POR ASIGNAR-"?"":med.Codigo);
         priceBinding();
 
     };
