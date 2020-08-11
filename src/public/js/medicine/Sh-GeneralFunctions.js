@@ -5,6 +5,13 @@ function formatDate(data) {
     return date_;
 }
 
+function checkSaldo(data){
+    console.log(data)
+    if(data[1]- data[0] < 0)
+        return false;
+    return true;
+}
+
 /**************************** EVENTS *******************************************/
 
 /******** HIDE COLUMNS ********/

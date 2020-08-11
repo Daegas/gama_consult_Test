@@ -123,13 +123,20 @@ $("#formEntry").submit(function (e) {
 
     let id = $("#iID").val();
     entries[id] = $("#iCantidad").val() + ',' + $("#iSaldoAE").val();
-    if (idList.indexOf(id.toString()) == -1)
-        idList.push(id); //Add MedicineID into idList
+    if(checkSaldo(entries[id].split(','))) {
+        if (idList.indexOf(id.toString()) == -1)
+            idList.push(id); //Add MedicineID into idList
 
-    $("#modalEntry").modal("hide"); 
-    $(inputSearch).focus();
+        $("#modalEntry").modal("hide"); 
+        $(inputSearch).focus();
 
-    reloadAddTable();
+        reloadAddTable();
+    } else {
+        $("#modalEntry").modal("hide"); 
+        let message= "La operación (Saldo Anterior) - (Cantidad) debe ser mayor o igual a 0."
+        messageModal($("#modalMessageError"), false, message);
+    }
+    
 });
 
 /**************************** ADD TABLE EVENTS *******************************************/

@@ -138,7 +138,6 @@ $(document).on("click", "#btnEdit", function (e) {
     $("#iID").val(rowSelected[0]);
     $("#iNombreE").val(rowSelected[2]);
     $("#iCantidad").val(entries[rowSelected[0]].split(",")[0]);
-    $("#iSaldoAE").attr("disabled", false)
     $("#iSaldoAE").val(entries[rowSelected[0]].split(",")[1]);
 
     $("#modalEntry").modal("show");

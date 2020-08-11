@@ -46,22 +46,6 @@ setInterval(function () {
     reloadInventoryTable();
 }, 10000);
 
-
-/******** MODAL_MSG ********/
-function messageModal(modal_, blink, message) {
-    modal_.modal("show");
-    $('.modal-backdrop').css("opacity", "0");
-
-    if (blink) {
-        $(".message").text(message);
-        setTimeout(() => {
-            modal_.modal("hide");
-        }, 3000);
-    } else {
-        $(".message-details").text(message);
-    }
-}
-
 /**************************** EVENTS *******************************************/
 $(document).ready(function () {
     tableDefinition();
