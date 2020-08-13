@@ -111,6 +111,7 @@ function tableDefinition(tableRef) {
 function fillModalCU(med, MedicamentoID) {
     $("#formMeds").trigger("reset");
     
+    $(".modal-option").val(MedicamentoID);
     $("#iSustanciaActiva").val(med.SustanciaActiva).prop("disabled", true);
     $("#iNombreComercial").val(med.NombreComercial).prop("disabled", true);
     $("#iSaldo").val(entries[MedicamentoID].split(',')[1]);
@@ -136,12 +137,19 @@ function localEntryUpdate(MedicamentoID, data_, quantity, saldo_) {
     if (quantity) { //Covers case where quantity field has been updated in ModalCreateUpdate
         entries[MedicamentoID] = quantity + "," + saldo_;
     }
-    reloadAddTable();
+    if($("#modalEntry").hasClass("show")){
+        $("#iCantidad").val($("#iQuantity").val());
+        $("#iSaldoAE").val($("#iSaldo").val());
+        $("#formEntry").trigger("submit");
+    }else{
+        reloadAddTable();
+    }
 }
 
 function goToModalUpdate(MedicamentoID,requ,item_){
+    // $("#modalEntry").close(); 
 
-    if (requ==false) {//If medicine already in sessionStorage, which means previously getted by 'meds/getMed' method
+    if (requ==false) {//If medicine already in sessionStorage, which means previously fetcheds by 'meds/getMed' method
         fillModalCU(item_, MedicamentoID);
     } else { //Otherwise, make request
         var xhttp = new XMLHttpRequest();
@@ -158,13 +166,7 @@ function goToModalUpdate(MedicamentoID,requ,item_){
     $(".modal-header").css("background-color", "#C0DE00");
     $(".modal-header").css("color", "white");
     $(".modal-title").text('Editar Medicamento');
-    $(".modal-option").val(MedicamentoID);
     $("#modalCU").modal('show');
-    reloadAddTable();
-
-    $("#modalEntry").modal("hide"); 
-
-    reloadAddTable();
 }
 
 
@@ -190,16 +192,14 @@ $(document).ready(function () {
 
 // ********************* MODAL ENTRIES EVENTS **************************
 let entries = {};
-$("#formEntry").on('click', '#btnEditModal', function (e) {
+$(document).on('click', '#btnEditModal', function (e) {
     e.preventDefault();
     e.stopPropagation();
     entries[id] = $("#iCantidad").val() + ',' + $("#iSaldoAE").val();
 
     let ID = $("#iID").val();
 
-    goToModalUpdate(ID,true, null);
-    
-    
+    goToModalUpdate(ID,true, null);    
 });
 
 // ********************* ADD TABLE EVENTS **************************

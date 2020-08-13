@@ -177,7 +177,7 @@ router.post('/entriesUpdate', async (req, res) => {
 
     if(fullEntryTuple != "")
         full_query = "INSERT INTO Medicamentos (MedicamentoID, Saldo, P_Proveedor, P_Publico, P_Descuento," +
-                    "Descuento, Caducidad, Activo) VALUES " + fullEntryTuple + " ON DUPLICATE KEY UPDATE " +
+                    "Descuento, Caducidad, Activo, Codigo) VALUES " + fullEntryTuple + " ON DUPLICATE KEY UPDATE " +
                     "Saldo = VALUES(Saldo), P_Proveedor = VALUES(P_Proveedor), P_Publico = VALUES(P_Publico), " +
                     "P_Descuento = VALUES(P_Descuento), Descuento = VALUES(Descuento), Caducidad = VALUES(Caducidad), "+
                     "Activo = VALUES(Activo), Codigo = VALUES(Codigo)";
