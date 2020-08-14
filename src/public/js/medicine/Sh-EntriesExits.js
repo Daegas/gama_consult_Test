@@ -12,6 +12,7 @@ function entryModal(rowSelected) {
         $("#iNombreE").val(rowSelected[2]);
         $("#iSaldoAE").val(rowSelected[4]);
         $("#modalEntry").modal("show");
+        $("#formEntry").addClass("entry");
     } else if (!$("#modalEntry").hasClass("show")) {
         alert('El elemento ya se encuntra en la lista "Medicamentos a Agregar". Use la segunda tabla para editar.');
     }
@@ -120,23 +121,22 @@ $(document).on("click", "#btnAdd", function (e) {
 $("#formEntry").submit(function (e) {
     e.preventDefault();
     e.stopPropagation();
-
+    
+    
+    $("#modalEntry").modal("hide"); 
+    //$("#modalEntry").close
     let id = $("#iID").val();
     entries[id] = $("#iCantidad").val() + ',' + $("#iSaldoAE").val();
-    if(checkSaldo(entries[id].split(','))) {
+
+    if( $(this).hasClass("entry") || ($(this).hasClass("exit") && checkSaldo(entries[id].split(','))) ) {
         if (idList.indexOf(id.toString()) == -1)
             idList.push(id); //Add MedicineID into idList
-
-        $("#modalEntry").modal("hide"); 
         $(inputSearch).focus();
-
         reloadAddTable();
     } else {
-        $("#modalEntry").modal("hide"); 
         let message= "La operación (Saldo Anterior) - (Cantidad) debe ser mayor o igual a 0."
         messageModal($("#modalMessageError"), false, message);
-    }
-    
+    }    
 });
 
 /**************************** ADD TABLE EVENTS *******************************************/

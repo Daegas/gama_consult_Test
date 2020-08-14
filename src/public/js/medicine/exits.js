@@ -141,6 +141,7 @@ $(document).on("click", "#btnEdit", function (e) {
     $("#iSaldoAE").val(entries[rowSelected[0]].split(",")[1]);
 
     $("#modalEntry").modal("show");
+    $("#formEntry").addClass("exit");
 });
 
 $('#tbAdd').on('click', 'tr', function () {
