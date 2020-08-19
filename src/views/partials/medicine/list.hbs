@@ -60,7 +60,6 @@
     {{#if quantity}}
         <div class="text-right">
             <button type="button" id="btnCol{{tbID}}" class="btn btn-secondary btnColumns mt-1"><i class="fa fa-eye-slash pointer" title="Hide"></i></button>
-            </div>
         </div>
     {{else}}
         <div class="row">
@@ -76,11 +75,7 @@
 </div>
 
 {{#if modal}}
-    {{#if quantity}}
-        {{> medicine/modalCreateUpdate quantity=true}}
-    {{else}}
-        {{> medicine/modalCreateUpdate }}
-    {{/if}}
+        {{> medicine/modalCreateUpdate quantity=quantity}}
 {{/if}}
 
 {{> medicine/modalColumns tbID=tbID source=source quantity=quantity}}

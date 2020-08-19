@@ -4,7 +4,7 @@ function tableDefinition(tableRef) {
 
     /******** COMMON ********/
     var table = commonTable();
-    table.dom = '<"top mt-4 row" f><"row" <"col-12"t>><"bottom row" <"col-sm-5 col-md-4"i><"col-sm-6 col-md-6"p>>';
+    table.dom = '<"top mt-4 row" f<"mx-auto mb-2">prt><"bottom row" <"col-sm-12 col-md-5"i> <"col-sm-12 col-md-2"l>>';
     table.columnDefs.push({
         "targets": [5, 10, 11, 12, 13, 15, 16],
         "searchable": false
