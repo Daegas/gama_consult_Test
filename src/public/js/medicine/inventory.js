@@ -62,6 +62,8 @@ var inputSearch="#tbMeds_filter input"
 window.onload = function () {
     $(inputSearch).focus();
 };
+document.getElementById('Inventario_item').style.color = '#333333';
+
 $(document).on('keyup', function (e) {
     if (e.keyCode == 27) {
         $(inputSearch).focus().select();

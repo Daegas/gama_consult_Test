@@ -4,7 +4,7 @@ function tableDefinition(tableRef) {
 
     /******** COMMON ********/
     var table = commonTable();
-    table.dom = '<"top mt-4 row" f<"mx-auto mb-2">prt><"bottom row" <"col-sm-12 col-md-5"i> <"col-sm-12 col-md-2"l>>';
+    table.dom = '<"top mt-4 row" <"mx-auto mb-2">prt><"bottom row" <"col-sm-12 col-md-5"i> <"col-sm-12 col-md-2"l>>';
     table.columnDefs.push({
         "targets": [5, 10, 11, 12, 13, 15, 16],
         "searchable": false
@@ -35,7 +35,7 @@ function tableDefinition(tableRef) {
         var table2 = table;
         table2.ajax = "/meds/get-addTable/" + JSON.stringify(idList);
         table2.alengthMenu = ["All"];
-
+        table2.searching = false;
         table2.columnDefs.push(
             {
                 "targets": hiddenColsAdd,
@@ -111,6 +111,7 @@ function tableDefinition(tableRef) {
 
 
 /**************************** EVENTS *******************************************/
+document.getElementById('Exits_item').style.color = '#333333';
 showActive = true;
 tableSearch = null;
 tableAdd = null;

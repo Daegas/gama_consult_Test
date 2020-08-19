@@ -114,10 +114,24 @@ $("#formMeds").submit(function (e) {
     $('#modalCU').modal('hide');
 });
 
+/******** UpdateDescuento ********/
+
+$(document).on('click', "#iPPublico", function () {
+    updatePDescuneto();
+});
+
 $(document).on('keyup', "#iPPublico", function () {
+    if ($("#iPPublico").focus()){
+        updatePDescuneto();
+    };
+});
+
+$(document).on('click', "#iDescuento", function () {
     updatePDescuneto();
 });
 
 $(document).on('keyup', "#iDescuento", function () {
-    updatePDescuneto();
+    if ($("#iDescuento").focus()){
+        updatePDescuneto();
+    };
 });

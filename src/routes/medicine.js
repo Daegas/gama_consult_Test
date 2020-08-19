@@ -27,89 +27,92 @@ router.get('/entries', (req, res) => { //Here 'get' method can be understood as 
 router.get('/exits', (req, res) => { //Here 'get' method can be understood as -getting a view- through an URL
     res.render('../views/medicine/exits.hbs');
 });
+/**************************** ROUTES + QUERYS *******************************************/
 
+//
+var columnsMap = [
+    {
+        db: "MedicamentoID",
+        dt: 0
+      },
+    {
+      db: "SustanciaActiva",
+      dt: 1
+    },
+    {
+      db: "NombreComercial",
+      dt: 2
+    }, 
+    {
+        db: "Presentacion",
+        dt: 3
+    },
+    {
+        db: "Saldo",
+        dt: 4
+      },
+      {
+        db: "Saldo",
+        dt: 5
+      },
+      
+      {
+          db: "Contenido",
+          dt: 6
+      },
+      {
+          db: "DosisMG",
+          dt: 7
+      },
+      {
+          db: "Laboratorio",
+          dt: 8
+      },
+      {
+          db: "Proveedor",
+          dt: 9
+      },
+      {
+        db: "P_Proveedor",
+        dt: 10
+      },
+      {
+          db: "P_Publico",
+          dt: 11
+      },
+      {
+          db: "Descuento",
+          dt: 12
+      },
+      {
+          db: "P_Descuento",
+          dt: 13
+      },
+      {
+          db: "Caducidad",
+          dt: 14
+      },
+      {
+          db: "MedicamentoID",
+          dt: 15
+      },
+      {
+          db: "MedicamentoID",
+          dt: 16
+      },
+      {
+        db: "Codigo",
+        dt: 17
+    }
+  ];
+
+
+/******** TBADD (ENTRIES/EXITS) ********/
 router.get('/get-addTable/:idList', (req,res,next)=> {
     //Query de Datatables
     const requestQuery = req.query;
     let { idList } = req.params;
     idList = JSON.parse(idList);
-    //
-    let columnsMap = [
-        {
-            db: "MedicamentoID",
-            dt: 0
-          },
-        {
-          db: "SustanciaActiva",
-          dt: 1
-        },
-        {
-          db: "NombreComercial",
-          dt: 2
-        }, 
-        {
-            db: "Presentacion",
-            dt: 3
-        },
-        {
-            db: "Saldo",
-            dt: 4
-          },
-          {
-            db: "Saldo",
-            dt: 5
-          },
-          
-          {
-              db: "Contenido",
-              dt: 6
-          },
-          {
-              db: "DosisMG",
-              dt: 7
-          },
-          {
-              db: "Laboratorio",
-              dt: 8
-          },
-          {
-              db: "Proveedor",
-              dt: 9
-          },
-          {
-            db: "P_Proveedor",
-            dt: 10
-          },
-          {
-              db: "P_Publico",
-              dt: 11
-          },
-          {
-              db: "Descuento",
-              dt: 12
-          },
-          {
-              db: "P_Descuento",
-              dt: 13
-          },
-          {
-              db: "Caducidad",
-              dt: 14
-          },
-          {
-              db: "MedicamentoID",
-              dt: 15
-          },
-          {
-              db: "MedicamentoID",
-              dt: 16
-          },
-          {
-            db: "Codigo",
-            dt: 17
-        }
-      ];
-
     //Select table in DB - Or define any custum QUERY
     let query_ = ""
     idList.forEach( (id) => {
@@ -134,6 +137,7 @@ router.get('/get-addTable/:idList', (req,res,next)=> {
     })
 });
 
+/******** ENTRIESUPDATE ********/
 router.post('/entriesUpdate', async (req, res) => {
     let allEntries = JSON.parse(req.body["data_"]);
     let simpleEntries = allEntries[0];
@@ -232,87 +236,12 @@ router.post('/add', async (req, res) => { //Same URL as previous but with POST m
 /**************** READ ****************/
 //Datatables Server-Side
 //https://newcodingera.com/datatables-server-side-processing-using-nodejs-mysql/
+
 router.get('/get-dt/:isActive', (req,res,next)=> {
     //Query de Datatables
     const requestQuery = req.query;
     let { isActive } = req.params;
     isActive = JSON.parse(isActive);
-    //
-    let columnsMap = [
-        {
-            db: "MedicamentoID",
-            dt: 0
-          },
-        {
-          db: "SustanciaActiva",
-          dt: 1
-        },
-        {
-          db: "NombreComercial",
-          dt: 2
-        }, 
-        {
-            db: "Presentacion",
-            dt: 3
-          },
-        {
-          db: "Saldo",
-          dt: 4
-        },
-        {
-            db: "Saldo",
-            dt: 5
-        },
-        {
-            db: "Contenido",
-            dt: 6
-        },
-        {
-            db: "DosisMG",
-            dt: 7
-        },
-        {
-            db: "Laboratorio",
-            dt: 8
-        },
-        {
-            db: "Proveedor",
-            dt: 9
-        },
-        {
-          db: "P_Proveedor",
-          dt: 10
-        },
-        {
-            db: "P_Publico",
-            dt: 11
-        },
-        {
-            db: "Descuento",
-            dt: 12
-        },
-        {
-            db: "P_Descuento",
-            dt: 13
-        },
-        {
-            db: "Caducidad",
-            dt: 14
-        },
-        {
-            db: "MedicamentoID",
-            dt: 15
-        },
-        {
-            db: "MedicamentoID",
-            dt: 16
-        },
-        {
-            db: "Codigo",
-            dt: 17
-        }
-      ];
-
     //Select table in DB - Or define any custum QUERY
     const tableName = "Medicamentos"
     const query = "SELECT * FROM Medicamentos WHERE Activo = " + isActive;

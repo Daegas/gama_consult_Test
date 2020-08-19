@@ -35,7 +35,7 @@ function tableDefinition(tableRef) {
         var table2 = table;
         table2.ajax = "/meds/get-addTable/" + JSON.stringify(idList);
         table2.alengthMenu = ["All"];
-
+        table2.searching = false;
         table2.columnDefs.push(
             {
                 "targets": hiddenColsAdd, //Optional Hidden Columns
@@ -172,6 +172,8 @@ function goToModalUpdate(MedicamentoID,requ,item_){
 
 
 /**************************** EVENTS *******************************************/
+document.getElementById('Entries_item').style.color = '#333333';
+
 showActive = true;
 tableSearch = null;
 tableAdd = null;
