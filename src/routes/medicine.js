@@ -144,53 +144,38 @@ router.post('/entriesUpdate', async (req, res) => {
     let fullEntries = allEntries[1];
     let isExit = allEntries[2];
 
-    let simpleEntryTuple = "";
+    let simpleEntryTuple = [];
     let saldo, nuevoSaldo;
 
     let first = true;
     for(id in simpleEntries){
         if (!(id in fullEntries)){
-            if(!first){
-                simpleEntryTuple += ",";
-            } else {
-                first = false;
-            }
-    
             saldo = simpleEntries[id].split(',');
             nuevoSaldo = isExit? parseInt(saldo[1])-parseInt(saldo[0]) : parseInt(saldo[1])+parseInt(saldo[0]);
-            simpleEntryTuple += "(" +id+ "," + nuevoSaldo + ")";
+            simpleEntryTuple.push([id,nuevoSaldo]);
         }
     }
+    let simple_query = "INSERT INTO Medicamentos (MedicamentoId, Saldo) VALUES ? ON DUPLICATE KEY UPDATE Saldo = VALUES(Saldo)";
 
-    let simple_query = "INSERT INTO Medicamentos (MedicamentoId, Saldo) VALUES " + 
-                        simpleEntryTuple + 
-                    " ON DUPLICATE KEY UPDATE Saldo = VALUES(Saldo)";
-
-    let fullEntryTuple = "";
+    let fullEntryTuple = [];
     first = true;
     for(id in fullEntries){
-        if(!first){
-            fullEntryTuple +=",";
-        } else {
-            first = false;
-        }
         med = JSON.parse(fullEntries[id]);
-        fullEntryTuple += "(" + id + "," + med.Saldo + "," + med.P_Proveedor + "," + med.P_Publico +
-                        "," + med.P_Descuento + "," + med.Descuento + ",'" + med.Caducidad + "'," + med.Activo + ",'" + med.Codigo + "')" 
+        fullEntryTuple.push([id,med.Saldo,med.P_Proveedor,med.P_Publico,med.P_Descuento,med.Descuento,med.Caducidad ,med.Activo,med.Codigo]); 
     }
 
     if(fullEntryTuple != "")
         full_query = "INSERT INTO Medicamentos (MedicamentoID, Saldo, P_Proveedor, P_Publico, P_Descuento," +
-                    "Descuento, Caducidad, Activo, Codigo) VALUES " + fullEntryTuple + " ON DUPLICATE KEY UPDATE " +
+                    "Descuento, Caducidad, Activo, Codigo) VALUES ? ON DUPLICATE KEY UPDATE " +
                     "Saldo = VALUES(Saldo), P_Proveedor = VALUES(P_Proveedor), P_Publico = VALUES(P_Publico), " +
                     "P_Descuento = VALUES(P_Descuento), Descuento = VALUES(Descuento), Caducidad = VALUES(Caducidad), "+
                     "Activo = VALUES(Activo), Codigo = VALUES(Codigo)";
     try{
         if(simpleEntryTuple != ""){
-            response = await DB.query(simple_query);
+            response = await DB.query(simple_query, [simpleEntryTuple]);
         }
         if(fullEntryTuple != ""){
-            response = await DB.query(full_query);
+            response = await DB.query(full_query, [fullEntryTuple]);
         }
         res.status(200).send(response);
     } catch(e){
