@@ -4,7 +4,7 @@ function tableDefinition(tableRef) {
 
     /******** COMMON ********/
     var table = commonTable();
-    table.dom = '<"top mt-4 row" <"mx-auto mb-2">prt><"bottom row" <"col-sm-12 col-md-5"i> <"col-sm-12 col-md-2"l>>';
+    table.dom = '<"top mt-4 row" f<"mx-auto mb-2">prt><"bottom row" <"col-sm-12 col-md-5"i> <"col-sm-12 col-md-2"l>>';
     table.columnDefs.push({
         "targets": [5, 10, 11, 12, 13, 15, 16],
         "searchable": false
@@ -14,7 +14,6 @@ function tableDefinition(tableRef) {
     /******** TBSEARCH ********/
     if (tableRef == "tbSearch") {
         var table1 = table;
-        table1.lengthMenu = [7];
         table1.ajax = "/meds/get-dt/"+showActive;
         table1.columnDefs.push(
             {
