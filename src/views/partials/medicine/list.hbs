@@ -1,6 +1,7 @@
 <div class="container mb-2">
-    
-    <table id={{tbID}} class="table table-striped table-hover  table-responsive table-sm" {{#if width}} style="width:{{width}}%"{{else}} style="width:100%"{{/if}}>
+
+    <table id={{tbID}} class="table table-striped table-hover  table-responsive table-sm" {{#if width}}
+        style="width:{{width}}%" {{else}} style="width:100%" {{/if}}>
         <thead class="bg-light-green text-gray-800">
             <tr>
                 <th>ID</th>
@@ -57,21 +58,25 @@
 
 
     </table>
-    {{#if quantity}}
-        <div class="text-right">
-            <button type="button" id="btnCol{{tbID}}" class="btn btn-secondary btnColumns mt-1"><i class="fa fa-eye-slash pointer" title="Hide"></i></button>
+
+    <div class="dropleft text-right">
+        <button type="button" id="dropdownSettings{{tbID}}" class="btn btn-secondary fa fa-cogs" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false" title="Ajustes">
+        </button>
+        <div class="dropdown-menu px-2" aria-labelledby="dropdownSettings{{tbID}}">
+            {{#if quantity}}
+            <button type="button" id="btnCol{{tbID}}" class="btn btn-secondary btnColumns mt-1 col-12 mx-auto"><i
+                    class="fa fa-eye-slash pointer" title="Hide"></i></button>
+            {{else}}
+            <button type="button" id="btnActivo_{{tbID}}" class="btn btn-info btnActivos active mt-1 col-12 mx-auto"><i
+                    class="fa fa-toggle-on pointer" title="Activos"></i> Activos</button>
+
+            <button type="button" id="btnCol{{tbID}}" class="btn btn-secondary btnColumns mt-1 col-12 mx-auto"><i
+                    class="fa fa-eye-slash pointer" title="Hide"></i></button>
+            {{/if}}
         </div>
-    {{else}}
-        <div class="row">
-            <div class="col-6">
-                <button type="button" id="btnActivo_{{tbID}}" class="btn btn-info btnActivos active mt-1"><i class="fa fa-toggle-on pointer" title="Activos"></i> Activos</button>    
-            </div>
-            <div class="col-6 text-right">
-                <button type="button" id="btnCol{{tbID}}" class="btn btn-secondary btnColumns mt-1"><i class="fa fa-eye-slash pointer" title="Hide"></i></button>
-            </div>
-        </div>
-    {{/if}}
-    
+    </div>
+
 </div>
 
 {{#if modal}}
