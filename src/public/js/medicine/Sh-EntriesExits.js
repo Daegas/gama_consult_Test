@@ -12,15 +12,22 @@ function entryModal(rowSelected) {
         $("#iNombreE").val(rowSelected[2]);
         $("#iSaldoAE").val(rowSelected[4]);
         $("#modalEntry").modal("show");
-        $("#formEntry").addClass("entry");
+        let source = window.location.pathname.split("/")[2];
+        $("#formEntry").addClass(source);
     } else if (!$("#modalEntry").hasClass("show")) {
         alert('El elemento ya se encuntra en la lista "Medicamentos a Agregar". Use la segunda tabla para editar.');
     }
 }
 
-async function reloadAddTable() {
+async function reloadAddTable(source="") {
     url_ = "/meds/get-addTable/" + JSON.stringify(idList); //Build a new url with the actual idList
     await tableAdd.ajax.url(url_).load(null, false); //Reaload AJAX query
+
+    if(source=="exits"){
+        setTimeout(()=>{
+            refreshCalculator();
+        },500);
+    }
 }
 
 function removeEntry(MedicamentoID, isDelete) {
@@ -128,11 +135,12 @@ $("#formEntry").submit(function (e) {
     let id = $("#iID").val();
     entries[id] = $("#iCantidad").val() + ',' + $("#iSaldoAE").val();
 
-    if( $(this).hasClass("entry") || ($(this).hasClass("exit") && checkSaldo(entries[id].split(','))) ) {
+    let source = $(this).hasClass("entries")? "entries": "exits";
+    if( source=="entries" || (source=="exits" && checkSaldo(entries[id].split(','))) ) {
         if (idList.indexOf(id.toString()) == -1)
             idList.push(id); //Add MedicineID into idList
         $(inputSearch).focus();
-        reloadAddTable();
+        reloadAddTable(source);
     } else {
         let message= "La operación (Saldo Anterior) - (Cantidad) debe ser mayor o igual a 0."
         messageModal($("#modalMessageError"), false, message);

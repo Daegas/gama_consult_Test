@@ -14,7 +14,7 @@ function tableDefinition(tableRef) {
     /******** TBSEARCH ********/
     if (tableRef == "tbSearch") {
         var table1 = table;
-        table1.ajax = "/meds/get-dt/"+showActive;
+        table1.ajax = "/meds/get-dt/" + showActive;
         table1.columnDefs.push(
             {
                 "targets": [4, 15, 16], //SaldoAnterior, Edit, Delete  - Mandatory Hidden Columns for tbSearch
@@ -108,6 +108,33 @@ function tableDefinition(tableRef) {
     }
 };
 
+function refreshCalculator() {
+
+    var data_ = tableAdd.rows().data();
+    if (data_.length < 1) {
+        $("#calculator").css("display", "none");
+    } else {
+        $("#calculator").css("display", "block");
+        let min = 0;
+        let max = 0;
+        for (let i = 0; i < data_.length; i++) {
+            item_ = tableAdd.rows(i).data()[0];
+            min += item_[13];
+            max += item_[11];
+        }
+
+        let step = (max - min) / 10;
+        //Slider params
+        $("#spanCalcMin").text(min);
+        $("#spanCalcMax").text(max);
+        $("#rangeCalculator").attr("min", min).attr("max", max).attr("step", step);
+        $("#rangeCalculator").val(min + (step * 5));
+        //Total Input
+        $("#iCalcTotal").attr("min", min).attr("max", max).attr("step", step);
+        $("#iCalcTotal").val(min + (step * 5));
+    }
+}
+
 
 /**************************** EVENTS *******************************************/
 document.getElementById('Exits_item').style.color = '#333333';
@@ -124,6 +151,8 @@ $(document).ready(function () {
     tableDefinition("tbSearch");
     idList = ["0"]; //List of tableSearch selected elements, to show in tableAdd
     tableDefinition("tbAdd");
+
+    $("#calculator").css("display", "none");
 });
 
 
@@ -146,4 +175,12 @@ $(document).on("click", "#btnEdit", function (e) {
 
 $('#tbAdd').on('click', 'tr', function () {
     _addSelectedRow = tableAdd.row(this);
+});
+
+$("#rangeCalculator").on("change", function () {
+    $("#iCalcTotal").val(this.value);
+});
+
+$("#iCalcTotal").on("change", function () {
+    $("#rangeCalculator").val(this.value)
 });
