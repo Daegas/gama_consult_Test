@@ -33,6 +33,9 @@ function tableDefinition(tableRef) {
     else {
         var table2 = table;
         table2.ajax = "/meds/get-addTable/" + JSON.stringify(idList);
+        table2.drawCallback =  function( settings ) {
+            refreshCalculator();
+        };
         table2.alengthMenu = ["All"];
         table2.searching = false;
         table2.columnDefs.push(
@@ -135,6 +138,8 @@ function refreshCalculator() {
         }
 
         let step = (max - min) / 10;
+        //Round
+        step =   Math.round((step * 100) / 100);
         //Slider params
         $("#spanCalcMin").text(min);
         $("#spanCalcMax").text(max);
@@ -167,6 +172,7 @@ $(document).ready(function () {
 });
 
 
+
 // ********************* MODAL ENTRIES EVENTS **************************
 let entries = {};
 
@@ -188,6 +194,12 @@ $('#tbAdd').on('click', 'tr', function () {
     _addSelectedRow = tableAdd.row(this);
 });
 
+// $('#tbAdd').on( 'draw', function () {
+//     refreshCalculator();
+//     console.log( 'Redraw occurred at: '+new Date().getTime() );
+// } );
+
+
 // ********************* OTHER EVENTS **************************
 
 /******** CheckSaldo ********/
@@ -199,11 +211,20 @@ $("#iSaldoAE").on('keyup' , function(){
     checkSaldo();
 });
 
+$("#iCantidad").on('click' , function(){
+    checkSaldo();
+});
+
+$("#iSaldoAE").on('click' , function(){
+    checkSaldo();
+});
+
+
 // ********************* CALCULATOR EVENTS **************************
 $("#rangeCalculator").on("change", function () {
     $("#iCalcTotal").val(this.value);
 });
 
 $("#iCalcTotal").on("change", function () {
-    $("#rangeCalculator").val(this.value)
+    $("#rangeCalculator").val(Math.round((this.value * 100) / 100));
 });

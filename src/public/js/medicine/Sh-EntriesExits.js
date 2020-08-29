@@ -19,16 +19,15 @@ function entryModal(rowSelected) {
     }
 }
 
-async function reloadAddTable(source="") {
+function reloadAddTable(source="") {
     url_ = "/meds/get-addTable/" + JSON.stringify(idList); //Build a new url with the actual idList
-    await tableAdd.ajax.url(url_).load(null, false); //Reaload AJAX query
+    tableAdd.ajax.url(url_).load(null, false); //Reaload AJAX query  
 
-    if(source=="exits"){
-        setTimeout(()=>{
-            refreshCalculator();
-        },500);
-    }
 }
+
+
+
+
 
 function removeEntry(MedicamentoID, isDelete) {
     //Update idList
