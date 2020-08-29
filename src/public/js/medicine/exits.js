@@ -108,6 +108,17 @@ function tableDefinition(tableRef) {
     }
 };
 
+function checkSaldo(){
+    if ($("#iSaldoAE").val() - $("#iCantidad").val() < 0){
+        document.getElementById("#ModalQuantityMessage").style.display='block';
+        document.getElementById('btnAddEntry').disabled = true;
+        }
+    else{
+        document.getElementById("#ModalQuantityMessage").style.display='none';
+        document.getElementById('btnAddEntry').disabled = false;
+    }
+}
+
 function refreshCalculator() {
 
     var data_ = tableAdd.rows().data();
@@ -177,6 +188,18 @@ $('#tbAdd').on('click', 'tr', function () {
     _addSelectedRow = tableAdd.row(this);
 });
 
+// ********************* OTHER EVENTS **************************
+
+/******** CheckSaldo ********/
+$("#iCantidad").on('keyup' , function(){
+    checkSaldo();
+});
+
+$("#iSaldoAE").on('keyup' , function(){
+    checkSaldo();
+});
+
+// ********************* CALCULATOR EVENTS **************************
 $("#rangeCalculator").on("change", function () {
     $("#iCalcTotal").val(this.value);
 });

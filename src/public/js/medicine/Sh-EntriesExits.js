@@ -128,24 +128,22 @@ $(document).on("click", "#btnAdd", function (e) {
 $("#formEntry").submit(function (e) {
     e.preventDefault();
     e.stopPropagation();
-    
-    
+
+        
     $("#modalEntry").modal("hide"); 
-    //$("#modalEntry").close
     let id = $("#iID").val();
     entries[id] = $("#iCantidad").val() + ',' + $("#iSaldoAE").val();
 
+
     let source = $(this).hasClass("entries")? "entries": "exits";
-    if( source=="entries" || (source=="exits" && checkSaldo(entries[id].split(','))) ) {
-        if (idList.indexOf(id.toString()) == -1)
-            idList.push(id); //Add MedicineID into idList
-        $(inputSearch).focus();
-        reloadAddTable(source);
-    } else {
-        let message= "La operación (Saldo Anterior) - (Cantidad) debe ser mayor o igual a 0."
-        messageModal($("#modalMessageError"), false, message);
-    }    
+    if (idList.indexOf(id.toString()) == -1)
+        idList.push(id); //Add MedicineID into idList
+    $(inputSearch).focus();
+    reloadAddTable(source);
+        
 });
+
+document.getElementById("#ModalQuantityMessage").style.display='none';
 
 /**************************** ADD TABLE EVENTS *******************************************/
 $(document).on("click", "#btnDelete", function () {
@@ -189,3 +187,4 @@ $(document).on("click", "#btnCompleteEntry", function () {
         }
     });
 });
+
