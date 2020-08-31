@@ -169,7 +169,11 @@ $(document).on("click", "#btnCompleteEntry", function () {
     all_entries[0] = entries;
     all_entries[1] = fullEntries;
     all_entries[2] = window.location.pathname.split("/")[2] == "exits";
+    console.log(entries)
+    console.log(fullEntries)
+    console.log(all_entries[2])
     data_ = JSON.stringify(all_entries) //All entries
+    
     $.ajax({
         url: "/meds/entriesUpdate",
         type: "POST",

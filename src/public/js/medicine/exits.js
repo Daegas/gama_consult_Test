@@ -133,8 +133,9 @@ function refreshCalculator() {
         let max = 0;
         for (let i = 0; i < data_.length; i++) {
             item_ = tableAdd.rows(i).data()[0];
-            min += item_[13];
-            max += item_[11];
+            quantity= entries[item_[0]].split(',')[0];
+            min += item_[13] * quantity;
+            max += item_[11] * quantity;
         }
 
         let step = (max - min) / 10;
@@ -148,6 +149,15 @@ function refreshCalculator() {
         //Total Input
         $("#iCalcTotal").attr("min", min).attr("max", max).attr("step", step);
         $("#iCalcTotal").val(min + (step * 5));
+    }
+}
+
+function checkInputCalculator(){
+    if ( ($("#iCalcTotal").val() < $("#rangeCalculator").attr("min") ) || ($("#iCalcTotal").val() > $("#rangeCalculator").attr("max"))){
+        document.getElementById("#CalculatorMessage").style.display='block';
+    }
+    else{
+        document.getElementById("#CalculatorMessage").style.display='none';
     }
 }
 
@@ -170,6 +180,9 @@ $(document).ready(function () {
 
     $("#calculator").css("display", "none");
 });
+
+document.getElementById("#CalculatorMessage").style.display='none';
+
 
 
 
@@ -228,3 +241,13 @@ $("#rangeCalculator").on("change", function () {
 $("#iCalcTotal").on("change", function () {
     $("#rangeCalculator").val(Math.round((this.value * 100) / 100));
 });
+
+$("#iCalcTotal").on("click", function () {
+    $("#iCalcTotal").focus();
+    checkInputCalculator();
+});
+
+$("#iCalcTotal").on("keyup", function () {
+    checkInputCalculator();
+});
+
