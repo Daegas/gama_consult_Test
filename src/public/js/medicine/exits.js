@@ -204,6 +204,7 @@ $(document).ready(function () {
     tableDefinition("tbSearch");
     idList = ["0"]; //List of tableSearch selected elements, to show in tableAdd
     tableDefinition("tbAdd");
+    // DEV();
     $("#calculator").css("display", "none");
     this.getElementById("#CalculatorMessage").style.display='none';
 });

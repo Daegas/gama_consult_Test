@@ -25,8 +25,19 @@ function reloadAddTable(source="") {
 
 }
 
+function DEV() {
+    $("#iSaldoAE").val(2);
+    $("#iCantidad").val(2);
+    let id = 105;
+    entries[id] = $("#iCantidad").val() + ',' + $("#iSaldoAE").val();
 
 
+    let source = $(this).hasClass("entries")? "entries": "exits";
+    if (idList.indexOf(id.toString()) == -1)
+        idList.push(id); //Add MedicineID into idList
+    $(inputSearch).focus();
+    reloadAddTable(source);
+}
 
 
 function removeEntry(MedicamentoID, isDelete) {
@@ -71,7 +82,6 @@ $('#tbSearch').on( 'click', 'tr', function () {
 
 $(document).on('keyup', function (e) {
     let rowSelected = tableSearch.row({ selected: true });
-
     
     if (e.keyCode == 13 && rowSelected.data()) { //When a row is Selected and 'Enter' pressed
         $('#btnAdd').click()
