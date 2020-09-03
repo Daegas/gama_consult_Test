@@ -131,26 +131,50 @@ function refreshCalculator() {
         $("#calculator").css("display", "block");
         let min = 0;
         let max = 0;
+        let regularPrice = 0;
         for (let i = 0; i < data_.length; i++) {
             item_ = tableAdd.rows(i).data()[0];
             quantity= entries[item_[0]].split(',')[0];
-            min += item_[13] * quantity;
-            max += item_[11] * quantity;
+            p_descuento = item_[13]
+            p_publico = item_[11]
+            min += p_descuento * quantity;
+            max += p_publico * quantity;
+            //Calculate discount for regular price
+            if (p_publico<=150){
+                des=30;
+            } 
+            else if (p_publico > 150 && p_publico <= 200){
+                des=40;
+            } 
+            else if (p_publico > 200 && p_publico <= 300){
+                des = 50
+            }
+            else{
+                des = item_[12];
+            }
+
+            temp = p_publico - (p_publico * (des / 100.0));
+            
+
+            if (temp < min) regularPrice += min * quantity
+            else regularPrice += temp * quantity + 0.5;
         }
 
-        let step = (max - min) / 10;
+        let step = 1;
         //Round
-        step =   Math.round((step * 100) / 100);
+        regularPrice = regularPrice.toFixed(0);
         //Slider params
         $("#spanCalcMin").text(min);
         $("#spanCalcMax").text(max);
         $("#rangeCalculator").attr("min", min).attr("max", max).attr("step", step);
-        $("#rangeCalculator").val(min + (step * 5));
+        $("#rangeCalculator").val(regularPrice);
         //Total Input
         $("#iCalcTotal").attr("min", min).attr("max", max).attr("step", step);
-        $("#iCalcTotal").val(min + (step * 5));
+        $("#iCalcTotal").val(regularPrice);
+        $("#TotalCalcMed").text(regularPrice);
     }
 }
+
 
 function checkInputCalculator(){
     if ( ($("#iCalcTotal").val() < $("#rangeCalculator").attr("min") ) || ($("#iCalcTotal").val() > $("#rangeCalculator").attr("max"))){
@@ -159,6 +183,8 @@ function checkInputCalculator(){
     else{
         document.getElementById("#CalculatorMessage").style.display='none';
     }
+    $("#TotalCalcMed").text($("#iCalcTotal").val());
+
 }
 
 
@@ -169,6 +195,7 @@ tableSearch = null;
 tableAdd = null;
 hiddenColsSearch = [10, 14]; //Default Hidden Columns - This could be costumize by users
 hiddenColsAdd = [10, 14]; //Default Hidden Columns - This could be costumize by users
+var Consulta=false; //50 Consulta added
 
 $(document).ready(function () {
     // ********* FUNCTIONALITY ***********
@@ -177,11 +204,10 @@ $(document).ready(function () {
     tableDefinition("tbSearch");
     idList = ["0"]; //List of tableSearch selected elements, to show in tableAdd
     tableDefinition("tbAdd");
-
     $("#calculator").css("display", "none");
+    this.getElementById("#CalculatorMessage").style.display='none';
 });
 
-document.getElementById("#CalculatorMessage").style.display='none';
 
 
 
@@ -234,13 +260,15 @@ $("#iSaldoAE").on('click' , function(){
 
 
 // ********************* CALCULATOR EVENTS **************************
-$("#rangeCalculator").on("change", function () {
-    $("#iCalcTotal").val(this.value);
-});
+var rangeSlider = document.getElementById("rangeCalculator");
 
-$("#iCalcTotal").on("change", function () {
-    $("#rangeCalculator").val(Math.round((this.value * 100) / 100));
-});
+
+rangeSlider.addEventListener("input", showSliderValue, false);
+
+function showSliderValue() {
+    $("#iCalcTotal").val(rangeSlider.value);
+    $("#TotalCalcMed").text(rangeSlider.value);
+}
 
 $("#iCalcTotal").on("click", function () {
     $("#iCalcTotal").focus();
@@ -250,4 +278,26 @@ $("#iCalcTotal").on("click", function () {
 $("#iCalcTotal").on("keyup", function () {
     checkInputCalculator();
 });
+
+/******** BTNS ********/
+$("#btnRoundTotal").on("click", function () {  
+    let tmp=Number($("#TotalCalcMed").text())/10.0;
+    $("#TotalCalcMed").text(tmp.toFixed(0)*10);
+});
+
+$("#btnAddConsulta").on("click", function () {
+    let tmp=Number($("#TotalCalcMed").text());
+    if (Consulta == false){
+        $("#TotalCalcMed").text(tmp + 50);
+        Consulta=true;
+        $('#btnAddConsultaSpan').text('Quitar Consulta')
+    }
+    else {
+        $("#TotalCalcMed").text(tmp - 50);
+        Consulta=false;
+        $('#btnAddConsultaSpan').text('Agregar Consulta')
+    }
+});
+
+
 

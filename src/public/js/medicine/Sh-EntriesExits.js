@@ -69,16 +69,19 @@ $('#tbSearch').on( 'click', 'tr', function () {
     tabIndex = tableSearch.row(this).index();
 } );
 
-
 $(document).on('keyup', function (e) {
     let rowSelected = tableSearch.row({ selected: true });
 
     
     if (e.keyCode == 13 && rowSelected.data()) { //When a row is Selected and 'Enter' pressed
-        entryModal(rowSelected.data());
-        rowSelected.select(false);
-        $(inputSearch).focus();
+        $('#btnAdd').click()
+    }
 
+    if(e.shiftKey && e.keyCode == 13) { 
+        var data_ = tableAdd.rows().data();
+        if (data_.length >= 1) {
+            $("#btnCompleteEntry").click();
+        } 
     }
 
     /******** FOCUS ********/
@@ -93,6 +96,14 @@ $(document).on('keyup', function (e) {
         $(inputSearch).focus().select();
     }
 
+});
+/******** FOCUS ON BTADD AFTER A ROW IS SELECTED ********/
+$(document).on('click', function(){
+    let rowSelected = tableSearch.row({ selected: true });
+    if (rowSelected.data()){
+        $('#btnAdd').focus()
+    }
+    
 });
 
 /******** FOCUS ********/
@@ -118,8 +129,6 @@ $(document).on("click", "#btnAdd", function (e) {
     if (rowSelected.data()) {
         entryModal(rowSelected.data());
         rowSelected.select(false);
-        $(inputSearh).focus();
-
     }
 });
 
@@ -190,4 +199,6 @@ $(document).on("click", "#btnCompleteEntry", function () {
         }
     });
 });
+
+
 

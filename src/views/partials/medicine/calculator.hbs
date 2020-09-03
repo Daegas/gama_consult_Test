@@ -2,22 +2,36 @@
     <div class="mx-auto">
         <h1 class="mx-auto d-flex">Calculadora</h1>
     </div>
-    <div class="row">
-        <div class="col-12 mx-auto">
-            <span class="font-weight-bold indigo-text mt-1 col-1 " id="spanCalcMin">0</span>
-            <input type="range" id="rangeCalculator" class="custom-range border-0 col-10" min="0" max="10" step="1.0">
-            <span class="font-weight-bold indigo-text mt-1 col-1" id="spanCalcMax">10</span>
-        </div>
-    </div>
-    <label for="iCalcTotal" class="col-form-label">Total: </label>
-    <input id="iCalcTotal" type="number" class="form-control" name="CalcTotal" min="0" max="10" step="1.0">
+    <label for="iCalcTotal" class="col-form-label">Total Medicina: </label>
+    <input id="iCalcTotal" type="number" class="form-control" style="width: 40%;" name="CalcTotal" min="0" max="10"
+        step="1.0">
 
     <div class="text-center mt-4">
-        <div id="#CalculatorMessage" class="alert alert-danger"
-            style="width: 100%;">
+        <div id="#CalculatorMessage" class="alert alert-danger" style="width: 100%;">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
             El total está fuera del rango
         </div>
     </div>
 
+    <div class="row">
+        <input type="range" id="rangeCalculator" class="custom-range border-0 col-12" min="0" max="10" step="1.0">
+    </div>
+
+    <div class="row">
+        <span class="font-weight-bold indigo-text mt-1 col-1 " id="spanCalcMin">0</span>
+        <span class="font-weight-bold indigo-text mt-1 col-9 d-sm-none"></span>
+        <span class="font-weight-bold indigo-text mt-1 col-1 text-right" id="spanCalcMax">10</span>
+    </div>
+
+    <div class="row">
+        <button type="button" id="btnRoundTotal"
+            class="btn btn-secondary  mt-2 col-sm-4 col-md-2 mr-4 ml-4">Redondear</button>
+        <button type="button" id="btnAddConsulta" class="btn btn-secondary  mt-2  col-sm-4 col-md-2 mr-4 ml-4"><span
+                id="btnAddConsultaSpan">Agregar Consulta</span></button>
+    </div>
+    <div>
+        <div class="mx-auto">
+            <h4 class="mx-auto text-pink d-flex mt-4">Total: <span id="TotalCalcMed">0</span></h4>
+        </div>
+    </div>
 </div>
