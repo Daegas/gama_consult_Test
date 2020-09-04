@@ -152,17 +152,21 @@ function refreshCalculator() {
             else{
                 des = item_[12];
             }
-
-            temp = p_publico - (p_publico * (des / 100.0));
             
+            temp = p_publico - (p_publico * (des / 100.0));
 
-            if (temp < min) regularPrice += min * quantity
-            else regularPrice += temp * quantity + 0.5;
+            if (temp < p_descuento) 
+                {regularPrice += p_descuento * quantity}
+            else 
+                {regularPrice += temp * quantity + 0.5}
+  
         }
 
         let step = 1;
         //Round
         regularPrice = regularPrice.toFixed(0);
+        min= min.toFixed(2);
+        max = max.toFixed(2);
         //Slider params
         $("#spanCalcMin").text(min);
         $("#spanCalcMax").text(max);
@@ -234,12 +238,6 @@ $('#tbAdd').on('click', 'tr', function () {
     _addSelectedRow = tableAdd.row(this);
 });
 
-// $('#tbAdd').on( 'draw', function () {
-//     refreshCalculator();
-//     console.log( 'Redraw occurred at: '+new Date().getTime() );
-// } );
-
-
 // ********************* OTHER EVENTS **************************
 
 /******** CheckSaldo ********/
@@ -268,7 +266,8 @@ rangeSlider.addEventListener("input", showSliderValue, false);
 
 function showSliderValue() {
     $("#iCalcTotal").val(rangeSlider.value);
-    $("#TotalCalcMed").text(rangeSlider.value);
+    if (Consulta==true) {$("#TotalCalcMed").text(Number(rangeSlider.value) + 50)}
+    else $("#TotalCalcMed").text(rangeSlider.value);
 }
 
 $("#iCalcTotal").on("click", function () {
@@ -278,6 +277,10 @@ $("#iCalcTotal").on("click", function () {
 
 $("#iCalcTotal").on("keyup", function () {
     checkInputCalculator();
+});
+
+$("#rangeCalculator").on("change", function () {
+    $("#rangeCalculator").focus();
 });
 
 /******** BTNS ********/

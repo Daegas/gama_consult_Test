@@ -39,13 +39,19 @@ const  morganChalk = morgan(function (tokens, req, res) {
             : tokens.status(req, res) >= 300 ? chalk.cyan(tokens.status(req, res)) // cyan
                 : tokens.status(req, res) >= 200 ? chalk.green(tokens.status(req, res)) // green
                     : 0; // no color
+    var method = tokens.method(req, res) == "DELETE" ? chalk.red(tokens.method(req, res))// red
+    : tokens.method(req, res) == "PUT" ? chalk.yellow(tokens.method(req, res)) // yellow
+        : tokens.method(req, res) =="POST" ? chalk.cyan(tokens.method(req, res)) // cyan
+            : tokens.method(req, res) == "GET" ? chalk.green(tokens.method(req, res)) // green
+                : 0; // no color
     return [
-        chalk.green.bold(tokens.method(req, res)),
-        chalk.yellow(tokens['response-time'](req, res) + ' ms'),
+        method,
         status,
+        chalk.yellow(tokens['response-time'](req, res) + ' ms \t'),
         chalk.white(tokens.url(req, res).substr(1,25)),
     ].join(' ');
 }); 
+
 app.use(morganChalk); // 'dev' is a specific format to display logs
 app.use(express.urlencoded({extended: false})); // Accept data in forms
 //extended: false - takes simpledate like string (no img, no jsons)

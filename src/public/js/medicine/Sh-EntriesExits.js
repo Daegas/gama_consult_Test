@@ -35,7 +35,7 @@ function DEV() {
     let source = $(this).hasClass("entries")? "entries": "exits";
     if (idList.indexOf(id.toString()) == -1)
         idList.push(id); //Add MedicineID into idList
-    $(inputSearch).focus();
+    FocusInput_tbSearch();
     reloadAddTable(source);
 }
 
@@ -64,27 +64,50 @@ function removeEntry(MedicamentoID, isDelete) {
         tableSearch.ajax.reload(null, false);
 }
 
+function GoToModalQuantity() {
+    let rowSelected = tableSearch.row({ selected: true });
+    if (rowSelected.data()) {
+        entryModal(rowSelected.data());
+        rowSelected.select(false);
+    }
+}
+
+function FocusInput_tbSearch(){
+    $(inputSearch).focus().select();
+    const element = document.getElementById('#tbSearch_filter');
+
+    if (element) {
+        window.scroll({
+            top: element.scrollTop,
+            behavior: 'smooth',
+        }) 
+    }
+}
+/**************************** VARIABLES *******************************************/
+var inputSearch="#tbSearch_filter input"
 
 
 /**************************** SEARCH TABLE EVENTS *******************************************/
-window.onload = function () {
+$(document).ready(function () {
     $(inputSearch).focus();
     //Reset when search is modified
     $(inputSearch).on('keyup', function () {
         tabIndex =0;
     });
-};
+    $()
+});
 
 // Manage selected Items
 $('#tbSearch').on( 'click', 'tr', function () {
     tabIndex = tableSearch.row(this).index();
+    GoToModalQuantity();
 } );
 
 $(document).on('keyup', function (e) {
     let rowSelected = tableSearch.row({ selected: true });
     
     if (e.keyCode == 13 && rowSelected.data()) { //When a row is Selected and 'Enter' pressed
-        $('#btnAdd').click()
+        GoToModalQuantity()
     }
 
     if(e.shiftKey && e.keyCode == 13) { 
@@ -94,7 +117,7 @@ $(document).on('keyup', function (e) {
         } 
     }
 
-    /******** FOCUS ********/
+    /******** Select with tab ********/
     if (!$("#modalEntry").hasClass("show") && !$("#modalCU").hasClass("show")) {
         if (e.keyCode == 9 && $(inputSearch).focus()) {
             row_ = tableSearch.row(tabIndex);
@@ -103,26 +126,13 @@ $(document).on('keyup', function (e) {
         }
     }
     if (e.keyCode == 27) {
-        $(inputSearch).focus().select();
+        FocusInput_tbSearch();
     }
 
 });
-/******** FOCUS ON BTADD AFTER A ROW IS SELECTED ********/
-$(document).on('click', function(){
-    let rowSelected = tableSearch.row({ selected: true });
-    if (rowSelected.data()){
-        $('#btnAdd').focus()
-    }
-    
-});
+
 
 /******** FOCUS ********/
-var inputSearch="#tbSearch_filter input"
-$(document).on('click', inputSearch, function (e) {
-    $(inputSearch).select();
-
-});
-
 $("body").on('focus.spf', "*", function (e) {
     e.stopPropagation();
     e.preventDefault();
@@ -133,14 +143,6 @@ $("body").on('focus.spf', "*", function (e) {
     }
 });
 
-/******** BTNADD*****/
-$(document).on("click", "#btnAdd", function (e) {
-    let rowSelected = tableSearch.row({ selected: true });
-    if (rowSelected.data()) {
-        entryModal(rowSelected.data());
-        rowSelected.select(false);
-    }
-});
 
 /**************************** MODAL QUANTITY EVENTS *******************************************/
 $("#formEntry").submit(function (e) {
@@ -156,7 +158,7 @@ $("#formEntry").submit(function (e) {
     let source = $(this).hasClass("entries")? "entries": "exits";
     if (idList.indexOf(id.toString()) == -1)
         idList.push(id); //Add MedicineID into idList
-    $(inputSearch).focus();
+    FocusInput_tbSearch();
     reloadAddTable(source);
         
 });

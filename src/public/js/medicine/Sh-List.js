@@ -35,6 +35,9 @@ function commonTable() {
                 "sSortAscending": ": Ordenar ascendente",
                 "sSortDescending": ": Ordenar descendente"
             },
+            "select": {
+                "rows": ""
+            }
         },
         "columnDefs": [
             {

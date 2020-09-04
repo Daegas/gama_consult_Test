@@ -107,3 +107,6 @@ dist
 .tern-port
 .DS_Store
 src/routes/.DS_Store
+
+# VSCode
+.vscode

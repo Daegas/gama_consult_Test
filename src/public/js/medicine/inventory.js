@@ -139,7 +139,7 @@ $(document).on("click", "#btnDelete", function () {
     if (answer) {
         $.ajax({
             url: "/meds/delete/" + MedicamentoID,
-            type: "POST",
+            type: "DELETE",
             success: function (res) {
                 tableMeds.row(row_.parents('tr')).remove().draw();
                 messageModal($("#modalMessageSuccess"), true, "ELIMINADO");

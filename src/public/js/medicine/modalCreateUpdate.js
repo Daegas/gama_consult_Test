@@ -80,7 +80,8 @@ $("#formMeds").submit(function (e) {
         Laboratorio = toUpperEach(Laboratorio);
     };
 
-    let url_ = opc == -1 ? "/meds/add" : "/meds/edit/" + opc;
+    let url_ = "/meds/" + opc;
+    let type_ = opc == -1 ? "POST" : "PUT";
     let data_ = {
         SustanciaActiva, NombreComercial,
         Saldo, Presentacion,
@@ -96,7 +97,7 @@ $("#formMeds").submit(function (e) {
     } else {
         $.ajax({
             url: url_,
-            type: "POST",
+            type: type_,
             datatype: "json",
             data: data_,
             success: function (res) {
