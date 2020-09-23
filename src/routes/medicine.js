@@ -249,7 +249,7 @@ router.get('/get-dt/:isActive', (req,res,next)=> {
 
 
 /**************** UPDATE ****************/
-router.put('/:id', async (req, res) => {
+router.post('/edit/:id', async (req, res) => {
     const { id } = req.params;
 
     const { 
@@ -281,7 +281,7 @@ router.put('/:id', async (req, res) => {
 });
 
 /**************** DELETE ****************/
-router.delete('/:id', async (req, res) => {
+router.post('/delete/:id', async (req, res) => {
     const { id } = req.params;
 
     try{
