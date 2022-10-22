@@ -104,14 +104,14 @@ $("#formMeds").submit(function (e) {
                 let message = opc == -1 ? " AGREGADO " : " EDITADO ";
                 messageModal($("#modalMessageSuccess"), true, message);
                 reloadInventoryTable();
+                $('#modalCU').modal('hide');
             },
             error: function (res) {
                 let message = res.responseJSON.code + '\n' + res.responseJSON.sqlMessage;
                 messageModal($("#modalMessageError"), false, message);
-            }
+                }
         });
     }
-    $('#modalCU').modal('hide');
 });
 
 /******** UpdateDescuento ********/
